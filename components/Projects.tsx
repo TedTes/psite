@@ -1,10 +1,10 @@
-import { ExternalLink, Github, Image } from "lucide-react";
+import { ExternalLink, Github, Layers } from "lucide-react";
 
 const projects = [
   {
     title: "E-Commerce Platform",
     description:
-      "A full-featured online store with cart, payments, and admin dashboard. Built for a fashion retail client.",
+      "Full-featured online store with cart, payments, and admin dashboard.",
     tags: ["Next.js", "Stripe", "PostgreSQL"],
     live: "#",
     github: "#",
@@ -12,7 +12,7 @@ const projects = [
   {
     title: "SaaS Dashboard",
     description:
-      "Analytics dashboard for a B2B SaaS product with real-time data visualization and team management.",
+      "Analytics dashboard with real-time data visualization and team management.",
     tags: ["React", "D3.js", "Node.js"],
     live: "#",
     github: "#",
@@ -20,7 +20,7 @@ const projects = [
   {
     title: "Health & Fitness App",
     description:
-      "Cross-platform mobile app for tracking workouts, nutrition, and health metrics with social features.",
+      "Cross-platform mobile app for tracking workouts and nutrition.",
     tags: ["React Native", "Firebase", "Redux"],
     live: "#",
     github: "#",
@@ -28,7 +28,7 @@ const projects = [
   {
     title: "Real Estate Listing",
     description:
-      "Property listing platform with advanced search, map integration, and virtual tour scheduling.",
+      "Property platform with advanced search, maps, and virtual tours.",
     tags: ["Next.js", "Mapbox", "Prisma"],
     live: "#",
     github: "#",
@@ -36,15 +36,15 @@ const projects = [
   {
     title: "AI Content Writer",
     description:
-      "AI-powered writing assistant with templates, tone adjustment, and collaborative editing features.",
+      "AI-powered writing assistant with templates and tone adjustment.",
     tags: ["TypeScript", "OpenAI", "Tailwind"],
     live: "#",
     github: "#",
   },
   {
-    title: "Restaurant Booking System",
+    title: "Restaurant Booking",
     description:
-      "Online reservation system with table management, waitlist, and automated SMS confirmations.",
+      "Reservation system with table management and automated SMS.",
     tags: ["Vue.js", "Express", "MongoDB"],
     live: "#",
     github: "#",
@@ -55,58 +55,105 @@ export default function Projects() {
   return (
     <section id="projects" className="py-24">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-          Featured <span className="text-accent">Projects</span>
-        </h2>
-        <p className="text-muted text-center max-w-2xl mx-auto mb-16">
-          Here are some of my recent projects. Each one was crafted with
-          attention to detail and performance.
-        </p>
+        <div className="flex items-center justify-between mb-16">
+          <div>
+            <div className="flex items-center gap-2 text-accent text-sm font-medium mb-3">
+              <Layers size={16} />
+              Portfolio
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Selected <span className="text-accent">Work</span>
+            </h2>
+          </div>
+        </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
+        {/* Top row — 2 featured projects, larger */}
+        <div className="grid md:grid-cols-2 gap-5 mb-5">
+          {projects.slice(0, 2).map((project) => (
             <div
               key={project.title}
-              className="bg-card border border-card-border rounded-xl overflow-hidden hover:border-accent/50 transition-colors group"
+              className="bg-card border border-card-border rounded-2xl p-8 hover:border-accent/50 transition-colors group relative overflow-hidden"
             >
-              {/* Image placeholder */}
-              <div className="h-48 bg-card-border/30 flex items-center justify-center">
-                <Image size={40} className="text-muted/50" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/5 to-transparent rounded-bl-full" />
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs bg-accent/10 text-accent px-2.5 py-1 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
 
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
-                <p className="text-sm text-muted leading-relaxed mb-4">
-                  {project.description}
-                </p>
+              <h3 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors">
+                {project.title}
+              </h3>
+              <p className="text-sm text-muted leading-relaxed mb-6">
+                {project.description}
+              </p>
 
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs bg-accent/10 text-accent px-2 py-1 rounded"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              <div className="flex items-center gap-4">
+                <a
+                  href={project.live}
+                  className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
+                >
+                  <ExternalLink size={14} />
+                  Live Demo
+                </a>
+                <a
+                  href={project.github}
+                  className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
+                >
+                  <Github size={14} />
+                  Code
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
 
-                <div className="flex items-center gap-4">
-                  <a
-                    href={project.live}
-                    className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
+        {/* Bottom row — 4 compact projects */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {projects.slice(2).map((project) => (
+            <div
+              key={project.title}
+              className="bg-card border border-card-border rounded-xl p-5 hover:border-accent/50 transition-colors group"
+            >
+              <h3 className="text-base font-semibold mb-2 group-hover:text-accent transition-colors">
+                {project.title}
+              </h3>
+              <p className="text-xs text-muted leading-relaxed mb-4">
+                {project.description}
+              </p>
+
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[10px] bg-card-border text-muted px-2 py-0.5 rounded"
                   >
-                    <ExternalLink size={14} />
-                    Live Demo
-                  </a>
-                  <a
-                    href={project.github}
-                    className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
-                  >
-                    <Github size={14} />
-                    Code
-                  </a>
-                </div>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3">
+                <a
+                  href={project.live}
+                  className="text-muted hover:text-accent transition-colors"
+                  aria-label="Live Demo"
+                >
+                  <ExternalLink size={14} />
+                </a>
+                <a
+                  href={project.github}
+                  className="text-muted hover:text-accent transition-colors"
+                  aria-label="Source Code"
+                >
+                  <Github size={14} />
+                </a>
               </div>
             </div>
           ))}

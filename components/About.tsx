@@ -1,20 +1,5 @@
 import { User } from "lucide-react";
 
-const skills = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Node.js",
-  "Tailwind CSS",
-  "PostgreSQL",
-  "Figma",
-  "REST APIs",
-  "Git",
-  "Docker",
-  "AWS",
-  "GraphQL",
-];
-
 export default function About() {
   return (
     <section id="about" className="py-24">
@@ -38,23 +23,11 @@ export default function About() {
               clean, performant, and user-friendly digital experiences for
               startups and businesses worldwide.
             </p>
-            <p className="text-muted leading-relaxed mb-8">
+            <p className="text-muted leading-relaxed">
               When I&apos;m not coding, you&apos;ll find me exploring new
               technologies, contributing to open-source projects, or sharing
               knowledge through blog posts and mentoring.
             </p>
-
-            <h3 className="text-lg font-semibold mb-4">Tech Stack</h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="text-sm bg-card border border-card-border text-muted px-3 py-1.5 rounded-lg hover:border-accent hover:text-accent transition-colors"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
           </div>
         </div>
       </div>

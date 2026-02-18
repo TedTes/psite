@@ -1,0 +1,13 @@
+[
+  {
+    "slug": "machine-learning-optimization",
+    "title": "Machine learning Optimization ",
+    "excerpt": "Explaining Optimization using machine analogy",
+    "content": "Imagine a hypothetical  machine with billions of knobs that  needs to be adjusted to operate  in the most possible effective ,and efficient way .  Now the problem is how to get knobs right so that it would be configured in optimized way  , one obvious way would be to do brute force  approach to search all possible combinations to  fine tune.\n\nIn the context of solving  optimization problems , one way would be to find the minimum possible way to  reach the most efficient possible outcome.\n",
+    "date": "2026-02-17",
+    "readTime": "1 min read",
+    "tags": [],
+    "author": "Alex Morgan",
+    "isPublic": true
+  }
+]

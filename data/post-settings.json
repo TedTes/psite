@@ -1,0 +1,17 @@
+{
+  "building-scalable-react-apps": {
+    "isPublic": true
+  },
+  "modern-css-techniques": {
+    "isPublic": true
+  },
+  "typescript-tips-tricks": {
+    "isPublic": true
+  },
+  "freelancing-lessons": {
+    "isPublic": true
+  },
+  "machine-learning-optimization": {
+    "isPublic": false
+  }
+}
