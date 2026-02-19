@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Lock,
   LogOut,
@@ -12,8 +12,22 @@ import {
   Trash2,
   X,
   Save,
+  Bold,
+  Italic,
+  Heading2,
+  List,
+  ListOrdered,
+  Code,
+  Quote,
+  Link2,
+  Minus,
+  Undo2,
+  Redo2,
 } from "lucide-react";
 import Link from "next/link";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import LinkExtension from "@tiptap/extension-link";
 
 interface PostItem {
   slug: string;
@@ -45,6 +59,174 @@ const emptyEditor: EditorState = {
   isPublic: true,
 };
 
+function Toolbar({ editor: tiptap }: { editor: ReturnType<typeof useEditor> }) {
+  if (!tiptap) return null;
+
+  const btnClass = (active: boolean) =>
+    `w-8 h-8 flex items-center justify-center rounded transition-colors ${
+      active
+        ? "text-accent bg-accent/10"
+        : "text-muted hover:text-accent hover:bg-accent/10"
+    }`;
+
+  return (
+    <div className="flex flex-wrap items-center gap-1 bg-card border border-card-border rounded-t-lg px-3 py-2">
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().toggleBold().run()}
+        title="Bold"
+        className={btnClass(tiptap.isActive("bold"))}
+      >
+        <Bold size={15} />
+      </button>
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().toggleItalic().run()}
+        title="Italic"
+        className={btnClass(tiptap.isActive("italic"))}
+      >
+        <Italic size={15} />
+      </button>
+
+      <div className="w-px h-5 bg-card-border mx-1" />
+
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().toggleHeading({ level: 2 }).run()}
+        title="Heading"
+        className={btnClass(tiptap.isActive("heading", { level: 2 }))}
+      >
+        <Heading2 size={15} />
+      </button>
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().toggleBulletList().run()}
+        title="Bullet list"
+        className={btnClass(tiptap.isActive("bulletList"))}
+      >
+        <List size={15} />
+      </button>
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().toggleOrderedList().run()}
+        title="Numbered list"
+        className={btnClass(tiptap.isActive("orderedList"))}
+      >
+        <ListOrdered size={15} />
+      </button>
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().toggleBlockquote().run()}
+        title="Blockquote"
+        className={btnClass(tiptap.isActive("blockquote"))}
+      >
+        <Quote size={15} />
+      </button>
+
+      <div className="w-px h-5 bg-card-border mx-1" />
+
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().toggleCode().run()}
+        title="Inline code"
+        className={btnClass(tiptap.isActive("code"))}
+      >
+        <Code size={15} />
+      </button>
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().toggleCodeBlock().run()}
+        title="Code block"
+        className={btnClass(tiptap.isActive("codeBlock"))}
+      >
+        <span className="text-[11px] font-mono">{"</>"}</span>
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          const url = window.prompt("Enter URL:");
+          if (url) {
+            tiptap.chain().focus().setLink({ href: url }).run();
+          }
+        }}
+        title="Link"
+        className={btnClass(tiptap.isActive("link"))}
+      >
+        <Link2 size={15} />
+      </button>
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().setHorizontalRule().run()}
+        title="Divider"
+        className={btnClass(false)}
+      >
+        <Minus size={15} />
+      </button>
+
+      <div className="w-px h-5 bg-card-border mx-1" />
+
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().undo().run()}
+        disabled={!tiptap.can().undo()}
+        title="Undo"
+        className="w-8 h-8 flex items-center justify-center rounded text-muted hover:text-accent hover:bg-accent/10 transition-colors disabled:opacity-30"
+      >
+        <Undo2 size={15} />
+      </button>
+      <button
+        type="button"
+        onClick={() => tiptap.chain().focus().redo().run()}
+        disabled={!tiptap.can().redo()}
+        title="Redo"
+        className="w-8 h-8 flex items-center justify-center rounded text-muted hover:text-accent hover:bg-accent/10 transition-colors disabled:opacity-30"
+      >
+        <Redo2 size={15} />
+      </button>
+    </div>
+  );
+}
+
+function RichEditor({
+  content,
+  onChange,
+}: {
+  content: string;
+  onChange: (html: string) => void;
+}) {
+  const tiptap = useEditor({
+    immediatelyRender: false,
+    extensions: [
+      StarterKit.configure({
+        heading: { levels: [2, 3] },
+      }),
+      LinkExtension.configure({
+        openOnClick: false,
+        HTMLAttributes: { class: "text-accent underline" },
+      }),
+    ],
+    content,
+    editorProps: {
+      attributes: {
+        class:
+          "min-h-[400px] px-4 py-3 text-sm text-foreground leading-relaxed focus:outline-none prose-editor",
+      },
+    },
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML());
+    },
+  });
+
+  return (
+    <div>
+      <Toolbar editor={tiptap} />
+      <div className="bg-card border border-card-border border-t-0 rounded-b-lg overflow-hidden">
+        <EditorContent editor={tiptap} />
+      </div>
+    </div>
+  );
+}
+
 export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
@@ -55,6 +237,13 @@ export default function AdminPage() {
   const [editor, setEditor] = useState<EditorState | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState<string | null>(null);
+
+  const handleContentChange = useCallback(
+    (html: string) => {
+      setEditor((prev) => (prev ? { ...prev, content: html } : prev));
+    },
+    []
+  );
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -355,17 +544,12 @@ export default function AdminPage() {
 
             <div>
               <label className="block text-sm font-medium mb-1.5">
-                Content{" "}
-                <span className="text-muted font-normal">(Markdown)</span>
+                Content
               </label>
-              <textarea
-                value={editor.content}
-                onChange={(e) =>
-                  setEditor({ ...editor, content: e.target.value })
-                }
-                placeholder={`## Introduction\n\nWrite your post content here using Markdown...\n\n## Another Section\n\nMore content...`}
-                rows={20}
-                className="w-full bg-card border border-card-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent transition-colors resize-y font-mono leading-relaxed"
+              <RichEditor
+                key={editor.slug ?? "new"}
+                content={editor.content}
+                onChange={handleContentChange}
               />
             </div>
           </div>

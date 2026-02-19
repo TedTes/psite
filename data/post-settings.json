@@ -13,5 +13,8 @@
   },
   "machine-learning-optimization": {
     "isPublic": false
+  },
+  "llm-integration-architectures-a-layered-reference": {
+    "isPublic": true
   }
 }

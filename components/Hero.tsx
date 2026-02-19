@@ -1,45 +1,7 @@
 import { User, ArrowRight, ExternalLink, Github, Calendar } from "lucide-react";
 import { getPublicPosts } from "@/lib/posts";
+import { projects } from "@/data/projects";
 import Link from "next/link";
-
-const projects = [
-  {
-    title: "E-Commerce Platform",
-    tags: ["Next.js", "Stripe"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "SaaS Dashboard",
-    tags: ["React", "D3.js"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "Health & Fitness App",
-    tags: ["React Native", "Firebase"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "Real Estate Listing",
-    tags: ["Next.js", "Mapbox"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "AI Content Writer",
-    tags: ["TypeScript", "OpenAI"],
-    live: "#",
-    github: "#",
-  },
-  {
-    title: "Restaurant Booking",
-    tags: ["Vue.js", "MongoDB"],
-    live: "#",
-    github: "#",
-  },
-];
 
 export default function Hero() {
   const posts = getPublicPosts().slice(0, 5);
@@ -138,17 +100,22 @@ export default function Hero() {
         {/* Bottom: Projects */}
         <div id="projects">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {projects.map((project) => (
-              <div
-                key={project.title}
-                className="bg-card border border-card-border rounded-xl px-5 py-4 hover:border-accent/50 transition-colors group flex items-center justify-between gap-3"
+            {projects.map((project, i) => (
+              <Link
+                key={project.slug}
+                href={`/projects/${project.slug}`}
+                className="bg-card border border-card-border rounded-xl px-5 py-4 hover:border-accent/50 hover:scale-[1.02] transition-all duration-300 group flex items-center justify-between gap-3 animate-fade-in-up"
+                style={{ animationDelay: `${i * 100}ms`, opacity: 0 }}
               >
                 <div className="min-w-0">
                   <h3 className="text-sm font-semibold truncate group-hover:text-accent transition-colors">
                     {project.title}
                   </h3>
-                  <div className="flex gap-1.5 mt-1">
-                    {project.tags.map((tag) => (
+                  <p className="text-[11px] text-muted truncate mt-0.5">
+                    {project.description}
+                  </p>
+                  <div className="flex gap-1.5 mt-2">
+                    {project.tags.slice(0, 2).map((tag) => (
                       <span
                         key={tag}
                         className="text-[10px] text-muted bg-card-border/60 px-1.5 py-0.5 rounded"
@@ -158,23 +125,11 @@ export default function Hero() {
                     ))}
                   </div>
                 </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <a
-                    href={project.live}
-                    className="text-muted hover:text-accent transition-colors"
-                    aria-label="Live Demo"
-                  >
-                    <ExternalLink size={14} />
-                  </a>
-                  <a
-                    href={project.github}
-                    className="text-muted hover:text-accent transition-colors"
-                    aria-label="Source Code"
-                  >
-                    <Github size={14} />
-                  </a>
-                </div>
-              </div>
+                <ArrowRight
+                  size={14}
+                  className="text-card-border group-hover:text-accent group-hover:translate-x-1 shrink-0 transition-all"
+                />
+              </Link>
             ))}
           </div>
         </div>
