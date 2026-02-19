@@ -152,6 +152,13 @@ body {
   font-style: italic;
 }
 
+.prose-editor img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 1em 0;
+}
+
 .prose-editor p.is-editor-empty:first-child::before {
   content: "Start writing your post...";
   color: rgba(163, 163, 163, 0.5);

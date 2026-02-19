@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Lock,
   LogOut,
@@ -23,11 +23,13 @@ import {
   Minus,
   Undo2,
   Redo2,
+  ImagePlus,
 } from "lucide-react";
 import Link from "next/link";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import LinkExtension from "@tiptap/extension-link";
+import ImageExtension from "@tiptap/extension-image";
 
 interface PostItem {
   slug: string;
@@ -59,7 +61,10 @@ const emptyEditor: EditorState = {
   isPublic: true,
 };
 
-function Toolbar({ editor: tiptap }: { editor: ReturnType<typeof useEditor> }) {
+function Toolbar({ editor: tiptap }: { editor: ReturnType<typeof useEditor> | null }) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
   if (!tiptap) return null;
 
   const btnClass = (active: boolean) =>
@@ -69,8 +74,44 @@ function Toolbar({ editor: tiptap }: { editor: ReturnType<typeof useEditor> }) {
         : "text-muted hover:text-accent hover:bg-accent/10"
     }`;
 
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file || !tiptap) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const { url } = await res.json();
+        tiptap.chain().focus().setImage({ src: url, alt: file.name }).run();
+      } else {
+        const { error } = await res.json();
+        alert(error || "Upload failed");
+      }
+    } catch {
+      alert("Upload failed");
+    }
+
+    setUploading(false);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
   return (
     <div className="flex flex-wrap items-center gap-1 bg-card border border-card-border rounded-t-lg px-3 py-2">
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml"
+        onChange={handleImageUpload}
+        className="hidden"
+      />
       <button
         type="button"
         onClick={() => tiptap.chain().focus().toggleBold().run()}
@@ -162,6 +203,19 @@ function Toolbar({ editor: tiptap }: { editor: ReturnType<typeof useEditor> }) {
       >
         <Minus size={15} />
       </button>
+      <button
+        type="button"
+        onClick={() => fileInputRef.current?.click()}
+        disabled={uploading}
+        title="Upload image"
+        className={`w-8 h-8 flex items-center justify-center rounded transition-colors disabled:opacity-50 ${
+          uploading
+            ? "text-accent bg-accent/10"
+            : "text-muted hover:text-accent hover:bg-accent/10"
+        }`}
+      >
+        <ImagePlus size={15} />
+      </button>
 
       <div className="w-px h-5 bg-card-border mx-1" />
 
@@ -203,6 +257,11 @@ function RichEditor({
       LinkExtension.configure({
         openOnClick: false,
         HTMLAttributes: { class: "text-accent underline" },
+      }),
+      ImageExtension.configure({
+        HTMLAttributes: {
+          class: "rounded-lg max-w-full my-4",
+        },
       }),
     ],
     content,
