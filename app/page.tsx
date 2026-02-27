@@ -1,19 +1,14 @@
 export const dynamic = "force-dynamic";
 
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-
+import FeaturedProjects from "@/components/FeaturedProjects";
+import RecentPosts from "@/components/RecentPosts";
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <Contact />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <Hero />
+      <FeaturedProjects />
+      <RecentPosts />
+    </main>
   );
 }

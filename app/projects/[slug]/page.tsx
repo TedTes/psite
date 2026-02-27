@@ -39,24 +39,8 @@ export default async function ProjectPage({ params }: { params: Params }) {
 
   return (
     <div className="min-h-screen">
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-card-border">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold tracking-tight">
-            Alex<span className="text-accent">.</span>
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
-          >
-            <ArrowLeft size={14} />
-            Back
-          </Link>
-        </div>
-      </nav>
-
       {/* Hero banner */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
+      <section className="pt-12 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-accent/5 to-background" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 

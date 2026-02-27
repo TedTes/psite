@@ -18,15 +18,13 @@ export default function About() {
 
           <div>
             <p className="text-muted leading-relaxed mb-6">
-              I&apos;m a passionate full-stack developer with 5+ years of
-              experience building web applications. I specialize in creating
-              clean, performant, and user-friendly digital experiences for
-              startups and businesses worldwide.
+              I build digital products across product strategy, engineering,
+              and design with a focus on clarity, speed, and strong execution.
             </p>
             <p className="text-muted leading-relaxed">
-              When I&apos;m not coding, you&apos;ll find me exploring new
-              technologies, contributing to open-source projects, or sharing
-              knowledge through blog posts and mentoring.
+              My approach is simple: find the highest-leverage problem, ship
+              the right thing quickly, and keep quality high as the product
+              grows.
             </p>
           </div>
         </div>

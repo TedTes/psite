@@ -4,6 +4,7 @@ import { getPostBySlug } from "@/lib/posts";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import ReadingProgress from "@/components/ReadingProgress";
 
 export const dynamic = "force-dynamic";
 
@@ -35,22 +36,9 @@ export default async function BlogPost({ params }: { params: Params }) {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-card-border">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold tracking-tight">
-            Alex<span className="text-accent">.</span>
-          </Link>
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
-          >
-            <ArrowLeft size={14} />
-            All Posts
-          </Link>
-        </div>
-      </nav>
+      <ReadingProgress />
 
-      <main className="pt-32 pb-24">
+      <main className="pt-12 pb-24">
         <article className="max-w-3xl mx-auto px-6">
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-4">
