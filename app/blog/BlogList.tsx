@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -15,57 +14,15 @@ interface PostItem {
 
 export default function BlogList({
   posts,
-  allTags,
 }: {
   posts: PostItem[];
-  allTags: string[];
 }) {
-  const [activeTag, setActiveTag] = useState<string | null>(null);
-
-  const filtered = activeTag
-    ? posts.filter((p) => p.tags.includes(activeTag))
-    : posts;
-
   return (
     <>
-      <main className="pt-12 pb-24">
-        <div className="max-w-4xl mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            The <span className="text-accent">Blog</span>
-          </h1>
-          <p className="text-muted text-lg mb-8">
-            Writing about code, design, and everything in between.
-          </p>
-
-          {/* Tag filters */}
-          <div className="flex flex-wrap gap-2 mb-12">
-            <button
-              onClick={() => setActiveTag(null)}
-              className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${
-                activeTag === null
-                  ? "bg-accent text-white"
-                  : "bg-card border border-card-border text-muted hover:text-foreground hover:border-accent/50"
-              }`}
-            >
-              All
-            </button>
-            {allTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${
-                  activeTag === tag
-                    ? "bg-accent text-white"
-                    : "bg-card border border-card-border text-muted hover:text-foreground hover:border-accent/50"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex flex-col gap-8">
-            {filtered.map((post) => (
+      <main className="pt-8 sm:pt-12 pb-16 sm:pb-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col gap-5 sm:gap-8">
+            {posts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
@@ -111,7 +68,7 @@ export default function BlogList({
               </Link>
             ))}
 
-            {filtered.length === 0 && (
+            {posts.length === 0 && (
               <div className="text-center py-16 text-muted">
                 <p>No posts found with that tag.</p>
               </div>
