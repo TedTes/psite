@@ -44,7 +44,7 @@ const Settings = lazy(() =&gt; import("./pages/Settings"));</code></pre>
     date: "2026-02-10",
     readTime: "5 min read",
     tags: ["React", "Architecture", "Performance"],
-    author: "Alex Morgan",
+    author: "Tedros Tesfu",
     isPublic: true,
   },
   {
@@ -101,7 +101,7 @@ const Settings = lazy(() =&gt; import("./pages/Settings"));</code></pre>
     date: "2026-01-28",
     readTime: "4 min read",
     tags: ["CSS", "Web Development", "Frontend"],
-    author: "Alex Morgan",
+    author: "Tedros Tesfu",
     isPublic: true,
   },
   {
@@ -146,7 +146,7 @@ type Role = (typeof ROLES)[number]; // "admin" | "editor" | "viewer"</code></pre
     date: "2026-01-15",
     readTime: "6 min read",
     tags: ["TypeScript", "JavaScript", "Best Practices"],
-    author: "Alex Morgan",
+    author: "Tedros Tesfu",
     isPublic: true,
   },
   {
@@ -187,7 +187,7 @@ type Role = (typeof ROLES)[number]; // "admin" | "editor" | "viewer"</code></pre
     date: "2026-01-02",
     readTime: "7 min read",
     tags: ["Freelancing", "Career", "Productivity"],
-    author: "Alex Morgan",
+    author: "Tedros Tesfu",
     isPublic: true,
   },
 ];

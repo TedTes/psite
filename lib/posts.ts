@@ -119,7 +119,7 @@ export function createPost(input: CreatePostInput): Post {
     date: new Date().toISOString().split("T")[0],
     readTime: estimateReadTime(input.content),
     tags: input.tags,
-    author: "Alex Morgan",
+    author: "Tedros Tesfu",
     isPublic: input.isPublic,
   };
 

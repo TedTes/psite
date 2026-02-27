@@ -26,7 +26,7 @@ export async function generateMetadata({
   const project = projects.find((p) => p.slug === slug);
   if (!project) return { title: "Project Not Found" };
   return {
-    title: `${project.title} | Alex Morgan`,
+    title: `${project.title} | Tedros Tesfu`,
     description: project.description,
   };
 }
@@ -40,11 +40,11 @@ export default async function ProjectPage({ params }: { params: Params }) {
   return (
     <div className="min-h-screen">
       {/* Hero banner */}
-      <section className="pt-12 pb-16 relative overflow-hidden">
+      <section className="pt-8 sm:pt-12 pb-12 sm:pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-accent/5 to-background" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
-        <div className="relative max-w-4xl mx-auto px-6">
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
           <div className="animate-fade-in-up">
             <div className="flex items-center gap-3 text-sm text-muted mb-6">
               <span className="inline-flex items-center gap-1.5">
@@ -58,7 +58,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
               {project.title}
             </h1>
 
@@ -78,17 +78,17 @@ export default async function ProjectPage({ params }: { params: Params }) {
             ))}
           </div>
 
-          <div className="flex items-center gap-4 mt-8 animate-fade-in-up animation-delay-400">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-8 animate-fade-in-up animation-delay-400">
             <a
               href={project.live}
-              className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white px-5 sm:px-6 py-3 rounded-lg font-medium transition-colors"
             >
               <ExternalLink size={16} />
               Live Demo
             </a>
             <a
               href={project.github}
-              className="inline-flex items-center gap-2 border border-card-border hover:border-accent text-foreground px-6 py-3 rounded-lg font-medium transition-colors"
+              className="inline-flex items-center gap-2 border border-card-border hover:border-accent text-foreground px-5 sm:px-6 py-3 rounded-lg font-medium transition-colors"
             >
               <Github size={16} />
               Source Code
@@ -99,8 +99,8 @@ export default async function ProjectPage({ params }: { params: Params }) {
 
       {/* Content */}
       <section className="py-16">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="grid md:grid-cols-5 gap-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="grid md:grid-cols-5 gap-8 md:gap-12">
             {/* Description — wider column */}
             <div className="md:col-span-3">
               <h2 className="text-2xl font-bold mb-6">
@@ -148,7 +148,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
 
       {/* Features */}
       <section className="py-16 border-t border-card-border">
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <h2 className="text-2xl font-bold mb-8">
             Key <span className="text-accent">Features</span>
           </h2>
@@ -172,18 +172,18 @@ export default async function ProjectPage({ params }: { params: Params }) {
 
       {/* Bottom CTA */}
       <section className="py-16 border-t border-card-border">
-        <div className="max-w-4xl mx-auto px-6 text-center">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <p className="text-muted mb-6">Interested in working together?</p>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white px-5 sm:px-6 py-3 rounded-lg font-medium transition-colors"
             >
               Get In Touch
             </Link>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 border border-card-border hover:border-accent text-foreground px-6 py-3 rounded-lg font-medium transition-colors"
+              className="inline-flex items-center gap-2 border border-card-border hover:border-accent text-foreground px-5 sm:px-6 py-3 rounded-lg font-medium transition-colors"
             >
               <ArrowLeft size={16} />
               All Projects
