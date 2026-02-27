@@ -12,7 +12,7 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About | Alex Morgan",
+  title: "About | Tedros Tesfu",
   description:
     "Product-focused builder shaping digital products across engineering, design, and strategy.",
 };
@@ -59,24 +59,24 @@ const skills = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
-      <main className="pt-12 pb-24">
-        <div className="max-w-4xl mx-auto px-6">
+      <main className="pt-8 sm:pt-12 pb-16 sm:pb-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           {/* Header */}
           <div className="flex flex-col md:flex-row gap-8 items-start mb-16">
             <div className="w-20 h-20 rounded-2xl bg-accent/10 border border-card-border flex items-center justify-center shrink-0">
               <User size={32} className="text-accent" />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
                 About <span className="text-accent">Me</span>
               </h1>
               <p className="text-muted leading-relaxed max-w-2xl">
-                I&apos;m Alex Morgan. I work at the intersection of product,
+                I&apos;m Tedros Tesfu. I work at the intersection of product,
                 engineering, and design to build software that is clear, useful,
                 and ready for real users. My focus is turning ideas into
                 working products with strong foundations for growth.
               </p>
-              <div className="flex items-center gap-4 mt-4 text-sm text-muted">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 text-sm text-muted">
                 <span className="inline-flex items-center gap-1.5">
                   <MapPin size={14} />
                   San Francisco, CA
@@ -89,7 +89,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
             {/* Left: Background */}
             <div className="md:col-span-2">
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">

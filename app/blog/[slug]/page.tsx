@@ -23,7 +23,7 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post || !post.isPublic) return { title: "Post Not Found" };
   return {
-    title: `${post.title} | Alex Morgan`,
+    title: `${post.title} | Tedros Tesfu`,
     description: post.excerpt,
   };
 }
@@ -38,8 +38,8 @@ export default async function BlogPost({ params }: { params: Params }) {
     <>
       <ReadingProgress />
 
-      <main className="pt-12 pb-24">
-        <article className="max-w-3xl mx-auto px-6">
+      <main className="pt-8 sm:pt-12 pb-16 sm:pb-24">
+        <article className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="mb-8">
             <div className="flex flex-wrap gap-2 mb-4">
               {post.tags.map((tag) => (
@@ -52,11 +52,11 @@ export default async function BlogPost({ params }: { params: Params }) {
               ))}
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               {post.title}
             </h1>
 
-            <div className="flex items-center gap-4 text-sm text-muted">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-muted">
               <span>By {post.author}</span>
               <span className="inline-flex items-center gap-1">
                 <Calendar size={14} />

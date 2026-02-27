@@ -30,15 +30,15 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <main className="min-h-screen pt-12 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
+      <main className="min-h-screen pt-8 sm:pt-12 pb-16 sm:pb-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           {/* Page header */}
           <div className="mb-12">
             <span className="text-xs text-accent font-mono tracking-widest uppercase mb-3 block">
               Portfolio
             </span>
-            <h1 className="text-5xl md:text-6xl font-black mb-4">Projects</h1>
-            <p className="text-muted max-w-xl text-lg leading-relaxed">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4">Projects</h1>
+            <p className="text-muted max-w-xl text-base sm:text-lg leading-relaxed">
               SaaS products, web apps, and tools I&apos;ve built — from solo
               side projects to enterprise-scale applications.
             </p>
@@ -72,13 +72,13 @@ export default function ProjectsPage() {
               <Link
                 key={project.slug}
                 href={`/projects/${project.slug}`}
-                className="group relative bg-card border border-card-border rounded-2xl p-6 hover:border-accent/30 transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                className="group relative bg-card border border-card-border rounded-2xl p-5 sm:p-6 hover:border-accent/30 transition-all duration-300 hover:-translate-y-1 flex flex-col"
               >
                 {/* Top accent line */}
                 <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
 
                 {/* Number watermark */}
-                <span className="absolute top-4 right-5 text-6xl font-black text-card-border/25 font-mono leading-none select-none pointer-events-none">
+                <span className="absolute top-4 right-5 text-5xl sm:text-6xl font-black text-card-border/25 font-mono leading-none select-none pointer-events-none">
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
