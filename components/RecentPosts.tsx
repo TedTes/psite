@@ -9,15 +9,15 @@ export default function RecentPosts() {
   if (!featured) return null;
 
   return (
-    <section className="py-20 border-t border-card-border/40">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-14 sm:py-20 border-t border-card-border/40">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="flex items-end justify-between mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-10">
           <div>
             <span className="text-xs text-accent font-mono tracking-widest uppercase mb-2 block">
               02 — Writing
             </span>
-            <h2 className="text-3xl md:text-4xl font-black">Recent Articles</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black">Recent Articles</h2>
           </div>
           <Link
             href="/blog"
@@ -39,7 +39,7 @@ export default function RecentPosts() {
             {/* Top colour band */}
             <div className="h-2 bg-gradient-to-r from-accent via-accent-hover to-indigo-400 shrink-0" />
 
-            <div className="p-7 flex flex-col flex-1">
+            <div className="p-5 sm:p-7 flex flex-col flex-1">
               {/* Tags */}
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {featured.tags.map((tag) => (

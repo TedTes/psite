@@ -15,7 +15,7 @@ const disciplines = [
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-center py-16 relative overflow-hidden">
+    <section className="min-h-screen flex flex-col justify-center py-10 sm:py-16 relative overflow-hidden">
       {/* Archimedean tiling SVG background */}
       <svg
         className="absolute inset-0 w-full h-full opacity-[0.035] pointer-events-none"
@@ -36,8 +36,8 @@ export default function Hero() {
       <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-accent/[0.05] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 left-1/3 w-[400px] h-[400px] bg-accent/[0.04] rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-6 w-full">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 w-full">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
 
           {/* ── Left: content ── */}
           <div className="lg:col-span-7">
@@ -51,14 +51,14 @@ export default function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl md:text-6xl lg:text-[62px] font-black tracking-tight leading-[1.06] mb-6 animate-fade-in-up animation-delay-200">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[62px] font-black tracking-tight leading-[1.08] md:leading-[1.06] mb-5 sm:mb-6 animate-fade-in-up animation-delay-200">
               Product direction,{" "}
               <span className="text-gradient">design taste,</span>{" "}
               and technical execution.
             </h1>
 
             {/* Description */}
-            <p className="text-muted text-lg max-w-xl mb-10 leading-relaxed animate-fade-in-up animation-delay-400">
+            <p className="text-muted text-base sm:text-lg max-w-xl mb-8 sm:mb-10 leading-relaxed animate-fade-in-up animation-delay-400">
               I help shape ideas into products people actually use — combining
               product thinking, interface clarity, and pragmatic engineering.
             </p>
@@ -67,13 +67,13 @@ export default function Hero() {
             <div className="flex flex-wrap items-center gap-3 animate-fade-in-up animation-delay-500">
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-hover text-white rounded-xl font-semibold text-sm transition-colors"
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 sm:px-6 py-3 bg-accent hover:bg-accent-hover text-white rounded-xl font-semibold text-sm transition-colors"
               >
                 View Projects <ArrowRight size={15} />
               </Link>
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-card-border hover:border-accent/40 text-foreground rounded-xl font-semibold text-sm transition-colors"
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 sm:px-6 py-3 bg-card border border-card-border hover:border-accent/40 text-foreground rounded-xl font-semibold text-sm transition-colors"
               >
                 Read the Blog
               </Link>
@@ -128,12 +128,12 @@ export default function Hero() {
         </div>
 
         {/* ── Tech ticker ── */}
-        <div className="mt-16 -mx-6 overflow-hidden animate-fade-in-up animation-delay-600">
+        <div className="mt-10 sm:mt-16 -mx-4 sm:-mx-6 overflow-hidden animate-fade-in-up animation-delay-600">
           <div className="flex gap-3 tech-ticker">
             {[...techStack, ...techStack].map((tech, i) => (
               <span
                 key={i}
-                className="shrink-0 text-xs text-muted/50 bg-card border border-card-border/50 px-3 py-1.5 rounded-full"
+                className="shrink-0 text-[11px] sm:text-xs text-muted/50 bg-card border border-card-border/50 px-2.5 sm:px-3 py-1.5 rounded-full"
               >
                 {tech}
               </span>

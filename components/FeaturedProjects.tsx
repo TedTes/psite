@@ -6,15 +6,15 @@ export default function FeaturedProjects() {
   const [featured, ...rest] = projects.slice(0, 3);
 
   return (
-    <section className="py-20 border-t border-card-border/40">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-14 sm:py-20 border-t border-card-border/40">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="flex items-end justify-between mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-10">
           <div>
             <span className="text-xs text-accent font-mono tracking-widest uppercase mb-2 block">
               01 — Work
             </span>
-            <h2 className="text-3xl md:text-4xl font-black">Selected Projects</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black">Selected Projects</h2>
           </div>
           <Link
             href="/projects"
@@ -34,7 +34,7 @@ export default function FeaturedProjects() {
             className="group relative md:col-span-2 md:row-span-2 bg-card border border-card-border rounded-2xl overflow-hidden hover:border-accent/30 transition-all duration-300 flex flex-col"
           >
             {/* Gradient header area */}
-            <div className="relative h-36 bg-gradient-to-br from-accent/20 via-accent/10 to-transparent flex items-end p-6 shrink-0">
+            <div className="relative h-28 sm:h-36 bg-gradient-to-br from-accent/20 via-accent/10 to-transparent flex items-end p-5 sm:p-6 shrink-0">
               <div className="absolute inset-0 bg-gradient-to-br from-accent/15 to-transparent" />
               <svg className="absolute inset-0 w-full h-full opacity-[0.06] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -53,7 +53,7 @@ export default function FeaturedProjects() {
             </div>
 
             {/* Card body */}
-            <div className="p-6 flex flex-col flex-1">
+            <div className="p-5 sm:p-6 flex flex-col flex-1">
               <div className="flex items-center gap-2 mb-3">
                 <span className="inline-flex items-center gap-1 text-[11px] text-muted">
                   <Calendar size={9} /> {featured.year}
@@ -63,7 +63,7 @@ export default function FeaturedProjects() {
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors">
+              <h3 className="text-lg sm:text-xl font-bold mb-3 group-hover:text-accent transition-colors">
                 {featured.title}
               </h3>
               <p className="text-sm text-muted leading-relaxed mb-4 flex-1">
@@ -103,7 +103,7 @@ export default function FeaturedProjects() {
             <Link
               key={project.slug}
               href={`/projects/${project.slug}`}
-              className="group relative bg-card border border-card-border rounded-2xl p-6 hover:border-accent/30 transition-all duration-300 hover:-translate-y-0.5 flex flex-col"
+              className="group relative bg-card border border-card-border rounded-2xl p-5 sm:p-6 hover:border-accent/30 transition-all duration-300 hover:-translate-y-0.5 flex flex-col"
             >
               <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
               <span className="absolute top-4 right-5 text-5xl font-black text-card-border/20 font-mono leading-none select-none pointer-events-none">
