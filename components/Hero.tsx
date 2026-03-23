@@ -1,143 +1,138 @@
-import { ArrowRight, Github, Layers, Zap, Target } from "lucide-react";
 import Link from "next/link";
-
-const techStack = [
-  "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL",
-  "Tailwind CSS", "Prisma", "Redis", "AWS", "Docker",
-  "GraphQL", "React Native", "Figma", "Stripe", "Supabase",
-];
-
-const disciplines = [
-  { icon: Target, label: "Product Strategy" },
-  { icon: Layers, label: "Interface Systems" },
-  { icon: Zap, label: "Launch Execution" },
-];
+import { ArrowRight, MapPin, Github, Mail, ExternalLink } from "lucide-react";
+import { projects } from "@/data/projects";
+import { getPublicPosts } from "@/lib/posts";
 
 export default function Hero() {
+  const recentProjects = projects.slice(0, 4);
+  const recentPosts = getPublicPosts().slice(0, 4);
+
   return (
-    <section className="min-h-screen flex flex-col justify-center py-10 sm:py-16 relative overflow-hidden">
-      {/* Archimedean tiling SVG background */}
-      <svg
-        className="absolute inset-0 w-full h-full opacity-[0.035] pointer-events-none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern id="arch-bg" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-            <polygon points="29,0 71,0 100,29 100,71 71,100 29,100 0,71 0,29" fill="none" stroke="#6366f1" strokeWidth="0.8" />
-            <polygon points="129,100 171,100 200,129 200,171 171,200 129,200 100,171 100,129" fill="none" stroke="#6366f1" strokeWidth="0.8" />
-            <polygon points="100,100 71,100 100,71 129,100 100,129" fill="none" stroke="#6366f1" strokeWidth="0.8" />
-            <polygon points="100,0 71,0 100,-29 129,0 100,29" fill="none" stroke="#6366f1" strokeWidth="0.8" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#arch-bg)" />
-      </svg>
+    <section className="min-h-screen py-12 sm:py-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
 
-      {/* Gradient orbs */}
-      <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-accent/[0.05] rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 left-1/3 w-[400px] h-[400px] bg-accent/[0.04] rounded-full blur-3xl pointer-events-none" />
+          {/* ── Left: Bio ── */}
+          <div className="lg:col-span-4 flex flex-col gap-6">
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 w-full">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-
-          {/* ── Left: content ── */}
-          <div className="lg:col-span-7">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-card border border-card-border text-xs text-muted mb-8 animate-fade-in-up">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-              </span>
-              Available — building with ambitious teams
+            {/* Avatar */}
+            <div className="w-20 h-20 rounded-2xl bg-card border border-card-border flex items-center justify-center text-2xl font-black text-accent">
+              TT
             </div>
 
-            {/* Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[62px] font-black tracking-tight leading-[1.08] md:leading-[1.06] mb-5 sm:mb-6 animate-fade-in-up animation-delay-200">
-              Product direction,{" "}
-              <span className="text-gradient">design taste,</span>{" "}
-              and technical execution.
-            </h1>
+            {/* Name + location */}
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight">Tedros Tesfu</h1>
+              <p className="flex items-center gap-1.5 text-sm text-muted mt-1">
+                <MapPin size={13} />
+                Toronto, Canada
+              </p>
+            </div>
 
-            {/* Description */}
-            <p className="text-muted text-base sm:text-lg max-w-xl mb-8 sm:mb-10 leading-relaxed animate-fade-in-up animation-delay-400">
-              I help shape ideas into products people actually use — combining
-              product thinking, interface clarity, and pragmatic engineering.
+            {/* Bio */}
+            <p className="text-muted leading-relaxed text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+            </p>
+            <p className="text-muted leading-relaxed text-sm">
+              Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+              cupidatat non proident.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3 animate-fade-in-up animation-delay-500">
-              <Link
-                href="/projects"
-                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 sm:px-6 py-3 bg-accent hover:bg-accent-hover text-white rounded-xl font-semibold text-sm transition-colors"
-              >
-                View Projects <ArrowRight size={15} />
-              </Link>
-              <Link
-                href="/blog"
-                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 sm:px-6 py-3 bg-card border border-card-border hover:border-accent/40 text-foreground rounded-xl font-semibold text-sm transition-colors"
-              >
-                Read the Blog
-              </Link>
+            {/* Links */}
+            <div className="flex flex-col gap-2 pt-2">
               <a
-                href="#"
-                className="p-3 rounded-xl text-muted hover:text-foreground hover:bg-card-border/40 transition-colors"
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
               >
-                <Github size={17} />
+                <Github size={15} />
+                github.com/tedros
+              </a>
+              <a
+                href="mailto:hello@example.com"
+                className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+              >
+                <Mail size={15} />
+                hello@example.com
+              </a>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+              >
+                <ExternalLink size={15} />
+                Resume
               </a>
             </div>
           </div>
 
-          {/* ── Right: floating stats + disciplines ── */}
-          <div className="lg:col-span-5 hidden lg:flex flex-col gap-4 animate-fade-in-up animation-delay-400">
-            {/* Stats card */}
-            <div className="bg-card border border-card-border rounded-2xl p-6 relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
-              <div className="grid grid-cols-3 divide-x divide-card-border">
-                {[
-                  { value: "6+", label: "Projects Shipped" },
-                  { value: "5+", label: "Years Building" },
-                  { value: "10+", label: "Happy Clients" },
-                ].map(({ value, label }) => (
-                  <div key={label} className="text-center px-4 first:pl-0 last:pr-0">
-                    <div className="text-3xl font-black text-gradient leading-none mb-1">
-                      {value}
+          {/* ── Right: Work + Writing ── */}
+          <div className="lg:col-span-8 flex flex-col gap-12">
+
+            {/* Projects */}
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-xs font-mono uppercase tracking-widest text-muted">Projects</h2>
+                <Link href="/projects" className="text-xs text-accent hover:underline inline-flex items-center gap-1">
+                  All projects <ArrowRight size={11} />
+                </Link>
+              </div>
+              <div className="flex flex-col divide-y divide-card-border">
+                {recentProjects.map((project) => (
+                  <Link
+                    key={project.slug}
+                    href={`/projects/${project.slug}`}
+                    className="flex items-start justify-between gap-4 py-4 group hover:bg-card/50 -mx-3 px-3 rounded-lg transition-colors"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium group-hover:text-accent transition-colors">
+                        {project.title}
+                      </p>
+                      <p className="text-xs text-muted mt-0.5 truncate">{project.description}</p>
                     </div>
-                    <div className="text-[11px] text-muted leading-tight">{label}</div>
-                  </div>
+                    <div className="flex items-center gap-2 shrink-0 mt-0.5">
+                      {project.tags.slice(0, 2).map((tag) => (
+                        <span key={tag} className="text-[10px] text-muted bg-card border border-card-border px-2 py-0.5 rounded-full">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
                 ))}
               </div>
             </div>
 
-            {/* Disciplines */}
-            <div className="space-y-2">
-              {disciplines.map(({ icon: Icon, label }, i) => (
-                <div
-                  key={label}
-                  className="flex items-center gap-3 bg-card border border-card-border rounded-xl px-4 py-3"
-                >
-                  <span className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                    <Icon size={13} className="text-accent" />
-                  </span>
-                  <span className="text-sm font-medium">{label}</span>
-                  <span className="ml-auto text-[10px] text-muted font-mono">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </div>
-              ))}
+            {/* Writing */}
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-xs font-mono uppercase tracking-widest text-muted">Writing</h2>
+                <Link href="/blog" className="text-xs text-accent hover:underline inline-flex items-center gap-1">
+                  All posts <ArrowRight size={11} />
+                </Link>
+              </div>
+              <div className="flex flex-col divide-y divide-card-border">
+                {recentPosts.map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="flex items-start justify-between gap-4 py-4 group hover:bg-card/50 -mx-3 px-3 rounded-lg transition-colors"
+                  >
+                    <p className="text-sm font-medium group-hover:text-accent transition-colors flex-1 min-w-0">
+                      {post.title}
+                    </p>
+                    <span className="text-xs text-muted shrink-0 mt-0.5">
+                      {new Date(post.date).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                    </span>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* ── Tech ticker ── */}
-        <div className="mt-10 sm:mt-16 -mx-4 sm:-mx-6 overflow-hidden animate-fade-in-up animation-delay-600">
-          <div className="flex gap-3 tech-ticker">
-            {[...techStack, ...techStack].map((tech, i) => (
-              <span
-                key={i}
-                className="shrink-0 text-[11px] sm:text-xs text-muted/50 bg-card border border-card-border/50 px-2.5 sm:px-3 py-1.5 rounded-full"
-              >
-                {tech}
-              </span>
-            ))}
           </div>
         </div>
       </div>
