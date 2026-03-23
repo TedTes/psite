@@ -2,12 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Home,
-  FolderKanban,
-  BookOpenText,
-  UserRound,
-} from "lucide-react";
+import { Home, FolderKanban, BookOpenText, UserRound } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Home", exact: true, icon: Home },
@@ -40,36 +35,34 @@ export default function Sidebar() {
   return (
     <>
       {/* Desktop floating icon stack */}
-      <aside className="hidden lg:flex fixed top-3 bottom-3 left-3 z-[60] flex-col">
-        <div className="flex flex-col gap-2">
-          <Link
-            href="/"
-            className="w-10 h-10 rounded-xl border shadow-md bg-accent/15 border-accent/30 text-accent flex items-center justify-center"
-          >
-            <span className="text-sm font-black tracking-tight">TT</span>
-          </Link>
+      <aside className="hidden lg:flex fixed top-3 left-3 z-[60] flex-col gap-2">
+        <Link
+          href="/"
+          className="w-10 h-10 rounded-xl border shadow-md bg-accent/15 border-accent/30 text-accent flex items-center justify-center"
+        >
+          <span className="text-sm font-black tracking-tight">TT</span>
+        </Link>
 
-          <div className="h-2" />
+        <div className="h-2" />
 
-          {navItems.map(({ href, label, exact, icon: Icon }) => {
-            const active = isActive(href, exact);
-            return (
-              <Link
-                key={href}
-                href={href}
-                aria-label={label}
-                title={label}
-                className={`w-10 h-10 rounded-xl border shadow-md flex items-center justify-center transition-colors ${
-                  active
-                    ? "bg-accent/15 border-accent/30 text-accent"
-                    : "bg-card/95 border-card-border text-muted hover:text-foreground"
-                }`}
-              >
-                <Icon size={16} />
-              </Link>
-            );
-          })}
-        </div>
+        {navItems.map(({ href, label, exact, icon: Icon }) => {
+          const active = isActive(href, exact);
+          return (
+            <Link
+              key={href}
+              href={href}
+              aria-label={label}
+              title={label}
+              className={`w-10 h-10 rounded-xl border shadow-md flex items-center justify-center transition-colors ${
+                active
+                  ? "bg-accent/15 border-accent/30 text-accent"
+                  : "bg-card/95 border-card-border text-muted hover:text-foreground"
+              }`}
+            >
+              <Icon size={16} />
+            </Link>
+          );
+        })}
 
       </aside>
 
