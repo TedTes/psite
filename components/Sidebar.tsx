@@ -2,16 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, FolderKanban, BookOpenText, UserRound } from "lucide-react";
+import { Home, BookOpenText, UserRound } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Home", exact: true, icon: Home },
-  {
-    href: "/projects",
-    label: "Projects",
-    exact: false,
-    icon: FolderKanban,
-  },
   {
     href: "/blog",
     label: "Blog",
