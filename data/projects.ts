@@ -9,9 +9,90 @@ export interface Project {
   github: string;
   year: string;
   role: string;
+  image?: string;
 }
 
 export const projects: Project[] = [
+  {
+    slug: "autofil",
+    title: "AutoFil",
+    description: "AI-powered insurance document processor that extracts and fills forms in under 60 seconds.",
+    longDescription:
+      "AutoFil automates insurance document processing using AI-powered OCR and NLP to extract structured data from uploaded forms and generate filled outputs ready for submission. All processing happens locally in the browser — documents never leave the device. Supports PDFs, Excel, CSVs, and ACORD forms (125/126/140) with 98%+ extraction accuracy and confidence indicators for field verification.",
+    tags: ["Next.js", "TypeScript", "Python", "Supabase"],
+    features: [
+      "AI-powered OCR and NLP extraction with 98%+ accuracy across document types",
+      "Batch processing of multiple documents simultaneously",
+      "Confidence indicators to flag fields requiring manual verification",
+      "Local browser processing — documents never leave the device",
+      "Multi-format support: PDFs, Excel, CSVs, and ACORD forms 125/126/140",
+    ],
+    live: "https://autofil.vercel.app/landing",
+    github: "https://github.com/TedTes/autofil",
+    year: "2025",
+    role: "Full-Stack Developer",
+    image: "/images/projects/autofil.png",
+  },
+  {
+    slug: "godena",
+    title: "Godena",
+    description: "Community app connecting people through shared interest groups and real-world events.",
+    longDescription:
+      "Godena connects people through shared groups and real events, helping users build meaningful relationships with those they meet along the way. The platform focuses on in-person community building across hobbies, faith, professional development, and local activities. Features include interest-based groups, in-person event hosting with RSVP, an opt-in dating mode that matches users within shared groups, and local group discovery.",
+    tags: ["React Native", "Expo", "Supabase", "TypeScript"],
+    features: [
+      "Interest-based groups across hobbies, faith, professional development, and community activities",
+      "In-person event hosting with RSVP functionality and attendee visibility",
+      "Opt-in dating mode that matches users within shared groups",
+      "Shared activity feeds to keep group members engaged",
+      "Local group discovery with search and filtering",
+    ],
+    live: "https://tedtes.github.io/godena/index.html",
+    github: "https://github.com/TedTes/godena",
+    year: "2025",
+    role: "Full-Stack Developer",
+    image: "/images/projects/godena.png",
+  },
+  {
+    slug: "secretio",
+    title: "Secretio",
+    description: "Developer-first vault that centralizes and secures API credentials across projects.",
+    longDescription:
+      "Secretio is a developer-first secrets management platform built as a monorepo with a web dashboard, REST API, CLI, and shared client library. Teams can centralize API keys and credentials, manage access with fine-grained permissions, and integrate via CLI or SDK. Built with Next.js, a vault API service, Docker, and Stripe for billing — designed to replace scattered .env files with a secure, auditable vault.",
+    tags: ["Next.js", "TypeScript", "Docker", "Stripe"],
+    features: [
+      "Centralized vault for storing and managing API keys and secrets",
+      "CLI tool for accessing secrets directly from the terminal",
+      "Vault client SDK for programmatic integration in any project",
+      "Role-based access control with per-secret permissions",
+      "Stripe-powered billing for team and enterprise plans",
+    ],
+    live: "https://secretio-o6ch.vercel.app/",
+    github: "https://github.com/TedTes/secretio",
+    year: "2025",
+    role: "Full-Stack Developer",
+    image: "/images/projects/secretio.png",
+  },
+  {
+    slug: "lidscout",
+    title: "LidScout",
+    description: "Business search platform to find sales leads with verified contact info by industry and location.",
+    longDescription:
+      "LidScout helps sales teams and entrepreneurs discover businesses and generate qualified leads using industry and location filters. The platform returns companies with verified phone numbers and contact details in seconds, with pre-built categories covering restaurants, insurance, real estate, and more. Powered by a Python data pipeline on the backend and a Next.js frontend for a fast, targeted search experience.",
+    tags: ["Next.js", "TypeScript", "Python"],
+    features: [
+      "Industry and location-based company search with instant results",
+      "Verified phone numbers and contact information for each result",
+      "Pre-built category shortcuts: Restaurants, Insurance, Real Estate, Dentists, Lawyers",
+      "Custom search bar for any industry and location combination",
+      "Python-powered backend data pipeline for reliable lead data",
+    ],
+    live: "https://lidscout.vercel.app/",
+    github: "https://github.com/TedTes/lidscout",
+    year: "2025",
+    role: "Full-Stack Developer",
+    image: "/images/projects/lidscout.png",
+  },
   {
     slug: "ecommerce-platform",
     title: "E-Commerce Platform",
