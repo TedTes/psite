@@ -2,8 +2,6 @@ import { getPublicPosts } from "@/lib/posts";
 import type { Metadata } from "next";
 import BlogList from "./BlogList";
 
-export const dynamic = "force-dynamic";
-
 export const metadata: Metadata = {
   title: "Blog | Tedros Tesfu",
   description:

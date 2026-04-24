@@ -1,4 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a [Next.js](https://nextjs.org) portfolio project with a repo-backed blog.
+
+## Blog Publishing
+
+Blog posts live in `content/blog/<year>/*.md`.
+
+To publish a new post:
+
+1. Add a markdown file under `content/blog/2026/` (or another year folder).
+2. Include frontmatter with `title`, `excerpt`, `date`, `tags`, and `author`.
+3. Commit and deploy.
+
+The blog is rendered statically at build time, which is production-safe on Vercel.
 
 ## Getting Started
 

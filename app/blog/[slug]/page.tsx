@@ -1,17 +1,14 @@
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
-import { posts } from "@/data/posts";
-import { getPostBySlug } from "@/lib/posts";
+import { getPostBySlug, getPublicPosts } from "@/lib/posts";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ReadingProgress from "@/components/ReadingProgress";
 
-export const dynamic = "force-dynamic";
-
 type Params = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
-  return posts.map((post) => ({ slug: post.slug }));
+  return getPublicPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -39,49 +36,68 @@ export default async function BlogPost({ params }: { params: Params }) {
       <ReadingProgress />
 
       <main className="pt-8 sm:pt-12 pb-16 sm:pb-24">
-        <article className="max-w-3xl mx-auto px-4 sm:px-6">
-          <div className="mb-8">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs bg-accent/10 text-accent px-2 py-1 rounded"
+        <article className="mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="mb-10 overflow-hidden rounded-[2rem] border border-card-border bg-card">
+            <div className="relative px-6 py-8 sm:px-8 sm:py-10">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.18),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.08),transparent_28%)]" />
+              <div className="relative">
+                <Link
+                  href="/blog"
+                  className="mb-6 inline-flex items-center gap-1.5 text-sm text-accent transition-all hover:gap-2.5"
                 >
-                  {tag}
-                </span>
-              ))}
-            </div>
+                  <ArrowLeft size={14} />
+                  Back to all posts
+                </Link>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
-              {post.title}
-            </h1>
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-accent/10 px-2.5 py-1 text-xs text-accent"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
 
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-muted">
-              <span>By {post.author}</span>
-              <span className="inline-flex items-center gap-1">
-                <Calendar size={14} />
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </span>
-              <span className="inline-flex items-center gap-1">
-                <Clock size={14} />
-                {post.readTime}
-              </span>
+                <h1 className="mb-4 max-w-3xl text-3xl font-black leading-tight sm:text-4xl md:text-5xl">
+                  {post.title}
+                </h1>
+
+                <p className="max-w-2xl text-sm leading-7 text-muted sm:text-base">
+                  {post.excerpt}
+                </p>
+
+                <div className="mt-6 flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-muted">
+                  <span>By {post.author}</span>
+                  <span className="inline-flex items-center gap-1">
+                    <Calendar size={14} />
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <Clock size={14} />
+                    {post.readTime}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div
-            className="prose prose-invert prose-indigo max-w-none [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-10 [&_h2]:mb-4 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:text-muted [&_p]:leading-relaxed [&_p]:mb-4 [&_ul]:text-muted [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:text-muted [&_ol]:mb-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-2 [&_strong]:text-foreground [&_em]:italic [&_code]:text-accent [&_code]:bg-accent/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-sm [&_pre]:bg-card [&_pre]:border [&_pre]:border-card-border [&_pre]:rounded-xl [&_pre]:p-4 [&_pre]:mb-6 [&_pre]:overflow-x-auto [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_blockquote]:border-l-3 [&_blockquote]:border-accent [&_blockquote]:pl-4 [&_blockquote]:my-4 [&_blockquote]:text-muted [&_blockquote]:italic [&_a]:text-accent [&_a]:underline [&_hr]:border-card-border [&_hr]:my-6 [&_img]:rounded-xl [&_img]:max-w-full [&_img]:my-6"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <div className="mx-auto max-w-3xl">
+            <div
+              className="article-prose"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </div>
 
-          <div className="mt-16 pt-8 border-t border-card-border">
+          <div className="mx-auto mt-16 max-w-3xl border-t border-card-border pt-8">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-1.5 text-sm text-accent hover:gap-2.5 transition-all"
+              className="inline-flex items-center gap-1.5 text-sm text-accent transition-all hover:gap-2.5"
             >
               <ArrowLeft size={14} />
               Back to all posts
