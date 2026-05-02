@@ -17,7 +17,7 @@ export default function BlogLanding({ series, standalonePosts }: BlogLandingProp
           {series.length > 0 && (
             <section className="mb-14">
               <h2 className="text-xs font-semibold uppercase tracking-widest text-muted mb-6">
-                Knowledge Base
+                Structured Series
               </h2>
               <div className="flex flex-col gap-3">
                 {series.map((s) => (
@@ -66,7 +66,7 @@ export default function BlogLanding({ series, standalonePosts }: BlogLandingProp
           {standalonePosts.length > 0 && (
             <section>
               <h2 className="text-xs font-semibold uppercase tracking-widest text-muted mb-6">
-                Writing
+                Standalone Notes
               </h2>
               <div className="flex flex-col divide-y divide-card-border">
                 {standalonePosts.map((post) => (
