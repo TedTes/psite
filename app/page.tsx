@@ -5,5 +5,5 @@ export default function Home() {
   const series = getSeriesList();
   const standalonePosts = getStandalonePosts();
 
-  return <BlogLanding series={series} standalonePosts={standalonePosts} />;
+  return <BlogLanding series={series} standalonePosts={standalonePosts} showProjects />;
 }

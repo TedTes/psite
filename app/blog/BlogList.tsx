@@ -1,15 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen, FileText } from "lucide-react";
+import { ArrowRight, BookOpen, ExternalLink, FileText, Github } from "lucide-react";
+import { projects } from "@/data/projects";
 import type { SeriesMeta, Post } from "@/lib/posts";
 
 interface BlogLandingProps {
   series: SeriesMeta[];
   standalonePosts: Pick<Post, "slug" | "title" | "excerpt" | "date" | "readTime" | "tags">[];
+  showProjects?: boolean;
 }
 
-export default function BlogLanding({ series, standalonePosts }: BlogLandingProps) {
+const visibleProjects = projects.filter(
+  (project) => project.live !== "#" || project.github !== "#"
+);
+
+export default function BlogLanding({
+  series,
+  standalonePosts,
+  showProjects = false,
+}: BlogLandingProps) {
   return (
     <main className="pt-8 sm:pt-12 pb-16 sm:pb-24">
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
@@ -96,6 +106,77 @@ export default function BlogLanding({ series, standalonePosts }: BlogLandingProp
                     </div>
                   </Link>
                 ))}
+              </div>
+            </section>
+          )}
+
+          {showProjects && visibleProjects.length > 0 && (
+            <section className="mt-14">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-muted mb-6">
+                Projects
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {visibleProjects.slice(0, 4).map((project) => {
+                  const projectUrl = project.live !== "#" ? project.live : project.github;
+
+                  function openProject() {
+                    window.open(projectUrl, "_blank", "noopener,noreferrer");
+                  }
+
+                  return (
+                    <article
+                      key={project.slug}
+                      role="link"
+                      tabIndex={0}
+                      onClick={openProject}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          openProject();
+                        }
+                      }}
+                      className="group cursor-pointer rounded-lg border border-card-border p-4 transition-colors hover:border-accent/40 hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent/30"
+                    >
+                      <h3 className="mb-2 text-sm font-semibold leading-snug">
+                        {project.title}
+                      </h3>
+                      <p className="mb-3 line-clamp-2 text-xs leading-5 text-muted">
+                        {project.description}
+                      </p>
+                      <div className="mb-4 flex flex-wrap gap-1">
+                        {project.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded bg-card-border/60 px-1.5 py-0.5 text-xs text-muted"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-3 text-xs text-muted">
+                        {project.live !== "#" && (
+                          <span className="inline-flex items-center gap-1.5 transition-colors group-hover:text-accent">
+                            <ExternalLink size={12} />
+                            Live
+                          </span>
+                        )}
+                        {project.github !== "#" && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(event) => event.stopPropagation()}
+                            onKeyDown={(event) => event.stopPropagation()}
+                            className="inline-flex items-center gap-1.5 transition-colors hover:text-accent"
+                          >
+                            <Github size={12} />
+                            Code
+                          </a>
+                        )}
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             </section>
           )}
