@@ -7,7 +7,7 @@ tags:
   - Computation
   - Reasoning Models
 author: Tedros Tesfu
-draft: true
+draft: false
 series: Math Foundations for Reasoning Models
 seriesSlug: math-foundations-for-reasoning-models
 seriesOrder: 1
