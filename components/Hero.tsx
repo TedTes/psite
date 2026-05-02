@@ -171,65 +171,29 @@ export default function Hero() {
                 </Link>
               </div>
 
-              {recentPosts[0] ? (
-                <div className="overflow-hidden rounded-2xl border border-card-border bg-card">
-                  <Link
-                    href={`/blog/${recentPosts[0].slug}`}
-                    className="group block border-b border-card-border bg-[linear-gradient(160deg,rgba(99,102,241,0.16),rgba(99,102,241,0.03)_70%)] px-5 py-5 transition-colors hover:border-accent/30"
-                  >
-                    <div className="mb-4 flex flex-wrap gap-2">
-                      {recentPosts[0].tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full bg-accent/10 px-2 py-0.5 text-[10px] text-accent"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <h3 className="mb-2 text-base font-semibold leading-snug transition-colors group-hover:text-accent">
-                      {recentPosts[0].title}
-                    </h3>
-                    <p className="mb-4 line-clamp-2 text-xs leading-6 text-muted">
-                      {recentPosts[0].excerpt}
-                    </p>
-                    <div className="flex items-center justify-between gap-3 text-[11px] text-muted">
-                      <span>
-                        {new Date(recentPosts[0].date).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-accent">
-                        Read article <ArrowRight size={11} />
-                      </span>
-                    </div>
-                  </Link>
-
-                  <div className="flex flex-col divide-y divide-card-border">
-                    {recentPosts.slice(1).map((post, i) => (
-                      <Link
-                        key={post.slug}
-                        href={`/blog/${post.slug}`}
-                        className="relative flex items-center justify-between gap-4 px-5 py-3.5 group hover:bg-card/60 transition-all duration-200 overflow-hidden animate-fade-in-up"
-                        style={{ opacity: 0, animationDelay: `${0.52 + i * 0.07}s` }}
-                      >
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 h-1/2 w-0.5 origin-center scale-y-0 rounded-full bg-accent transition-transform duration-200 group-hover:scale-y-100" />
-                        <p className="min-w-0 flex-1 pl-0 text-sm font-medium transition-all duration-200 group-hover:pl-3 group-hover:text-accent">
+              {recentPosts.length > 0 ? (
+                <div className="flex flex-col divide-y divide-card-border">
+                  {recentPosts.map((post, i) => (
+                    <Link
+                      key={post.slug}
+                      href={`/blog/${post.slug}`}
+                      className="flex items-start justify-between gap-4 py-4 first:pt-0 last:pb-0 group animate-fade-in-up"
+                      style={{ opacity: 0, animationDelay: `${0.45 + i * 0.07}s` }}
+                    >
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium leading-snug group-hover:text-accent transition-colors truncate">
                           {post.title}
                         </p>
-                        <span className="shrink-0 rounded-full border border-card-border bg-card px-2 py-0.5 text-[11px] text-muted transition-colors group-hover:border-accent/30">
-                          {new Date(post.date).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
+                        <p className="text-xs text-muted mt-0.5 line-clamp-1">{post.excerpt}</p>
+                      </div>
+                      <span className="shrink-0 text-[11px] text-muted mt-0.5">
+                        {new Date(post.date).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                      </span>
+                    </Link>
+                  ))}
                 </div>
               ) : (
-                <div className="rounded-2xl border border-dashed border-card-border px-5 py-8 text-sm text-muted">
-                  No published posts yet.
-                </div>
+                <p className="text-sm text-muted">No published posts yet.</p>
               )}
             </div>
 
