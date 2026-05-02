@@ -1,5 +1,5 @@
 ---
-title: Sets, Relations, and Functions: Definition
+title: "Sets, Relations, and Functions: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

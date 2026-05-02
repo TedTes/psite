@@ -1,5 +1,5 @@
 ---
-title: Calculus and Gradients: Definition
+title: "Calculus and Gradients: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

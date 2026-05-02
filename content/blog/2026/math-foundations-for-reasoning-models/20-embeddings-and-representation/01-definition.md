@@ -1,5 +1,5 @@
 ---
-title: Embeddings and Representation: Definition
+title: "Embeddings and Representation: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

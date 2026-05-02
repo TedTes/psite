@@ -1,5 +1,5 @@
 ---
-title: Geometry of Data: Definition
+title: "Geometry of Data: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

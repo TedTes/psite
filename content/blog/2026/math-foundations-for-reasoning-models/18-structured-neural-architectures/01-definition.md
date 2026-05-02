@@ -1,5 +1,5 @@
 ---
-title: Structured Neural Architectures: Definition
+title: "Structured Neural Architectures: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

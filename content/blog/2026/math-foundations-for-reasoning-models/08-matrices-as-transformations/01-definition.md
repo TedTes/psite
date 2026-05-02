@@ -1,5 +1,5 @@
 ---
-title: Matrices as Transformations: Definition
+title: "Matrices as Transformations: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

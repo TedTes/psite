@@ -1,5 +1,5 @@
 ---
-title: Numbers, Algebra, Discrete vs Continuous: Definition
+title: "Numbers, Algebra, Discrete vs Continuous: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

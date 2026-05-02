@@ -15,6 +15,14 @@ export interface Post {
   tags: string[];
   author: string;
   isPublic: boolean;
+  series?: string;
+  seriesSlug?: string;
+  module?: string;
+  chapter?: string;
+  chapterSlug?: string;
+  seriesOrder?: number;
+  chapterOrder?: number;
+  topicOrder?: number;
 }
 
 interface Frontmatter {
@@ -25,6 +33,32 @@ interface Frontmatter {
   tags?: string[];
   author?: string;
   draft?: boolean;
+  series?: string;
+  seriesSlug?: string;
+  module?: string;
+  chapter?: string;
+  chapterSlug?: string;
+  seriesOrder?: number;
+  chapterOrder?: number;
+  topicOrder?: number;
+}
+
+function stripOrderPrefix(segment: string): string {
+  return segment.replace(/^\d+-/, "");
+}
+
+function getSlug(filePath: string): string {
+  const relativePath = path
+    .relative(BLOG_ROOT, filePath)
+    .replace(/\\/g, "/")
+    .replace(/\.mdx?$/i, "");
+  const segments = relativePath.split("/");
+
+  if (/^\d{4}$/.test(segments[0])) {
+    return segments.slice(1).map(stripOrderPrefix).join("/");
+  }
+
+  return relativePath.split("/").map(stripOrderPrefix).join("/");
 }
 
 function estimateReadTime(content: string): string {
@@ -66,7 +100,7 @@ function parsePost(filePath: string): Post {
   const source = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(source);
   const frontmatter = data as Frontmatter;
-  const slug = path.basename(filePath).replace(/\.mdx?$/i, "");
+  const slug = getSlug(filePath);
   const plainText = stripMarkdown(content);
 
   return {
@@ -79,13 +113,31 @@ function parsePost(filePath: string): Post {
     tags: frontmatter.tags ?? [],
     author: frontmatter.author ?? "Tedros Tesfu",
     isPublic: frontmatter.draft !== true,
+    series: frontmatter.series,
+    seriesSlug: frontmatter.seriesSlug,
+    module: frontmatter.module,
+    chapter: frontmatter.chapter ?? frontmatter.module,
+    chapterSlug: frontmatter.chapterSlug,
+    seriesOrder: frontmatter.seriesOrder,
+    chapterOrder: frontmatter.chapterOrder ?? frontmatter.seriesOrder,
+    topicOrder: frontmatter.topicOrder,
   };
 }
 
 function readPosts(): Post[] {
   return collectMarkdownFiles(BLOG_ROOT)
     .map(parsePost)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    .sort((a, b) => {
+      return (
+        (a.seriesOrder ?? Number.MAX_SAFE_INTEGER) -
+          (b.seriesOrder ?? Number.MAX_SAFE_INTEGER) ||
+        (a.chapterOrder ?? Number.MAX_SAFE_INTEGER) -
+          (b.chapterOrder ?? Number.MAX_SAFE_INTEGER) ||
+        (a.topicOrder ?? Number.MAX_SAFE_INTEGER) -
+          (b.topicOrder ?? Number.MAX_SAFE_INTEGER) ||
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    });
 }
 
 export function getAllPosts(): Post[] {

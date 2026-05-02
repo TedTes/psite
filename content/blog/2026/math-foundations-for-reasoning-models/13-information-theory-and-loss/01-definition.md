@@ -1,5 +1,5 @@
 ---
-title: Information Theory and Loss: Definition
+title: "Information Theory and Loss: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

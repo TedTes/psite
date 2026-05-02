@@ -1,5 +1,5 @@
 ---
-title: Reasoning Models as Representation Transformation: Definition
+title: "Reasoning Models as Representation Transformation: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

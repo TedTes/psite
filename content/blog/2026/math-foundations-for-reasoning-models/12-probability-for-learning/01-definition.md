@@ -1,5 +1,5 @@
 ---
-title: Probability for Learning: Definition
+title: "Probability for Learning: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

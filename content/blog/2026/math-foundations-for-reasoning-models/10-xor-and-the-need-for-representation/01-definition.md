@@ -1,5 +1,5 @@
 ---
-title: XOR and the Need for Representation: Definition
+title: "XOR and the Need for Representation: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

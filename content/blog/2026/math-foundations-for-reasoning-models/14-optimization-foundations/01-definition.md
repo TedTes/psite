@@ -1,5 +1,5 @@
 ---
-title: Optimization Foundations: Definition
+title: "Optimization Foundations: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

@@ -1,5 +1,5 @@
 ---
-title: Vectors as Data: Definition
+title: "Vectors as Data: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

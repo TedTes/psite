@@ -1,5 +1,5 @@
 ---
-title: Neural Network Foundations: Definition
+title: "Neural Network Foundations: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

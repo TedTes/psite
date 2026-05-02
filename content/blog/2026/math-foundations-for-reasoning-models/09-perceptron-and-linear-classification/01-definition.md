@@ -1,5 +1,5 @@
 ---
-title: Perceptron and Linear Classification: Definition
+title: "Perceptron and Linear Classification: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

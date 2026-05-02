@@ -1,5 +1,5 @@
 ---
-title: Backpropagation and Training: Definition
+title: "Backpropagation and Training: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

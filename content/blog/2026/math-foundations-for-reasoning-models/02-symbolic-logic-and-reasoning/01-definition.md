@@ -1,5 +1,5 @@
 ---
-title: Symbolic Logic and Reasoning: Definition
+title: "Symbolic Logic and Reasoning: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

@@ -1,5 +1,5 @@
 ---
-title: Graphs and Computation: Definition
+title: "Graphs and Computation: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:

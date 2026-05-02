@@ -1,5 +1,5 @@
 ---
-title: Generalization and Learning Theory: Definition
+title: "Generalization and Learning Theory: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:
