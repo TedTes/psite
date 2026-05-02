@@ -3,12 +3,12 @@ title: What Is Computation?
 excerpt: Computation is rule-governed manipulation of information, symbols, or states through structured transitions.
 date: 2026-05-01
 tags:
-  - Math Foundations
+  - Foundations
   - Computation
   - Reasoning Models
 author: Tedros Tesfu
 draft: false
-series: Math Foundations for Reasoning Models
+series: Foundations for Reasoning Models
 seriesSlug: math-foundations-for-reasoning-models
 seriesOrder: 1
 chapter: Computation as State Transition

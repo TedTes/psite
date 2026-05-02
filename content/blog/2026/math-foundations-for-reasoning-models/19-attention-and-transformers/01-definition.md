@@ -3,12 +3,12 @@ title: "Attention and Transformers: Definition"
 excerpt: ""
 date: 2026-05-01
 tags:
-  - Math Foundations
+  - Foundations
   - Transformers
   - Reasoning Models
 author: Tedros Tesfu
 draft: true
-series: Math Foundations for Reasoning Models
+series: Foundations for Reasoning Models
 seriesSlug: math-foundations-for-reasoning-models
 seriesOrder: 1
 chapter: Attention and Transformers
