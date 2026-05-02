@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
-function getPreferredTheme() {
+type Theme = "light" | "dark";
+
+function getPreferredTheme(): Theme {
   if (typeof window === "undefined") {
     return "dark";
   }
@@ -18,7 +20,7 @@ function getPreferredTheme() {
     : "light";
 }
 
-function applyTheme(theme: "light" | "dark") {
+function applyTheme(theme: Theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
   document.documentElement.style.colorScheme = theme;
 }
@@ -28,9 +30,19 @@ type ThemeToggleProps = {
 };
 
 export default function ThemeToggle({ className }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<"light" | "dark">(getPreferredTheme);
+  const [theme, setTheme] = useState<Theme | null>(null);
 
   useEffect(() => {
+    const preferredTheme = getPreferredTheme();
+    setTheme(preferredTheme);
+    applyTheme(preferredTheme);
+  }, []);
+
+  useEffect(() => {
+    if (!theme) {
+      return;
+    }
+
     applyTheme(theme);
   }, [theme]);
 
@@ -66,13 +78,29 @@ export default function ThemeToggle({ className }: ThemeToggleProps) {
   }, []);
 
   function toggleTheme() {
-    const nextTheme = theme === "dark" ? "light" : "dark";
+    const currentTheme = theme ?? getPreferredTheme();
+    const nextTheme = currentTheme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
     applyTheme(nextTheme);
     window.localStorage.setItem("theme", nextTheme);
   }
 
   const isDark = theme === "dark";
+
+  if (!theme) {
+    return (
+      <button
+        onClick={toggleTheme}
+        aria-label="Toggle color theme"
+        title="Theme"
+        className={className}
+        type="button"
+      >
+        <span className="h-4 w-4" aria-hidden="true" />
+        <span className="text-xs font-medium">Theme</span>
+      </button>
+    );
+  }
 
   return (
     <button
