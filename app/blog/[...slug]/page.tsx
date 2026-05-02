@@ -1,9 +1,11 @@
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
-import { getPostBySlug, getPublicPosts } from "@/lib/posts";
+import { getPostBySlug, getPublicPosts, getSeriesData, getStandalonePosts } from "@/lib/posts";
+import type { Post } from "@/lib/posts";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ReadingProgress from "@/components/ReadingProgress";
+import SeriesLayout from "@/components/SeriesLayout";
 
 type Params = Promise<{ slug: string[] }>;
 
@@ -12,41 +14,107 @@ function slugFromParams(slug: string[]): string {
 }
 
 export async function generateStaticParams() {
-  return getPublicPosts().map((post) => ({ slug: post.slug.split("/") }));
+  const posts = getPublicPosts();
+  const seriesSlugs = [
+    ...new Set(posts.filter((p) => p.seriesSlug).map((p) => p.seriesSlug!)),
+  ];
+
+  return [
+    ...posts.map((post) => ({ slug: post.slug.split("/") })),
+    ...seriesSlugs.map((slug) => ({ slug: [slug] })),
+  ];
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Params;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slugFromParams(slug));
-  if (!post || !post.isPublic) return { title: "Post Not Found" };
-  return {
-    title: `${post.title} | Tedros Tesfu`,
-    description: post.excerpt,
-  };
+  const fullSlug = slugFromParams(slug);
+
+  const post = getPostBySlug(fullSlug);
+  if (post?.isPublic) {
+    return {
+      title: `${post.title} | Tedros Tesfu`,
+      description: post.excerpt,
+    };
+  }
+
+  if (slug.length === 1) {
+    const seriesData = getSeriesData(slug[0]);
+    if (seriesData) {
+      return {
+        title: `${seriesData.name} | Tedros Tesfu`,
+        description: `${seriesData.chapters.length} chapters covering ${seriesData.name}.`,
+      };
+    }
+  }
+
+  return { title: "Post Not Found" };
 }
 
 export default async function BlogPost({ params }: { params: Params }) {
   const { slug } = await params;
-  const postSlug = slugFromParams(slug);
-  const post = getPostBySlug(postSlug);
+  const fullSlug = slugFromParams(slug);
+  const post = getPostBySlug(fullSlug);
 
-  if (!post || !post.isPublic) notFound();
+  // Series topic — render with sidebar layout
+  if (post?.isPublic && post.seriesSlug) {
+    const seriesData = getSeriesData(post.seriesSlug);
+    if (seriesData) {
+      return (
+        <SeriesLayout
+          seriesData={seriesData}
+          currentSlug={post.slug}
+          content={post.content}
+          title={post.title}
+          excerpt={post.excerpt || undefined}
+        />
+      );
+    }
+  }
 
-  const allPosts = getPublicPosts();
-  const currentIndex = allPosts.findIndex((p) => p.slug === postSlug);
+  // Standalone post
+  if (post?.isPublic) {
+    return <StandalonePost post={post} />;
+  }
+
+  // Series page — default to the first published topic in the reader layout
+  if (slug.length === 1) {
+    const seriesData = getSeriesData(slug[0]);
+    if (seriesData) {
+      const firstTopic = seriesData.chapters
+        .flatMap((chapter) => chapter.topics)
+        .find((topic) => topic.isPublic);
+      const firstPost = firstTopic ? getPostBySlug(firstTopic.slug) : undefined;
+
+      if (firstPost?.isPublic) {
+        return (
+          <SeriesLayout
+            seriesData={seriesData}
+            currentSlug={firstPost.slug}
+            content={firstPost.content}
+            title={firstPost.title}
+            excerpt={firstPost.excerpt || undefined}
+          />
+        );
+      }
+
+      return <SeriesLayout seriesData={seriesData} />;
+    }
+  }
+
+  notFound();
+}
+
+function StandalonePost({ post }: { post: Post }) {
+  const standalonePosts = getStandalonePosts();
+  const currentIndex = standalonePosts.findIndex((p) => p.slug === post.slug);
   const nextPost =
-    currentIndex !== -1 && currentIndex < allPosts.length - 1
-      ? allPosts[currentIndex + 1]
+    currentIndex !== -1 && currentIndex < standalonePosts.length - 1
+      ? standalonePosts[currentIndex + 1]
       : null;
 
   return (
     <>
       <ReadingProgress />
-
       <main className="pt-8 sm:pt-12 pb-16 sm:pb-24">
         <article className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="mb-12">
@@ -58,7 +126,7 @@ export default async function BlogPost({ params }: { params: Params }) {
               Writing
             </Link>
 
-            <div className="flex flex-wrap gap-1.5 mb-5">
+            <div className="flex flex-wrap gap-1.5 mb-5 mt-6">
               {post.tags.map((tag) => (
                 <span
                   key={tag}
@@ -73,9 +141,7 @@ export default async function BlogPost({ params }: { params: Params }) {
               {post.title}
             </h1>
 
-            <p className="text-base leading-7 text-muted mb-6">
-              {post.excerpt}
-            </p>
+            <p className="text-base leading-7 text-muted mb-6">{post.excerpt}</p>
 
             <div className="flex flex-wrap items-center gap-3 text-xs text-muted border-t border-card-border pt-5">
               <span>{post.author}</span>
@@ -96,12 +162,10 @@ export default async function BlogPost({ params }: { params: Params }) {
             </div>
           </div>
 
-          <div>
-            <div
-              className="article-prose"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
-          </div>
+          <div
+            className="article-prose"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
           <div className="mt-16 border-t border-card-border pt-8">
             {nextPost ? (

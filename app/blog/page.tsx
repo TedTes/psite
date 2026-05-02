@@ -1,15 +1,16 @@
-import { getPublicPosts } from "@/lib/posts";
+import { getSeriesList, getStandalonePosts } from "@/lib/posts";
 import type { Metadata } from "next";
-import BlogList from "./BlogList";
+import BlogLanding from "./BlogList";
 
 export const metadata: Metadata = {
-  title: "Blog | Tedros Tesfu",
+  title: "Writing | Tedros Tesfu",
   description:
-    "Articles on product engineering, design systems, and building practical software.",
+    "Knowledge bases and articles on AI systems, math foundations, and software engineering.",
 };
 
 export default function BlogPage() {
-  const posts = getPublicPosts();
+  const series = getSeriesList();
+  const standalonePosts = getStandalonePosts();
 
-  return <BlogList posts={posts} />;
+  return <BlogLanding series={series} standalonePosts={standalonePosts} />;
 }

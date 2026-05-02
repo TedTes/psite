@@ -186,3 +186,200 @@ export function deletePost(_slug: string): boolean {
 export function isUserPost(_slug: string): boolean {
   return false;
 }
+
+// ── Series data structures ────────────────────────────────────────────────────
+
+export interface TopicMeta {
+  title: string;
+  slug: string;
+  topicOrder?: number;
+  excerpt: string;
+  isPublic: boolean;
+}
+
+export interface ChapterMeta {
+  name: string;
+  chapterSlug: string;
+  chapterOrder: number;
+  topics: TopicMeta[];
+  publicTopicCount: number;
+}
+
+export interface SeriesData {
+  name: string;
+  slug: string;
+  description: string;
+  tags: string[];
+  chapters: ChapterMeta[];
+}
+
+export interface SeriesMeta {
+  name: string;
+  slug: string;
+  description: string;
+  tags: string[];
+  chapterCount: number;
+  topicCount: number;
+}
+
+export interface TopicOutline {
+  title: string;
+  slug: string;
+  topicOrder?: number;
+  excerpt: string;
+  isPublic: boolean;
+}
+
+export interface ChapterOutline {
+  name: string;
+  chapterSlug: string;
+  chapterOrder: number;
+  topics: TopicOutline[];
+  publicTopicCount: number;
+}
+
+export interface SeriesOutline {
+  name: string;
+  slug: string;
+  chapters: ChapterOutline[];
+}
+
+export function getSeriesList(): SeriesMeta[] {
+  const posts = getAllPosts();
+  const map = new Map<
+    string,
+    { name: string; tags: Set<string>; chapters: Set<string>; topicCount: number; firstExcerpt: string }
+  >();
+
+  for (const post of posts) {
+    if (!post.seriesSlug) continue;
+    const existing = map.get(post.seriesSlug);
+    if (!existing) {
+      map.set(post.seriesSlug, {
+        name: post.series ?? post.seriesSlug,
+        tags: new Set(post.tags),
+        chapters: new Set(post.chapterSlug ? [post.chapterSlug] : []),
+        topicCount: post.isPublic ? 1 : 0,
+        firstExcerpt: post.isPublic ? post.excerpt : "",
+      });
+    } else {
+      post.tags.forEach((t) => existing.tags.add(t));
+      if (post.chapterSlug) existing.chapters.add(post.chapterSlug);
+      if (post.isPublic) existing.topicCount++;
+      if (!existing.firstExcerpt && post.isPublic) existing.firstExcerpt = post.excerpt;
+    }
+  }
+
+  return Array.from(map.entries()).map(([slug, data]) => ({
+    name: data.name,
+    slug,
+    description: data.firstExcerpt,
+    tags: Array.from(data.tags),
+    chapterCount: data.chapters.size,
+    topicCount: data.topicCount,
+  }));
+}
+
+export function getSeriesData(seriesSlug: string): SeriesData | undefined {
+  const posts = getAllPosts().filter((p) => p.seriesSlug === seriesSlug);
+  if (posts.length === 0) return undefined;
+
+  const chapterMap = new Map<string, { name: string; order: number; topics: Post[] }>();
+
+  for (const post of posts) {
+    const chSlug = post.chapterSlug ?? "__default";
+    const existing = chapterMap.get(chSlug);
+    if (!existing) {
+      chapterMap.set(chSlug, {
+        name: post.chapter ?? "General",
+        order: post.chapterOrder ?? 999,
+        topics: [post],
+      });
+    } else {
+      existing.topics.push(post);
+    }
+  }
+
+  const chapters: ChapterMeta[] = Array.from(chapterMap.entries())
+    .sort((a, b) => a[1].order - b[1].order)
+    .map(([chSlug, ch]) => ({
+      name: ch.name,
+      chapterSlug: chSlug,
+      chapterOrder: ch.order,
+      topics: ch.topics
+        .sort((a, b) => (a.topicOrder ?? 999) - (b.topicOrder ?? 999))
+        .map((t) => ({
+          title: t.title,
+          slug: t.slug,
+          topicOrder: t.topicOrder,
+          excerpt: t.excerpt,
+          isPublic: t.isPublic,
+        })),
+      publicTopicCount: ch.topics.filter((topic) => topic.isPublic).length,
+    }));
+
+  const first = posts[0];
+  return {
+    name: first.series ?? seriesSlug,
+    slug: seriesSlug,
+    description: "",
+    tags: [...new Set(posts.flatMap((p) => p.tags))],
+    chapters,
+  };
+}
+
+export function getStandalonePosts(): Post[] {
+  return getPublicPosts().filter((p) => !p.seriesSlug);
+}
+
+export function getSeriesOutline(seriesSlug: string): SeriesOutline | undefined {
+  const posts = getAllPosts().filter((p) => p.seriesSlug === seriesSlug);
+  if (posts.length === 0) return undefined;
+
+  const chapterMap = new Map<string, { name: string; order: number; topics: Post[] }>();
+
+  for (const post of posts) {
+    const chSlug = post.chapterSlug ?? "__default";
+    const existing = chapterMap.get(chSlug);
+
+    if (!existing) {
+      chapterMap.set(chSlug, {
+        name: post.chapter ?? "General",
+        order: post.chapterOrder ?? 999,
+        topics: [post],
+      });
+    } else {
+      existing.topics.push(post);
+    }
+  }
+
+  const chapters: ChapterOutline[] = Array.from(chapterMap.entries())
+    .sort((a, b) => a[1].order - b[1].order)
+    .map(([chapterSlug, chapter]) => {
+      const topics = chapter.topics
+        .sort((a, b) => (a.topicOrder ?? 999) - (b.topicOrder ?? 999))
+        .map((topic) => ({
+          title: topic.title,
+          slug: topic.slug,
+          topicOrder: topic.topicOrder,
+          excerpt: topic.excerpt,
+          isPublic: topic.isPublic,
+        }));
+
+      return {
+        name: chapter.name,
+        chapterSlug,
+        chapterOrder: chapter.order,
+        topics,
+        publicTopicCount: topics.filter((topic) => topic.isPublic).length,
+      };
+    });
+
+  const first = posts[0];
+
+  return {
+    name: first.series ?? seriesSlug,
+    slug: seriesSlug,
+    chapters,
+  };
+}

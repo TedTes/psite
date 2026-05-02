@@ -1,9 +1,9 @@
-import Hero from "@/components/Hero";
+import BlogLanding from "@/app/blog/BlogList";
+import { getSeriesList, getStandalonePosts } from "@/lib/posts";
 
 export default function Home() {
-  return (
-    <main>
-      <Hero />
-    </main>
-  );
+  const series = getSeriesList();
+  const standalonePosts = getStandalonePosts();
+
+  return <BlogLanding series={series} standalonePosts={standalonePosts} />;
 }
