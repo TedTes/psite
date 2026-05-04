@@ -1,5 +1,5 @@
 ---
-title: Computability
+title: Write Operation
 excerpt: ""
 date: 2026-05-01
 tags:
@@ -14,5 +14,5 @@ seriesOrder: 1
 chapter: Computation as State Transition
 chapterSlug: computation-as-state-transition
 chapterOrder: 1
-topicOrder: 7
+topicOrder: 11
 ---
