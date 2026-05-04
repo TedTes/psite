@@ -237,36 +237,6 @@ It is about the full structure of possible steps.
 
 > A transition relation describes all allowed state-to-state movements.
 
-## Configuration Transitions
-
-In formal computation, transitions often move from one configuration to another.
-
-A configuration includes more than raw data.
-
-It may include:
-
-- current state
-- current position in execution
-- memory contents
-- tape position
-- active instruction
-
-Example:
-
-```text
-(state = q1, tape = 101, head = position 2)
-  ->
-(state = q2, tape = 111, head = position 3)
-```
-
-This prepares the idea of a Turing machine.
-
-A Turing machine does not merely transform values.
-
-It moves from one full machine configuration to another.
-
-> Formal computation is often described as transitions between configurations.
-
 ## Final Summary
 
 - A transition is a change from one state to another.
@@ -279,4 +249,3 @@ It moves from one full machine configuration to another.
 - Some transitions lead to terminal states.
 - Transition sequences can progress, cycle, or terminate.
 - A transition relation describes all allowed transitions.
-- In formal computation, transitions often occur between configurations.
