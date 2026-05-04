@@ -59,7 +59,7 @@ export default function SeriesLayout({
   const sidebar = (
     <nav className="p-5 pt-6">
       <Link
-        href="/blog"
+        href="/"
         className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent mb-6 transition-colors"
       >
         <ArrowLeft size={11} />
