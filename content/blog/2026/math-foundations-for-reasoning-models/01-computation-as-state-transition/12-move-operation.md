@@ -147,10 +147,10 @@ Example:
 Tape contents:
 [1] [0] [1]
 
-State A:
+First position state:
 current position = first cell
 
-State B:
+Second position state:
 current position = second cell
 ```
 

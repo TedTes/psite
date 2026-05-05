@@ -53,7 +53,7 @@ Example:
 ```text
 Tape: [1] [0] [1]
           ^
-Current control state: A
+Current control state: scanning
 ```
 
 The tape contains memory.
@@ -73,7 +73,7 @@ Control state is one part of the system's current situation.
 Example:
 
 ```text
-Control state: A
+Control state: scanning
 Tape: [1] [0] [1]
 Position: second cell
 ```
@@ -81,10 +81,10 @@ Position: second cell
 The control state is:
 
 ```text
-A
+scanning
 ```
 
-But the full system situation includes more than `A`.
+But the full system situation includes more than `scanning`.
 
 It also includes the tape contents and current position.
 
@@ -99,7 +99,7 @@ Finite control has a limited number of possible control states.
 Example:
 
 ```text
-Control states: {A, B, C}
+Control states: {scanning, returning, halted}
 ```
 
 At any moment, the system is in one of those control states.
@@ -107,7 +107,7 @@ At any moment, the system is in one of those control states.
 Example:
 
 ```text
-Current control state: A
+Current control state: scanning
 ```
 
 Finite control means the number of control states is finite.
@@ -125,13 +125,13 @@ The same read symbol can lead to different behavior depending on the current con
 Example:
 
 ```text
-Current control state: A
+Current control state: scanning
 Read symbol: 0
-Action: write 1, move right, go to B
+Action: write 1, move right, go to returning
 
-Current control state: B
+Current control state: returning
 Read symbol: 0
-Action: write 0, move left, go to A
+Action: write 0, move left, go to scanning
 ```
 
 The read symbol is the same: `0`.
@@ -159,16 +159,16 @@ Example:
 Concrete example:
 
 ```text
-(A, 0) -> (write 1, move right, next state B)
+(scanning, 0) -> (write 1, move right, next state returning)
 ```
 
 This means:
 
-- if the control state is `A`
+- if the control state is `scanning`
 - and the read symbol is `0`
 - then write `1`
 - move right
-- change control state to `B`
+- change control state to `returning`
 
 > The current control state and the read symbol together determine which rule applies.
 
@@ -185,16 +185,16 @@ A transition rule defines what to do for a given control state and read symbol.
 Example:
 
 ```text
-Current control state: A
+Current control state: scanning
 Read symbol: 0
 
 Rule:
-(A, 0) -> (write 1, move right, next state B)
+(scanning, 0) -> (write 1, move right, next state returning)
 ```
 
-The control state is `A`.
+The control state is `scanning`.
 
-The rule uses `A` and `0` to select the next action.
+The rule uses `scanning` and `0` to select the next action.
 
 > Finite control provides internal context. Transition rules define valid next steps.
 
@@ -205,22 +205,22 @@ The rule uses `A` and `0` to select the next action.
 Suppose the finite control has two states:
 
 ```text
-{A, B}
+{scanning, returning}
 ```
 
 Rules:
 
 ```text
-(A, 0) -> (write 1, move right, next state B)
-(A, 1) -> (write 0, move left, next state A)
-(B, 0) -> (write 0, move right, next state B)
-(B, 1) -> (write 1, move left, next state A)
+(scanning, 0) -> (write 1, move right, next state returning)
+(scanning, 1) -> (write 0, move left, next state scanning)
+(returning, 0) -> (write 0, move right, next state returning)
+(returning, 1) -> (write 1, move left, next state scanning)
 ```
 
 If the current situation is:
 
 ```text
-Control state: A
+Control state: scanning
 Tape: [1] [0] [1]
           ^
 Read symbol: 0
@@ -229,7 +229,7 @@ Read symbol: 0
 Then the applicable rule is:
 
 ```text
-(A, 0) -> (write 1, move right, next state B)
+(scanning, 0) -> (write 1, move right, next state returning)
 ```
 
 The next step updates:
@@ -249,7 +249,7 @@ The word finite means the system has only a limited set of internal control stat
 Example:
 
 ```text
-{A, B, C}
+{scanning, returning, halted}
 ```
 
 The system cannot invent a new control state unless it was already part of the defined set.
@@ -274,10 +274,10 @@ It only follows defined rules.
 Example:
 
 ```text
-(A, 0) -> (write 1, move right, next state B)
+(scanning, 0) -> (write 1, move right, next state returning)
 ```
 
-The system does not need to know what `0`, `1`, `A`, or `B` mean to a person.
+The system does not need to know what `0`, `1`, `scanning`, or `returning` mean to a person.
 
 It only needs distinguishable symbols and defined rules.
 
