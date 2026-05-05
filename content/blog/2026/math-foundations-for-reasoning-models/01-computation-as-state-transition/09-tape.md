@@ -185,6 +185,88 @@ The symbol at that position changed from `0` to `1`.
 
 ---
 
+## Why Not Just Reverse The Rule?
+
+Sometimes the current state preserves enough information to recover a previous state.
+
+Example:
+
+```text
+Rule: x -> x + 1
+
+2 -> 3
+```
+
+If the rule is known, the previous value can be recovered:
+
+```text
+previous value = current value - 1
+previous value = 3 - 1
+previous value = 2
+```
+
+In this simple case, a separate tape is not necessary.
+
+The current state already carries enough information.
+
+But this does not always work.
+
+Example:
+
+```text
+Rule: is even?
+
+5 -> false
+7 -> false
+9 -> false
+```
+
+From `false`, the system cannot recover whether the original input was `5`, `7`, or `9`.
+
+The rule lost information.
+
+If that earlier value is needed later, it must be stored somewhere.
+
+> Tape is useful when the current state alone does not preserve enough information.
+
+---
+
+## When Tape Becomes Useful
+
+Tape is not required for every computation.
+
+Tape becomes useful when the system needs explicit structured memory.
+
+Common reasons:
+
+- the system needs to store more than one value
+- the system needs information that cannot be recovered from the current value
+- a rule loses information during computation
+- the system needs a structured workspace
+- the system needs to read and write different positions over time
+
+Example:
+
+```text
+Current value: false
+Stored tape: [5] [false]
+```
+
+The current value `false` does not preserve the original input.
+
+The tape can preserve it in another position.
+
+This gives the system access to both:
+
+```text
+original value: 5
+computed result: false
+```
+
+> Tape provides explicit memory when reversing the rule is not enough.
+
+---
+
 ## Extendable Tape
 
 In theoretical models, the tape may be treated as extendable without a fixed limit.
@@ -263,12 +345,13 @@ It shows:
 - why current position matters
 - how memory can be accessed locally
 - how a system can process a larger structure step by step
+- why information can be preserved even when a rule loses information
 
 The tape is not the only possible model of memory.
 
 But it is a clear model for understanding computation as state transition.
 
-> Tape makes memory concrete: stored symbols, positions, and local access.
+> Tape makes memory concrete: stored symbols, positions, local access, and explicit preservation.
 
 ---
 
@@ -282,5 +365,7 @@ But it is a clear model for understanding computation as state transition.
 - Tape contents and current position are different parts of the model.
 - The system usually accesses one position at a time.
 - Tape contents can change across computation.
+- Tape is not required when the current state already preserves enough information.
+- Tape is useful when information must be stored explicitly instead of recovered by reversing a rule.
 - The tape may be treated as extendable in theoretical models.
 - Read, write, and move are operations on the tape, but each will be explained separately.
