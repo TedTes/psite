@@ -1,6 +1,6 @@
 ---
-title: "Bridge from Symbols to Continuous Values"
-excerpt: "Algebra connects symbolic structure to numerical values, including continuous quantities."
+title: "Bridge from Symbolic Structure to Numerical Values"
+excerpt: "Algebra connects symbolic structure to numerical values that can become data components."
 date: 2026-05-01
 tags:
   - Foundations
@@ -17,7 +17,7 @@ chapterOrder: 5
 topicOrder: 17
 ---
 
-# Bridge From Symbols To Continuous Values
+# Bridge From Symbolic Structure To Numerical Values
 
 ## What This Chapter Built
 
@@ -154,5 +154,5 @@ Algebra connects them by giving rules that operate on values.
 - Expressions describe numerical rules.
 - Discrete values represent separate possibilities.
 - Continuous values represent measurable quantities.
-- Algebra connects structure, value, and transformation.
-- The next chapter uses numerical values as data components.
+- Algebra connects symbolic structure, value, and transformation.
+- The next chapter organizes numerical values into vector data.
