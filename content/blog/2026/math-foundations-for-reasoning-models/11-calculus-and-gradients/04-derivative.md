@@ -1,6 +1,6 @@
 ---
-title: "Derivative"
-excerpt: "A derivative measures how a function output changes with respect to its input at a point."
+title: "Derivative (First Derivative)"
+excerpt: "The first derivative measures how a function output changes with respect to its input at a point."
 date: 2026-05-01
 tags:
   - Foundations
@@ -17,11 +17,13 @@ chapterOrder: 11
 topicOrder: 4
 ---
 
-# Derivative
+# Derivative (First Derivative)
 
 ## Definition
 
-A derivative measures how a function output changes with respect to its input at a point.
+The first derivative measures how a function output changes with respect to its input at a point.
+
+When people say "the derivative" without extra detail, they usually mean the first derivative.
 
 Basic question:
 
@@ -29,7 +31,7 @@ Basic question:
 If x changes a little, how does f(x) change?
 ```
 
-> Derivative = local rate of change.
+> First derivative = local rate of change.
 
 ---
 
@@ -58,6 +60,38 @@ change in output / change in input
 The derivative asks what happens when the input change becomes extremely small.
 
 > A derivative is the limiting version of average change.
+
+---
+
+## First Derivative vs Later Derivatives
+
+The first derivative measures change in the original function.
+
+Example:
+
+```text
+f'(x)
+```
+
+means:
+
+```text
+local rate of change of f(x)
+```
+
+A second derivative appears later and measures how the first derivative changes.
+
+```text
+f''(x)
+```
+
+means:
+
+```text
+rate of change of f'(x)
+```
+
+> First derivative measures change; second derivative measures change of change.
 
 ---
 
@@ -95,7 +129,7 @@ If `x` increases by `0.1`, output increases by `0.2`.
 
 The output always changes twice as much as the input.
 
-Derivative:
+First derivative:
 
 ```text
 f'(x) = 2
@@ -117,7 +151,7 @@ Near `x = 1`, the function changes moderately.
 
 Near `x = 10`, the function changes much faster.
 
-Derivative:
+First derivative:
 
 ```text
 f'(x) = 2x
@@ -180,8 +214,9 @@ If we know the direction of change, we can later choose updates more intelligent
 
 ## Final Summary
 
-- A derivative measures local rate of change.
+- The first derivative measures local rate of change.
 - It comes from shrinking average change toward an instant.
 - It can be positive, negative, or zero.
 - It can vary from point to point.
-- Derivatives help measure how outputs respond to input or parameter changes.
+- When people say "derivative" by default, they usually mean first derivative.
+- First derivatives help measure how outputs respond to input or parameter changes.
