@@ -30,13 +30,9 @@ type ThemeToggleProps = {
 };
 
 export default function ThemeToggle({ className }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<Theme | null>(null);
-
-  useEffect(() => {
-    const preferredTheme = getPreferredTheme();
-    setTheme(preferredTheme);
-    applyTheme(preferredTheme);
-  }, []);
+  const [theme, setTheme] = useState<Theme | null>(() =>
+    typeof window === "undefined" ? null : getPreferredTheme()
+  );
 
   useEffect(() => {
     if (!theme) {

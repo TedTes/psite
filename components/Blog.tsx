@@ -1,4 +1,4 @@
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import { getPublicPosts } from "@/lib/posts";
 import Link from "next/link";
 

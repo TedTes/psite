@@ -1,14 +1,3 @@
-import {
-  User,
-  Briefcase,
-  GraduationCap,
-  MapPin,
-  Mail,
-  Github,
-  Linkedin,
-  Twitter,
-  Download,
-} from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,30 +8,28 @@ export const metadata: Metadata = {
 
 const background = [
   {
-    role: "Product Engineering",
-    company: "Independent Work",
-    period: "Current Focus",
+    label: "Current Focus",
+    title: "Product Engineering",
     description:
-      "Partnering with teams to take products from rough idea to production-ready release, with strong focus on product velocity and system reliability.",
+      "Taking software products from rough idea to production-ready release, with attention to product velocity, maintainability, and user-facing polish.",
   },
   {
-    role: "Platform & UX Systems",
-    company: "Product Teams",
-    period: "Core Strength",
+    label: "Core Strength",
+    title: "Platform and UX Systems",
     description:
-      "Designing and implementing reusable UI systems, data-heavy interfaces, and maintainable frontend architecture for fast-moving products.",
+      "Designing reusable interfaces, data-heavy workflows, and frontend architecture that can keep moving as a product grows.",
   },
   {
-    role: "Delivery Leadership",
-    company: "Cross-Functional Collaboration",
-    period: "Operating Style",
+    label: "Operating Style",
+    title: "Delivery Leadership",
     description:
-      "Working closely with design, product, and engineering to define scope, ship meaningful milestones, and keep product quality high.",
+      "Working across design, product, and engineering to define scope clearly, ship useful milestones, and keep quality visible.",
   },
 ];
 
 const skills = [
-  "React / Next.js",
+  "React",
+  "Next.js",
   "TypeScript",
   "Node.js",
   "PostgreSQL",
@@ -56,132 +43,89 @@ const skills = [
   "Figma",
 ];
 
+const links = [
+  { label: "Email", value: "tedtfu@gmail.com", href: "mailto:tedtfu@gmail.com" },
+  { label: "GitHub", value: "TedTes", href: "https://github.com/TedTes" },
+  {
+    label: "LinkedIn",
+    value: "tedrostesfu",
+    href: "https://linkedin.com/in/tedrostesfu",
+  },
+];
+
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
-      <main className="pt-8 sm:pt-12 pb-16 sm:pb-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row gap-8 items-start mb-16">
-            <div className="w-20 h-20 rounded-2xl bg-accent/10 border border-card-border flex items-center justify-center shrink-0">
-              <User size={32} className="text-accent" />
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
-                About <span className="text-accent">Me</span>
-              </h1>
-              <p className="text-muted leading-relaxed max-w-2xl">
-                I&apos;m Tedros Tesfu. I work at the intersection of product,
-                engineering, and design to build software that is clear, useful,
-                and ready for real users. My focus is turning ideas into
-                working products with strong foundations for growth.
-              </p>
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 text-sm text-muted">
-                <span className="inline-flex items-center gap-1.5">
-                  <MapPin size={14} />
-                  San Francisco, CA
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Mail size={14} />
-                  alex@example.com
-                </span>
-              </div>
-            </div>
-          </div>
+    <main className="site-content">
+      <div className="site-content__inner">
+        <header className="content-header">
+          <h1 className="content-title">About</h1>
+          <p className="content-lede">
+            I work at the intersection of product, engineering, and design to
+            build software that is clear, useful, and ready for real users.
+          </p>
+        </header>
 
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-            {/* Left: Background */}
-            <div className="md:col-span-2">
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <Briefcase size={18} className="text-accent" />
-                Background
-              </h2>
-              <div className="space-y-6">
-                {background.map((job, i) => (
-                  <div
-                    key={i}
-                    className="bg-card border border-card-border rounded-xl p-5 animate-fade-in-up"
-                    style={{ animationDelay: `${i * 100}ms`, opacity: 0 }}
-                  >
-                    <div className="flex items-start justify-between gap-4 mb-2">
-                      <div>
-                        <h3 className="font-semibold">{job.role}</h3>
-                        <p className="text-sm text-accent">{job.company}</p>
-                      </div>
-                      <span className="text-xs text-muted shrink-0">
-                        {job.period}
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted leading-relaxed">
-                      {job.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Education */}
-              <h2 className="text-xl font-bold mt-12 mb-6 flex items-center gap-2">
-                <GraduationCap size={18} className="text-accent" />
-                Education
-              </h2>
-              <div className="bg-card border border-card-border rounded-xl p-5">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="font-semibold">B.S. Computer Science</h3>
-                    <p className="text-sm text-accent">
-                      University of California
-                    </p>
-                  </div>
+        <section>
+          <h2 className="section-title">Background</h2>
+          <div className="content-list">
+            {background.map((item) => (
+              <article key={item.title} className="content-row">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+                  <h3 className="content-row-title">{item.title}</h3>
+                  <span className="content-meta">{item.label}</span>
                 </div>
-              </div>
-            </div>
-
-            {/* Right sidebar: Skills + Links */}
-            <div>
-              <h2 className="text-xl font-bold mb-6">Skills</h2>
-              <div className="flex flex-wrap gap-2 mb-10">
-                {skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="text-xs bg-accent/10 text-accent px-3 py-1.5 rounded-full font-medium"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-
-              <h2 className="text-xl font-bold mb-4">Connect</h2>
-              <div className="space-y-3">
-                {[
-                  { icon: Github, label: "GitHub", href: "#" },
-                  { icon: Linkedin, label: "LinkedIn", href: "#" },
-                  { icon: Twitter, label: "Twitter", href: "#" },
-                ].map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="flex items-center gap-3 text-sm text-muted hover:text-accent transition-colors"
-                  >
-                    <link.icon size={16} />
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-
-              <div className="mt-8">
-                <a
-                  href="/resume.pdf"
-                  download
-                  className="inline-flex items-center gap-2 text-sm bg-accent hover:bg-accent-hover text-white px-4 py-2.5 rounded-lg font-medium transition-colors"
-                >
-                  <Download size={14} />
-                  Download Resume
-                </a>
-              </div>
-            </div>
+                <p className="content-row-copy">{item.description}</p>
+              </article>
+            ))}
           </div>
+        </section>
+
+        <section className="content-section">
+          <h2 className="section-title">Skills</h2>
+          <div className="flex flex-wrap gap-1.5">
+            {skills.map((skill) => (
+              <span key={skill} className="content-tag">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section className="content-section">
+          <h2 className="section-title">Connect</h2>
+          <div className="content-list">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={
+                  link.href.startsWith("mailto:")
+                    ? undefined
+                    : "noopener noreferrer"
+                }
+                className="group content-row"
+              >
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="content-row-title transition-colors group-hover:text-accent">
+                    {link.label}
+                  </span>
+                  <span className="text-sm text-muted">{link.value}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <div className="content-section">
+          <a
+            href="/resume.pdf"
+            className="text-sm font-medium text-accent hover:underline"
+          >
+            Resume →
+          </a>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

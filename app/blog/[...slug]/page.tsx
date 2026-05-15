@@ -115,9 +115,9 @@ function StandalonePost({ post }: { post: Post }) {
   return (
     <>
       <ReadingProgress />
-      <main className="pt-8 sm:pt-12 pb-16 sm:pb-24">
-        <article className="mx-auto max-w-3xl px-4 sm:px-6">
-          <div className="mb-12">
+      <main className="site-content">
+        <article className="site-content__inner">
+          <header className="content-header">
             <Link
               href="/blog"
               className="mb-8 inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
@@ -128,22 +128,17 @@ function StandalonePost({ post }: { post: Post }) {
 
             <div className="flex flex-wrap gap-1.5 mb-5 mt-6">
               {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-accent/10 px-2.5 py-0.5 text-xs text-accent rounded"
-                >
+                <span key={tag} className="content-tag">
                   {tag}
                 </span>
               ))}
             </div>
 
-            <h1 className="text-3xl font-black leading-tight sm:text-4xl md:text-5xl tracking-tight mb-5">
-              {post.title}
-            </h1>
+            <h1 className="content-title">{post.title}</h1>
 
-            <p className="text-base leading-7 text-muted mb-6">{post.excerpt}</p>
+            <p className="content-lede">{post.excerpt}</p>
 
-            <div className="flex flex-wrap items-center gap-3 text-xs text-muted border-t border-card-border pt-5">
+            <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-card-border pt-5 text-xs text-muted">
               <span>{post.author}</span>
               <span className="text-card-border">·</span>
               <span className="inline-flex items-center gap-1">
@@ -160,7 +155,7 @@ function StandalonePost({ post }: { post: Post }) {
                 {post.readTime}
               </span>
             </div>
-          </div>
+          </header>
 
           <div
             className="article-prose"
@@ -179,10 +174,10 @@ function StandalonePost({ post }: { post: Post }) {
                 </Link>
                 <Link
                   href={`/blog/${nextPost.slug}`}
-                  className="group flex-1 sm:max-w-sm bg-card border border-card-border rounded-xl p-5 hover:border-accent/50 transition-colors text-right"
+                  className="group content-panel flex-1 text-right transition-colors hover:border-accent/50 sm:max-w-sm"
                 >
                   <p className="text-xs text-muted mb-1.5">Next article</p>
-                  <p className="text-sm font-semibold group-hover:text-accent transition-colors leading-snug">
+                  <p className="content-row-title group-hover:text-accent transition-colors">
                     {nextPost.title}
                   </p>
                 </Link>

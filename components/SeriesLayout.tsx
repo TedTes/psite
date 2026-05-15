@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronRight, ChevronDown, Menu, X, ArrowLeft, BookOpen, Lock } from "lucide-react";
 import type { SeriesData, TopicMeta } from "@/lib/posts";
@@ -32,10 +32,6 @@ export default function SeriesLayout({
     return new Set<string>();
   });
 
-  useEffect(() => {
-    setSidebarOpen(false);
-  }, [currentSlug]);
-
   function toggleChapter(slug: string) {
     const chapter = seriesData.chapters.find((ch) => ch.chapterSlug === slug);
     if (!chapter || chapter.publicTopicCount === 0) return;
@@ -59,7 +55,8 @@ export default function SeriesLayout({
   const sidebar = (
     <nav className="p-5 pt-6">
       <Link
-        href="/"
+        href="/blog"
+        onClick={() => setSidebarOpen(false)}
         className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-accent mb-6 transition-colors"
       >
         <ArrowLeft size={11} />
@@ -69,6 +66,7 @@ export default function SeriesLayout({
       <div className="mb-5">
         <Link
           href={`/blog/${seriesData.slug}`}
+          onClick={() => setSidebarOpen(false)}
           className="text-sm font-semibold leading-snug hover:text-accent transition-colors block"
         >
           {seriesData.name}
@@ -133,6 +131,7 @@ export default function SeriesLayout({
                       <Link
                         key={topic.slug}
                         href={`/blog/${topic.slug}`}
+                        onClick={() => setSidebarOpen(false)}
                         className={`block py-1 px-2 rounded text-xs leading-snug transition-colors ${
                           topic.slug === currentSlug
                             ? "bg-accent/10 text-accent font-medium"
@@ -198,9 +197,9 @@ export default function SeriesLayout({
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 min-w-0 px-6 sm:px-10 lg:px-14 py-8 lg:py-12">
+        <main className="site-content site-content--reader flex-1 min-w-0">
           {content ? (
-            <article className="max-w-2xl">
+            <article className="site-content__inner">
               {activeChapter && (
                 <p className="text-xs text-muted mb-5">
                   <Link
@@ -214,11 +213,9 @@ export default function SeriesLayout({
                 </p>
               )}
 
-              <h1 className="text-3xl font-black leading-tight sm:text-4xl tracking-tight mb-4">
-                {title}
-              </h1>
+              <h1 className="content-title mb-4">{title}</h1>
               {excerpt && (
-                <p className="text-base leading-7 text-muted mb-8 border-b border-card-border pb-8">
+                <p className="content-lede mb-8 border-b border-card-border pb-8">
                   {excerpt}
                 </p>
               )}
@@ -258,7 +255,7 @@ export default function SeriesLayout({
             </article>
           ) : (
             /* Series overview */
-            <div className="max-w-2xl">
+            <div className="site-content__inner">
               <div className="flex items-center gap-2 text-xs text-muted mb-5">
                 <BookOpen size={13} />
                 <span>
@@ -267,17 +264,12 @@ export default function SeriesLayout({
                 </span>
               </div>
 
-              <h1 className="text-3xl font-black sm:text-4xl tracking-tight mb-4">
-                {seriesData.name}
-              </h1>
+              <h1 className="content-title mb-4">{seriesData.name}</h1>
 
               {seriesData.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mb-8">
                   {seriesData.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs bg-accent/10 text-accent px-2 py-0.5 rounded"
-                    >
+                    <span key={tag} className="content-tag">
                       {tag}
                     </span>
                   ))}
@@ -288,11 +280,11 @@ export default function SeriesLayout({
                 {seriesData.chapters.map((ch) => (
                   <div
                     key={ch.chapterSlug}
-                    className={`border border-card-border rounded-lg p-4 transition-colors ${
+                    className={`content-panel transition-colors ${
                       ch.publicTopicCount > 0 ? "hover:border-accent/30" : "opacity-50"
                     }`}
                   >
-                    <h2 className="text-sm font-semibold mb-2">
+                    <h2 className="content-row-title mb-2">
                       {ch.chapterOrder < 999 ? `${ch.chapterOrder}. ` : ""}
                       {ch.name}
                     </h2>

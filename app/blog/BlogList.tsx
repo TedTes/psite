@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen, ExternalLink, FileText, Github } from "lucide-react";
 import { projects } from "@/data/projects";
 import type { SeriesMeta, Post } from "@/lib/posts";
 
 interface BlogLandingProps {
   series: SeriesMeta[];
-  standalonePosts: Pick<Post, "slug" | "title" | "excerpt" | "date" | "readTime" | "tags">[];
+  standalonePosts: Pick<
+    Post,
+    "slug" | "title" | "excerpt" | "date" | "readTime" | "tags"
+  >[];
   showProjects?: boolean;
 }
 
@@ -15,176 +17,157 @@ const visibleProjects = projects.filter(
   (project) => project.live !== "#" || project.github !== "#"
 );
 
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return date
+    .toLocaleDateString("en-US", { month: "short", year: "numeric" })
+    .toUpperCase();
+}
+
+function formatReadTime(readTime: string): string {
+  return readTime.replace(" read", "").toUpperCase();
+}
+
 export default function BlogLanding({
   series,
   standalonePosts,
   showProjects = false,
 }: BlogLandingProps) {
+  const recentPosts = [...standalonePosts].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
   return (
-    <main className="pt-8 sm:pt-12 pb-16 sm:pb-24">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <div>
-          {series.length > 0 && (
-            <section className="mb-14">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-muted mb-6">
-                Structured Series
-              </h2>
-              <div className="flex flex-col gap-3">
-                {series.map((s) => (
-                  <Link
-                    key={s.slug}
-                    href={`/blog/${s.slug}`}
-                    className="group flex items-start gap-4 p-4 rounded-lg border border-card-border hover:border-accent/40 hover:bg-card transition-all"
+    <main className="site-content">
+      <div className="site-content__inner">
+        {showProjects ? (
+          <h1 className="sr-only">Tedros Tesfu</h1>
+        ) : (
+          <header className="content-header">
+            <h1 className="content-title">Writing</h1>
+            <p className="content-lede">
+              Product engineering notes, AI systems writing, and selected project work.
+            </p>
+          </header>
+        )}
+
+        {recentPosts.length > 0 && (
+          <section>
+            <div className="content-list">
+              {recentPosts.map((post, index) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group content-row"
+                >
+                  <p className="content-meta mb-3">
+                    {formatDate(post.date)} · {formatReadTime(post.readTime)}
+                  </p>
+                  <h3
+                    className={`transition-colors group-hover:text-accent ${
+                      index === 0 ? "content-feature-title" : "content-row-title"
+                    }`}
                   >
-                    <BookOpen
-                      size={15}
-                      className="mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-start justify-between gap-2 mb-1">
-                        <h3 className="text-sm font-semibold group-hover:text-accent transition-colors leading-snug">
-                          {s.name}
+                    {post.title}
+                  </h3>
+                  <p className="content-row-copy mt-3">{post.excerpt}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {series.length > 0 && (
+          <section className="content-section">
+            <div className="content-list">
+              {series.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/blog/${item.slug}`}
+                  className="group content-row"
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <h3 className="content-row-title transition-colors group-hover:text-accent">
+                          {item.name}
                         </h3>
-                        <ArrowRight
-                          size={13}
-                          className="flex-shrink-0 mt-0.5 text-muted group-hover:text-accent transition-colors"
-                        />
+                        <span className="content-meta">
+                          {item.topicCount} published
+                        </span>
                       </div>
-                      <p className="text-xs text-muted">
-                        {s.chapterCount} {s.chapterCount === 1 ? "chapter" : "chapters"} ·{" "}
-                        {s.topicCount} {s.topicCount === 1 ? "topic" : "topics"}
-                      </p>
-                      {s.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {s.tags.slice(0, 4).map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs bg-accent/10 text-accent px-1.5 py-0.5 rounded"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
+                      {item.description && (
+                        <p className="content-row-copy">{item.description}</p>
                       )}
                     </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {standalonePosts.length > 0 && (
-            <section>
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-muted mb-6">
-                Standalone Notes
-              </h2>
-              <div className="flex flex-col divide-y divide-card-border">
-                {standalonePosts.map((post) => (
-                  <Link
-                    key={post.slug}
-                    href={`/blog/${post.slug}`}
-                    className="group py-5 first:pt-0 flex items-start gap-4"
-                  >
-                    <FileText
-                      size={14}
-                      className="mt-0.5 flex-shrink-0 text-muted group-hover:text-accent transition-colors"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <h3 className="text-sm font-semibold group-hover:text-accent transition-colors leading-snug mb-1">
-                        {post.title}
-                      </h3>
-                      <p className="text-xs text-muted line-clamp-1 mb-2">{post.excerpt}</p>
-                      <div className="flex gap-3 text-xs text-muted">
-                        <span>
-                          {new Date(post.date).toLocaleDateString("en-US", {
-                            month: "short",
-                            year: "numeric",
-                          })}
+                  </div>
+                  {item.tags.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {item.tags.slice(0, 4).map((tag) => (
+                        <span key={tag} className="content-tag">
+                          {tag}
                         </span>
-                        <span>{post.readTime}</span>
-                      </div>
+                      ))}
                     </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          )}
+                  )}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
-          {showProjects && visibleProjects.length > 0 && (
-            <section className="mt-14">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-muted mb-6">
-                Projects
-              </h2>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {visibleProjects.slice(0, 4).map((project) => {
-                  const projectUrl = project.live !== "#" ? project.live : project.github;
+        {showProjects && visibleProjects.length > 0 && (
+          <section className="content-section">
+            <div className="mb-4 flex items-baseline justify-between gap-4">
+              <h2 className="content-section-heading">Projects</h2>
+              <Link href="/projects" className="text-sm text-accent hover:underline">
+                See all →
+              </Link>
+            </div>
 
-                  function openProject() {
-                    window.open(projectUrl, "_blank", "noopener,noreferrer");
-                  }
+            <div className="content-list">
+              {visibleProjects.slice(0, 3).map((project) => (
+                <div key={project.slug} className="content-row">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="min-w-0">
+                      <h3 className="content-project-title">{project.title}</h3>
+                      <p className="content-row-copy">{project.description}</p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2 text-xs text-muted">
+                      {project.live !== "#" && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          Live
+                        </a>
+                      )}
+                      {project.live !== "#" && project.github !== "#" && (
+                        <span className="opacity-40">·</span>
+                      )}
+                      {project.github !== "#" && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-foreground transition-colors"
+                        >
+                          Code
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
-                  return (
-                    <article
-                      key={project.slug}
-                      role="link"
-                      tabIndex={0}
-                      onClick={openProject}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                          event.preventDefault();
-                          openProject();
-                        }
-                      }}
-                      className="group cursor-pointer rounded-lg border border-card-border p-4 transition-colors hover:border-accent/40 hover:bg-card focus:outline-none focus:ring-2 focus:ring-accent/30"
-                    >
-                      <h3 className="mb-2 text-sm font-semibold leading-snug">
-                        {project.title}
-                      </h3>
-                      <p className="mb-3 line-clamp-2 text-xs leading-5 text-muted">
-                        {project.description}
-                      </p>
-                      <div className="mb-4 flex flex-wrap gap-1">
-                        {project.tags.slice(0, 3).map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded bg-card-border/60 px-1.5 py-0.5 text-xs text-muted"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="flex items-center gap-3 text-xs text-muted">
-                        {project.live !== "#" && (
-                          <span className="inline-flex items-center gap-1.5 transition-colors group-hover:text-accent">
-                            <ExternalLink size={12} />
-                            Live
-                          </span>
-                        )}
-                        {project.github !== "#" && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(event) => event.stopPropagation()}
-                            onKeyDown={(event) => event.stopPropagation()}
-                            className="inline-flex items-center gap-1.5 transition-colors hover:text-accent"
-                          >
-                            <Github size={12} />
-                            Code
-                          </a>
-                        )}
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {series.length === 0 && standalonePosts.length === 0 && (
-            <p className="text-sm text-muted">Nothing published yet.</p>
-          )}
-        </div>
+        {series.length === 0 && standalonePosts.length === 0 && (
+          <p className="text-sm text-muted">Nothing published yet.</p>
+        )}
       </div>
     </main>
   );
