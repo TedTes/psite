@@ -44,7 +44,7 @@ export default function BlogLanding({
           <h1 className="sr-only">Tedros Tesfu</h1>
         ) : (
           <header className="content-header">
-            <h1 className="content-title">Writing</h1>
+            <h1 className="sr-only">Writing</h1>
             <p className="content-lede">
               Product engineering notes, AI systems writing, and selected project work.
             </p>

@@ -58,7 +58,7 @@ export default function AboutPage() {
     <main className="site-content">
       <div className="site-content__inner">
         <header className="content-header">
-          <h1 className="content-title">About</h1>
+          <h1 className="sr-only">About</h1>
           <p className="content-lede">
             I work at the intersection of product, engineering, and design to
             build software that is clear, useful, and ready for real users.

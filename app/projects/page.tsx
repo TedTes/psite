@@ -16,7 +16,7 @@ export default function ProjectsPage() {
     <main className="site-content">
       <div className="site-content__inner">
         <header className="content-header">
-          <h1 className="content-title">Projects</h1>
+          <h1 className="sr-only">Projects</h1>
           <p className="content-lede">
             Production-minded software projects across automation, developer tooling,
             and applied AI workflows.
