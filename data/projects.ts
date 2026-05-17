@@ -180,3 +180,11 @@ export const projects: Project[] = [
     role: "Backend Developer",
   },
 ];
+
+export function hasProjectLink(project: Project): boolean {
+  return project.live !== "#" || project.github !== "#";
+}
+
+export function getProjectHref(project: Project): string {
+  return project.live !== "#" ? project.live : project.github;
+}

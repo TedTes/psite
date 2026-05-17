@@ -93,6 +93,14 @@ body {
   line-height: 1.15;
 }
 
+.content-page-title {
+  max-width: 42rem;
+  color: var(--foreground);
+  font-size: 1.12rem;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
 .content-lede {
   margin-top: 0.85rem;
   max-width: 42rem;
@@ -103,9 +111,9 @@ body {
 
 .section-title {
   margin-bottom: 1rem;
-  color: var(--foreground);
+  color: var(--muted);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 650;
   letter-spacing: 0;
   line-height: 1.2;
   text-transform: uppercase;
@@ -113,9 +121,9 @@ body {
 
 .content-section-heading {
   color: var(--foreground);
-  font-size: 1.35rem;
-  font-weight: 800;
-  line-height: 1.2;
+  font-size: 1.02rem;
+  font-weight: 650;
+  line-height: 1.3;
 }
 
 .content-list {
@@ -130,22 +138,22 @@ body {
 
 .content-row-title {
   color: var(--foreground);
-  font-size: 1.02rem;
-  font-weight: 700;
+  font-size: 0.96rem;
+  font-weight: 650;
   line-height: 1.4;
 }
 
 .content-project-title {
   color: var(--foreground);
-  font-size: 0.92rem;
+  font-size: 0.96rem;
   font-weight: 650;
   line-height: 1.4;
 }
 
 .content-feature-title {
   color: var(--foreground);
-  font-size: 1.2rem;
-  font-weight: 750;
+  font-size: 1.06rem;
+  font-weight: 650;
   line-height: 1.35;
 }
 
@@ -191,12 +199,16 @@ body {
     font-size: 1.85rem;
   }
 
+  .content-page-title {
+    font-size: 1.22rem;
+  }
+
   .content-section-heading {
-    font-size: 1.45rem;
+    font-size: 1.08rem;
   }
 
   .content-feature-title {
-    font-size: 1.28rem;
+    font-size: 1.12rem;
   }
 }
 
@@ -205,12 +217,16 @@ body {
     font-size: 1.75rem;
   }
 
+  .content-page-title {
+    font-size: 1.18rem;
+  }
+
   .content-section-heading {
-    font-size: 1.4rem;
+    font-size: 1.06rem;
   }
 
   .content-feature-title {
-    font-size: 1.24rem;
+    font-size: 1.1rem;
   }
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { getProjectHref, hasProjectLink, projects } from "@/data/projects";
 import type { SeriesMeta, Post } from "@/lib/posts";
 
 interface BlogLandingProps {
@@ -13,9 +13,7 @@ interface BlogLandingProps {
   showProjects?: boolean;
 }
 
-const visibleProjects = projects.filter(
-  (project) => project.live !== "#" || project.github !== "#"
-);
+const visibleProjects = projects.filter(hasProjectLink);
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
@@ -43,12 +41,7 @@ export default function BlogLanding({
         {showProjects ? (
           <h1 className="sr-only">Tedros Tesfu</h1>
         ) : (
-          <header className="content-header">
-            <h1 className="sr-only">Writing</h1>
-            <p className="content-lede">
-              Product engineering notes, AI systems writing, and selected project work.
-            </p>
-          </header>
+          <h1 className="sr-only">Writing</h1>
         )}
 
         {recentPosts.length > 0 && (
@@ -129,10 +122,18 @@ export default function BlogLanding({
               {visibleProjects.slice(0, 3).map((project) => (
                 <div key={project.slug} className="content-row">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="min-w-0">
-                      <h3 className="content-project-title">{project.title}</h3>
+                    <a
+                      href={getProjectHref(project)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group min-w-0 flex-1"
+                      aria-label={`Open ${project.title}`}
+                    >
+                      <h3 className="content-project-title transition-colors group-hover:text-accent">
+                        {project.title}
+                      </h3>
                       <p className="content-row-copy">{project.description}</p>
-                    </div>
+                    </a>
                     <div className="flex shrink-0 items-center gap-2 text-xs text-muted">
                       {project.live !== "#" && (
                         <a
