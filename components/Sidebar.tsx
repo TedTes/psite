@@ -9,7 +9,6 @@ import {
   Home,
   Linkedin,
   Mail,
-  UserRound,
 } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 
@@ -17,7 +16,6 @@ const navItems = [
   { href: "/", label: "Home", exact: true, icon: Home },
   { href: "/blog", label: "Writing", exact: false, icon: BookOpenText },
   { href: "/projects", label: "Projects", exact: false, icon: Briefcase },
-  { href: "/about", label: "About", exact: false, icon: UserRound },
 ];
 
 const socialLinks = [
@@ -71,12 +69,6 @@ export default function Sidebar() {
           })}
         </nav>
 
-        <ThemeToggle
-          className="mb-5 flex flex-col items-center gap-2 text-muted transition-colors hover:text-foreground"
-          iconSize={13}
-          labelClassName="text-[10px] uppercase font-medium"
-        />
-
         {/* Bottom social links */}
         <div className="w-8 h-px bg-card-border mb-5" />
         <div className="flex flex-col items-center gap-4">
@@ -114,12 +106,13 @@ export default function Sidebar() {
             </Link>
           );
         })}
-        <ThemeToggle
-          className="flex h-10 min-w-12 items-center justify-center rounded-lg px-2 text-xs text-muted transition-colors hover:text-foreground"
-          iconSize={15}
-          labelClassName="sr-only"
-        />
       </nav>
+
+      <ThemeToggle
+        className="fixed right-5 top-5 z-[70] flex h-9 w-9 items-center justify-center rounded-lg border border-card-border bg-card/95 text-muted shadow-sm backdrop-blur-md transition-colors hover:text-foreground"
+        iconSize={15}
+        labelClassName="sr-only"
+      />
     </>
   );
 }
