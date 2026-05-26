@@ -14,6 +14,26 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "lidscout",
+    title: "LidScout",
+    description: "AI research agent that monitors Reddit, Hacker News, and review sites to surface ranked market gaps for founders and PMs.",
+    longDescription:
+      "LidScout is an AI-powered market research agent built for product managers and solo founders. Define a niche once and the agent continuously scans Reddit, Hacker News, G2, GitHub, and review sites — filtering ~80% of noise using LLM relevance scoring, then clustering signals into ranked market gaps with evidence quotes and suggested solutions. Results are delivered via a live dashboard, weekly digests, and threshold-based alerts. Built on Anthropic's Claude Agent SDK with integrations for Notion, Linear, Figma, and Asana.",
+    tags: ["TypeScript", "Claude Agent SDK", "Next.js", "Anthropic API"],
+    features: [
+      "Continuous monitoring of Reddit, Hacker News, G2, GitHub, and review sites",
+      "LLM-powered noise filtering that removes ~80% of irrelevant signals",
+      "Automatic clustering of pain signals into ranked, actionable market gaps",
+      "Evidence quotes and suggested solutions ('wedges') for each identified gap",
+      "Dashboard, weekly digest, and threshold-based alert delivery channels",
+      "Feedback loop — saves and dismissals train the agent to improve future rankings",
+    ],
+    live: "https://lidscout.vercel.app/",
+    github: "https://github.com/TedTes/lidscout",
+    year: "2026",
+    role: "Full-Stack Developer",
+  },
+  {
     slug: "autofil",
     title: "AutoFil",
     description: "AI-powered insurance document processor that extracts and fills forms in under 60 seconds.",
