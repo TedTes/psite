@@ -19,7 +19,7 @@ export const projects: Project[] = [
     description: "AI research agent that monitors Reddit, Hacker News, and review sites to surface ranked market gaps for founders and PMs.",
     longDescription:
       "LidScout is an AI-powered market research agent built for product managers and solo founders. Define a niche once and the agent continuously scans Reddit, Hacker News, G2, GitHub, and review sites — filtering ~80% of noise using LLM relevance scoring, then clustering signals into ranked market gaps with evidence quotes and suggested solutions. Results are delivered via a live dashboard, weekly digests, and threshold-based alerts. Built on Anthropic's Claude Agent SDK with integrations for Notion, Linear, Figma, and Asana.",
-    tags: ["TypeScript", "Claude Agent SDK", "Next.js", "Anthropic API"],
+    tags: ["Python", "FastAPI", "Playwright", "Next.js", "Supabase", "Claude API"],
     features: [
       "Continuous monitoring of Reddit, Hacker News, G2, GitHub, and review sites",
       "LLM-powered noise filtering that removes ~80% of irrelevant signals",
