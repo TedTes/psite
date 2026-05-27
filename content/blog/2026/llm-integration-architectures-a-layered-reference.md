@@ -1,5 +1,5 @@
 ---
-title: LLM Integration Architectures - A Layered Reference
+title: LLM integration architectures — a layered reference
 excerpt: A practical reference for structuring LLM systems across delivery, memory, retrieval, agency, system design, and governance.
 date: 2026-02-18
 tags:

@@ -32,6 +32,7 @@ export const projects: Project[] = [
     github: "https://github.com/TedTes/lidscout",
     year: "2026",
     role: "Full-Stack Developer",
+    image: "/images/projects/lidscout.png",
   },
   {
     slug: "autofil",

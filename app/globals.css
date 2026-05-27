@@ -190,6 +190,26 @@ body {
   padding: clamp(1.25rem, 4vw, 2rem);
 }
 
+.project-card {
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.project-card:hover {
+  border-color: color-mix(in srgb, var(--foreground) 25%, transparent);
+}
+
+.project-thumbnail-placeholder {
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--accent) 6%, var(--card)) 0%,
+    var(--card) 60%,
+    color-mix(in srgb, var(--card-border) 60%, var(--card)) 100%
+  );
+}
+
 @media (min-width: 1024px) {
   .site-content {
     padding-bottom: 4rem;
