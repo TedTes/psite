@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { getProjectHref, hasProjectLink, projects } from "@/data/projects";
+import Image from "next/image";
+import { getProjectHref, hasProjectLink, projects, type Project } from "@/data/projects";
 import type { SeriesMeta, Post } from "@/lib/posts";
 
 interface BlogLandingProps {
@@ -14,6 +15,33 @@ interface BlogLandingProps {
 }
 
 const visibleProjects = projects.filter(hasProjectLink);
+
+function ProjectThumb({ project }: { project: Project }) {
+  const initials = project.title
+    .split(" ")
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+
+  return (
+    <div className="shrink-0 w-20 h-14 rounded overflow-hidden border border-card-border bg-card flex items-center justify-center">
+      {project.image ? (
+        <Image
+          src={project.image}
+          alt={project.title}
+          width={80}
+          height={56}
+          className="object-cover object-top w-full h-full"
+        />
+      ) : (
+        <span className="text-sm font-black tracking-tight opacity-20 select-none">
+          {initials}
+        </span>
+      )}
+    </div>
+  );
+}
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
@@ -121,43 +149,53 @@ export default function BlogLanding({
             <div className="content-list">
               {visibleProjects.slice(0, 3).map((project) => (
                 <div key={project.slug} className="content-row">
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-start gap-3">
                     <a
                       href={getProjectHref(project)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group min-w-0 flex-1"
                       aria-label={`Open ${project.title}`}
                     >
-                      <h3 className="content-project-title transition-colors group-hover:text-accent">
-                        {project.title}
-                      </h3>
-                      <p className="content-row-copy">{project.description}</p>
+                      <ProjectThumb project={project} />
                     </a>
-                    <div className="flex shrink-0 items-center gap-2 text-xs text-muted">
-                      {project.live !== "#" && (
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-foreground transition-colors"
-                        >
-                          Live
-                        </a>
-                      )}
-                      {project.live !== "#" && project.github !== "#" && (
-                        <span className="opacity-40">·</span>
-                      )}
-                      {project.github !== "#" && (
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:text-foreground transition-colors"
-                        >
-                          Code
-                        </a>
-                      )}
+                    <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <a
+                        href={getProjectHref(project)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group min-w-0 flex-1"
+                        aria-label={`Open ${project.title}`}
+                      >
+                        <h3 className="content-project-title transition-colors group-hover:text-accent">
+                          {project.title}
+                        </h3>
+                        <p className="content-row-copy">{project.description}</p>
+                      </a>
+                      <div className="flex shrink-0 items-center gap-2 text-xs text-muted">
+                        {project.live !== "#" && (
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-foreground transition-colors"
+                          >
+                            Live
+                          </a>
+                        )}
+                        {project.live !== "#" && project.github !== "#" && (
+                          <span className="opacity-40">·</span>
+                        )}
+                        {project.github !== "#" && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-foreground transition-colors"
+                          >
+                            Code
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
