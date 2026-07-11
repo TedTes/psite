@@ -55,6 +55,27 @@ export const projects: Project[] = [
     image: "/images/projects/autofil.png",
   },
   {
+    slug: "syncresume",
+    title: "SyncResume",
+    description: "Resume optimization workspace that tailors your resume to a job description using LLM analysis and exports ATS-safe files.",
+    longDescription:
+      "SyncResume is a full-stack resume optimizer built on Cloudflare Workers and Vite. Users maintain a resume library, paste a target job description, and trigger an LLM-powered optimization that returns structured section-by-section improvements. The review UI supports inline editing and targeted section revisions, with a live keyword-match score against the job posting. Finalized resumes export as DOCX, PDF, or plain text — all ATS-safe. Auth is handled by Clerk; resumes are stored in Cloudflare R2; the relational layer uses Cloudflare D1.",
+    tags: ["TypeScript", "Cloudflare Workers", "D1", "R2", "OpenAI", "Clerk", "Vite"],
+    features: [
+      "Resume library — store and manage multiple resume versions",
+      "LLM optimization with structured JSON output for section-by-section review",
+      "Inline editing and targeted section revision after AI pass",
+      "Keyword scoring against the target job description",
+      "ATS-safe export in DOCX, PDF, and plain-text formats",
+      "Clerk authentication with Cloudflare-side JWT verification",
+    ],
+    live: "https://syncresume.io",
+    github: "https://github.com/TedTes/syncresume",
+    year: "2026",
+    role: "Full-Stack Developer",
+    image: "/images/projects/syncresume.png",
+  },
+  {
     slug: "secretio",
     title: "Secretio",
     description: "Developer-first vault that centralizes and secures API credentials across projects.",
