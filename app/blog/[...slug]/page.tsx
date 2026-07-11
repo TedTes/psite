@@ -19,8 +19,9 @@ export async function generateStaticParams() {
     ...new Set(posts.filter((p) => p.seriesSlug).map((p) => p.seriesSlug!)),
   ];
 
+  // Only pre-render series landing pages at build time.
+  // Individual topic pages render on first visit and are cached by Next.js.
   return [
-    ...posts.map((post) => ({ slug: post.slug.split("/") })),
     ...seriesSlugs.map((slug) => ({ slug: [slug] })),
   ];
 }
