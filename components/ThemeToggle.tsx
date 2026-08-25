@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
 
 type Theme = "light" | "dark";
@@ -11,11 +11,7 @@ type ThemeToggleProps = {
   labelClassName?: string;
 };
 
-function getPreferredTheme(): Theme {
-  if (typeof window === "undefined") {
-    return "dark";
-  }
-
+function resolvePreferredTheme(): Theme {
   const storedTheme = window.localStorage.getItem("theme");
   if (storedTheme === "light" || storedTheme === "dark") {
     return storedTheme;
@@ -31,64 +27,58 @@ function applyTheme(theme: Theme) {
   document.documentElement.style.colorScheme = theme;
 }
 
+function getSnapshot(): Theme {
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
+
+function getServerSnapshot(): Theme {
+  return "light";
+}
+
+function subscribe(onStoreChange: () => void) {
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const handleSystemThemeChange = (event: MediaQueryListEvent) => {
+    if (window.localStorage.getItem("theme")) {
+      return;
+    }
+    applyTheme(event.matches ? "dark" : "light");
+    onStoreChange();
+  };
+
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key !== "theme") {
+      return;
+    }
+    applyTheme(resolvePreferredTheme());
+    onStoreChange();
+  };
+
+  mediaQuery.addEventListener("change", handleSystemThemeChange);
+  window.addEventListener("storage", handleStorage);
+
+  return () => {
+    mediaQuery.removeEventListener("change", handleSystemThemeChange);
+    window.removeEventListener("storage", handleStorage);
+  };
+}
+
 export default function ThemeToggle({
   className,
   iconSize = 16,
   labelClassName = "text-xs font-medium",
 }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<Theme | null>(() =>
-    typeof window === "undefined" ? null : getPreferredTheme()
-  );
-
-  useEffect(() => {
-    if (!theme) {
-      return;
-    }
-
-    applyTheme(theme);
-  }, [theme]);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const handleSystemThemeChange = (event: MediaQueryListEvent) => {
-      if (window.localStorage.getItem("theme")) {
-        return;
-      }
-
-      setTheme(event.matches ? "dark" : "light");
-    };
-
-    const handleStorage = (event: StorageEvent) => {
-      if (event.key !== "theme") {
-        return;
-      }
-
-      setTheme(
-        event.newValue === "light" || event.newValue === "dark"
-          ? event.newValue
-          : getPreferredTheme()
-      );
-    };
-
-    mediaQuery.addEventListener("change", handleSystemThemeChange);
-    window.addEventListener("storage", handleStorage);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleSystemThemeChange);
-      window.removeEventListener("storage", handleStorage);
-    };
-  }, []);
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const isDark = theme === "dark";
 
   function toggleTheme() {
-    const currentTheme = theme ?? getPreferredTheme();
-    const nextTheme = currentTheme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
+    const nextTheme: Theme = isDark ? "light" : "dark";
     applyTheme(nextTheme);
     window.localStorage.setItem("theme", nextTheme);
+    // The class-list mutation above isn't itself observable by
+    // useSyncExternalStore, so force a re-read of the snapshot.
+    window.dispatchEvent(new StorageEvent("storage", { key: "theme", newValue: nextTheme }));
   }
-
-  const isDark = theme === "dark";
 
   return (
     <button

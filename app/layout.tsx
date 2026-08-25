@@ -1,17 +1,28 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 
 const inter = Inter({
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
+  subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Tedros Tesfu",
   description:
-    "Product-focused engineer and designer building modern digital products from concept to launch.",
+    "Product-focused engineer building applied AI products, full-stack systems, developer tools, and repo-backed writing.",
 };
 
 export default function RootLayout({
@@ -28,7 +39,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} antialiased`}>
+      <body
+        className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
+      >
         <Sidebar />
         <div className="lg:pl-[104px] min-h-screen">{children}</div>
       </body>

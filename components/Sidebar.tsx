@@ -37,31 +37,38 @@ export default function Sidebar() {
         {/* Logo */}
         <Link
           href="/"
-          className="w-9 h-9 rounded-lg bg-foreground text-background flex items-center justify-center mb-7 shrink-0"
+          className="w-9 h-9 rounded-xl flex items-center justify-center mb-7 shrink-0 text-white shadow-sm transition-transform hover:scale-105"
+          style={{
+            background: "linear-gradient(135deg, var(--accent), var(--accent-hover))",
+          }}
         >
-          <span className="text-sm font-black">T</span>
+          <span className="text-sm font-bold" style={{ fontFamily: "var(--font-display)" }}>
+            T
+          </span>
         </Link>
 
         <div className="w-8 h-px bg-card-border mb-7" />
 
         {/* Nav items */}
-        <nav className="flex flex-col items-center gap-7 flex-1">
+        <nav className="flex flex-col items-center gap-2 flex-1">
           {navItems.map(({ href, label, exact, icon: Icon }) => {
             const active = isActive(href, exact);
             return (
               <Link
                 key={href}
                 href={href}
-                className={`flex flex-col items-center gap-2 transition-colors ${
-                  active ? "text-foreground" : "text-muted hover:text-foreground"
+                className={`flex w-[72px] flex-col items-center gap-1.5 rounded-xl py-2.5 transition-colors ${
+                  active
+                    ? "bg-accent/10 text-foreground"
+                    : "text-muted hover:text-foreground hover:bg-card-border/40"
                 }`}
               >
                 <Icon
                   size={15}
-                  className={active ? "text-foreground" : "text-muted"}
+                  className={active ? "text-accent" : "text-muted"}
                   strokeWidth={active ? 2.5 : 1.5}
                 />
-                <span className="text-[10px] uppercase font-medium">
+                <span className="text-[10px] uppercase font-medium tracking-wide">
                   {label}
                 </span>
               </Link>
