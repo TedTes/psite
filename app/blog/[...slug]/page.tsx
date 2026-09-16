@@ -1,4 +1,3 @@
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { getPostBySlug, getPublicPosts, getSeriesData, getStandalonePosts } from "@/lib/posts";
 import type { Post } from "@/lib/posts";
 import Link from "next/link";
@@ -6,11 +5,20 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ReadingProgress from "@/components/ReadingProgress";
 import SeriesLayout from "@/components/SeriesLayout";
+import TerminalPrompt from "@/components/TerminalPrompt";
 
 type Params = Promise<{ slug: string[] }>;
 
 function slugFromParams(slug: string[]): string {
   return slug.join("/");
+}
+
+function formatDate(dateValue: string | Date): string {
+  return new Date(dateValue).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 export async function generateStaticParams() {
@@ -116,81 +124,88 @@ function StandalonePost({ post }: { post: Post }) {
   return (
     <>
       <ReadingProgress />
-      <main className="site-content">
-        <article className="site-content__inner">
-          <header className="content-header">
-            <Link
-              href="/blog"
-              className="mb-8 inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
-            >
-              <ArrowLeft size={13} />
-              Writing
-            </Link>
-
-            <div className="flex flex-wrap gap-1.5 mb-5 mt-6">
-              {post.tags.map((tag) => (
-                <span key={tag} className="content-tag">
-                  {tag}
-                </span>
-              ))}
+      <main className="terminal-page">
+        <article className="terminal-window terminal-window--wide" aria-labelledby="post-title">
+          <div className="terminal-titlebar">
+            <div className="terminal-controls" aria-hidden="true">
+              <span />
+              <span />
+              <span />
             </div>
+            <span className="terminal-path">~/tedtes/writing/{post.slug}</span>
+          </div>
 
-            <h1 className="content-title">{post.title}</h1>
+          <div className="terminal-body">
+            <TerminalPrompt path={`~/writing/${post.slug}`} command="cat post.md" />
+            <h1 id="post-title" className="terminal-name">
+              {post.title}
+            </h1>
+            <p className="terminal-bio">{post.excerpt}</p>
 
-            <p className="content-lede">{post.excerpt}</p>
+            <TerminalPrompt path={`~/writing/${post.slug}`} command="cat meta.txt" />
+            <dl className="terminal-meta-grid terminal-meta-grid--inline">
+              <div>
+                <dt>author</dt>
+                <dd>{post.author}</dd>
+              </div>
+              <div>
+                <dt>date</dt>
+                <dd>{formatDate(post.date)}</dd>
+              </div>
+              <div>
+                <dt>time</dt>
+                <dd>{post.readTime}</dd>
+              </div>
+            </dl>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-card-border pt-5 text-xs text-muted">
-              <span>{post.author}</span>
-              <span className="text-card-border">·</span>
-              <span className="inline-flex items-center gap-1">
-                <Calendar size={12} />
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </span>
-              <span className="text-card-border">·</span>
-              <span className="inline-flex items-center gap-1">
-                <Clock size={12} />
-                {post.readTime}
-              </span>
-            </div>
-          </header>
+            {post.tags.length > 0 && (
+              <>
+                <TerminalPrompt path={`~/writing/${post.slug}`} command="cat tags.txt" />
+                <div className="terminal-chip-row">
+                  {post.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+              </>
+            )}
 
-          <div
-            className="article-prose"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+            <TerminalPrompt path={`~/writing/${post.slug}`} command="cat body.md" />
+            <div
+              className="terminal-article-prose"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
 
-          <div className="mt-16 border-t border-card-border pt-8">
+            <TerminalPrompt path={`~/writing/${post.slug}`} command="cd .." />
             {nextPost ? (
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
-                >
-                  <ArrowLeft size={14} />
-                  All posts
-                </Link>
+              <>
+                <div className="terminal-contact-row">
+                  <span aria-hidden="true">→</span>
+                  <Link href="/blog">writing</Link>
+                  <Link href="/">home</Link>
+                </div>
+                <TerminalPrompt path="~/writing" command="next" />
                 <Link
                   href={`/blog/${nextPost.slug}`}
-                  className="group content-panel flex-1 text-right transition-colors hover:border-accent/50 sm:max-w-sm"
+                  className="terminal-blog-row terminal-blog-row--next"
                 >
-                  <p className="text-xs text-muted mb-1.5">Next article</p>
-                  <p className="content-row-title group-hover:text-accent transition-colors">
-                    {nextPost.title}
-                  </p>
+                  <span className="terminal-blog-date">next</span>
+                  <span className="terminal-blog-main">
+                    <span className="terminal-product-name">
+                      {nextPost.title}
+                    </span>
+                    <span className="terminal-product-description">
+                      {nextPost.excerpt}
+                    </span>
+                  </span>
+                  <span className="terminal-status">{nextPost.readTime}</span>
                 </Link>
-              </div>
+              </>
             ) : (
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-1.5 text-sm text-accent transition-all hover:gap-2.5"
-              >
-                <ArrowLeft size={14} />
-                Back to all posts
-              </Link>
+              <div className="terminal-contact-row">
+                <span aria-hidden="true">→</span>
+                <Link href="/blog">writing</Link>
+                <Link href="/">home</Link>
+              </div>
             )}
           </div>
         </article>
