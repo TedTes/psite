@@ -85,6 +85,12 @@ body {
     transform: none;
   }
 
+  .terminal-body > section > .terminal-command,
+  .terminal-body > section > .terminal-list {
+    opacity: 1;
+    transform: none;
+  }
+
   .terminal-input {
     max-width: none;
   }
@@ -210,43 +216,88 @@ body {
 }
 
 .terminal-body > :nth-child(2) {
-  --line-delay: 0.55s;
+  --line-delay: 0.66s;
 }
 
 .terminal-body > :nth-child(3) {
-  --line-delay: 0.75s;
+  --line-delay: 0.8s;
 }
 
 .terminal-body > :nth-child(4) {
-  --line-delay: 1s;
+  --line-delay: 1.42s;
 }
 
 .terminal-body > :nth-child(5) {
-  --line-delay: 1.5s;
+  --line-delay: 1.56s;
 }
 
 .terminal-body > :nth-child(6) {
-  --line-delay: 1.7s;
+  --line-delay: 2.18s;
 }
 
 .terminal-body > :nth-child(7) {
-  --line-delay: 1.95s;
+  --line-delay: 2.32s;
 }
 
 .terminal-body > :nth-child(8) {
-  --line-delay: 2.45s;
+  --line-delay: 2.94s;
 }
 
 .terminal-body > :nth-child(9) {
-  --line-delay: 2.65s;
+  --line-delay: 3.08s;
 }
 
 .terminal-body > :nth-child(10) {
-  --line-delay: 2.9s;
+  --line-delay: 3.7s;
 }
 
-.terminal-body > :nth-child(n + 11) {
-  --line-delay: 3.15s;
+.terminal-body > :nth-child(11) {
+  --line-delay: 3.84s;
+}
+
+.terminal-body > :nth-child(12) {
+  --line-delay: 4.46s;
+}
+
+.terminal-body > :nth-child(13) {
+  --line-delay: 4.6s;
+}
+
+.terminal-body > :nth-child(14) {
+  --line-delay: 5.22s;
+}
+
+.terminal-body > :nth-child(15) {
+  --line-delay: 5.36s;
+}
+
+.terminal-body > :nth-child(16) {
+  --line-delay: 5.98s;
+}
+
+.terminal-body > :nth-child(n + 17) {
+  --line-delay: 6.12s;
+}
+
+.terminal-body > section {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+.terminal-body > section > .terminal-command,
+.terminal-body > section > .terminal-list {
+  opacity: 0;
+  transform: translateY(0.25rem);
+  animation: terminalLineIn 0.42s ease forwards;
+}
+
+.terminal-body > section > .terminal-command {
+  animation-delay: var(--line-delay);
+}
+
+.terminal-body > section > .terminal-list {
+  animation-delay: calc(var(--line-delay) + 0.62s);
 }
 
 @keyframes terminalLineIn {
