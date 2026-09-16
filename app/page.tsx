@@ -27,6 +27,24 @@ const productRows = [
     description: "market gap research from public customer signals",
     status: "prototype",
   },
+  {
+    slug: "autofil",
+    name: "autofil/",
+    description: "insurance document extraction and form-filling prototype",
+    status: "prototype",
+  },
+  {
+    slug: "secretio",
+    name: "secretio/",
+    description: "developer secrets vault with dashboard, CLI, and SDK",
+    status: "prototype",
+  },
+  {
+    slug: "psite",
+    name: "psite/",
+    description: "this terminal-style personal site and writing system",
+    status: "live",
+  },
 ];
 
 const contactRows = [

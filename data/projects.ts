@@ -284,6 +284,41 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "psite",
+    title: "psite",
+    description:
+      "Terminal-style personal site for projects, writing, and product notes.",
+    longDescription:
+      "psite is this personal site: a Next.js portfolio and writing system designed around a compact terminal interface. It keeps projects, blog posts, series notes, and contact links in one focused surface while preserving direct project detail pages for deeper context.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Portfolio"],
+    features: [
+      "Terminal-style homepage with project, writing, and contact commands",
+      "Project index and detail pages powered by shared project data",
+      "Markdown-backed writing and series pages",
+      "One-time command typing animation with synced output reveal",
+    ],
+    live: "#",
+    github: "https://github.com/TedTes/psite",
+    year: "2026",
+    role: "Designer / Developer",
+    status: "Live",
+    category: "Developer Tools",
+    caseStudy: {
+      problem:
+        "A personal site needs to show technical credibility quickly without turning into a heavy marketing page.",
+      approach:
+        "The site uses a terminal-inspired interface to make projects, writing, and contact paths scannable while keeping deeper pages available for each product.",
+      architecture: [
+        "Next.js app router for static pages and project routes",
+        "Shared project data powering listings and detail pages",
+        "Markdown-backed writing content parsed from the repo",
+        "CSS-driven terminal animation that keeps command output synced",
+      ],
+      result:
+        "A compact personal site that presents product work and writing in a consistent developer-focused layout.",
+    },
+  },
+  {
     slug: "nebab",
     title: "Nebab",
     description:
