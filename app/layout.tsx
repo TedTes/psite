@@ -43,7 +43,7 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <Sidebar />
-        <div className="lg:pl-[104px] min-h-screen">{children}</div>
+        <div className="min-h-screen">{children}</div>
       </body>
     </html>
   );
