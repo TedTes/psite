@@ -1,154 +1,117 @@
 import Link from "next/link";
+import { getProjectBySlug, type Project } from "@/data/projects";
+import { siteConfig } from "@/data/site";
 import { getSeriesList, getStandalonePosts } from "@/lib/posts";
-import TerminalPrompt from "@/components/TerminalPrompt";
+import TerminalSection from "@/components/TerminalSection";
+import TerminalRow from "@/components/TerminalRow";
+import StatusBadge from "@/components/StatusBadge";
+import TerminalCta from "@/components/TerminalCta";
+import TerminalTitlebar from "@/components/TerminalTitlebar";
 
-const productRows = [
-  {
-    slug: "syncresume",
-    name: "syncresume/",
-    description: "resume optimization workspace for targeted job applications",
-    status: "live",
-  },
-  {
-    slug: "snapquote",
-    name: "snapquote/",
-    description: "same-day quoting for home-service trades",
-    status: "building",
-  },
-  {
-    slug: "scoutlead",
-    name: "scoutlead/",
-    description: "AI customer discovery and outreach backend",
-    status: "mvp",
-  },
-  {
-    slug: "lidscout",
-    name: "lidscout/",
-    description: "market gap research from public customer signals",
-    status: "prototype",
-  },
-  {
-    slug: "autofil",
-    name: "autofil/",
-    description: "insurance document extraction and form-filling prototype",
-    status: "prototype",
-  },
-  {
-    slug: "secretio",
-    name: "secretio/",
-    description: "developer secrets vault with dashboard, CLI, and SDK",
-    status: "prototype",
-  },
-  {
-    slug: "psite",
-    name: "psite/",
-    description: "this terminal-style personal site and writing system",
-    status: "live",
-  },
-];
-
-const contactRows = [
-  { label: "github.com/TedTes", href: "https://github.com/TedTes" },
-  { label: "linkedin/tedrostesfu", href: "https://linkedin.com/in/tedrostesfu" },
-  { label: "x.com/TedTes", href: "https://x.com/TedTes" },
-  { label: "tedtfu@gmail.com", href: "mailto:tedtfu@gmail.com" },
-];
+const productOrder = ["syncresume", "snapquote", "lidscout", "autofil", "secretio"];
 
 function formatMonth(dateValue: string | Date): string {
-  if (dateValue instanceof Date) {
-    return dateValue.toISOString().slice(0, 7);
-  }
+  return (dateValue instanceof Date ? dateValue.toISOString() : dateValue).slice(0, 7);
+}
 
-  return dateValue.slice(0, 7);
+function displayStatus(project: Project): string {
+  return project.status === "In progress" ? "building" : project.status.toLowerCase();
+}
+
+function ProductRow({ project }: { project: Project }) {
+  const live = project.live !== "#" ? project.live : null;
+
+  return (
+    <TerminalRow
+      label={<Link href={`/projects/${project.slug}`} className="row-title-link">{project.slug}/</Link>}
+      description={<><span>{project.description}</span><span className="row-links">{live && <><a href={live} target="_blank" rel="noopener noreferrer">→ visit</a><span>·</span></>}<Link href={`/projects/${project.slug}`}>→ details</Link></span></>}
+      meta={<StatusBadge status={displayStatus(project)} />}
+    />
+  );
 }
 
 export default function Home() {
+  const products = productOrder.flatMap((slug) => {
+    const project = getProjectBySlug(slug);
+    return project ? [project] : [];
+  });
+  const scoutlead = getProjectBySlug("scoutlead");
+  const psite = getProjectBySlug("psite");
   const writingRows = [
     ...getStandalonePosts()
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .map((post) => ({
-        href: `/blog/${post.slug}`,
-        label: formatMonth(post.date),
-        title: post.title,
-      })),
-    ...getSeriesList().map((series) => ({
-      href: `/blog/${series.slug}`,
-      label: "series",
-      title: `${series.name} (${series.topicCount} topics)`,
-    })),
-  ].slice(0, 4);
+      .map((post) => ({ href: `/blog/${post.slug}`, label: formatMonth(post.date), title: post.title })),
+    ...getSeriesList().map((series) => ({ href: `/blog/${series.slug}`, label: "series", title: `${series.name} (${series.topicCount} topics)` })),
+  ].slice(0, 2);
 
   return (
-    <main className="terminal-page">
-      <section className="terminal-window" aria-labelledby="terminal-title">
-        <div className="terminal-titlebar">
-          <div className="terminal-controls" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-          <span className="terminal-path">~/tedtes</span>
-        </div>
+    <main className="terminal-page terminal-page--with-nav">
+      <section className="terminal-window" aria-label="Tedros Tesfu">
+        <TerminalTitlebar />
 
         <div className="terminal-body">
-          <TerminalPrompt path="~/tedtes" command="whoami" />
-          <p className="terminal-bio">
-          Hey there 👋, My name is Tedros , currently iterating on building small products , lets see where it goes 
-          </p>
+          <TerminalSection path="~/tedtes" command="whoami">
+            <h1 className="terminal-name terminal-name--split"><span className="terminal-name__lead">Software engineer.</span> I build products end to end: design, code, launch.</h1>
+            <p className="terminal-bio">Currently building <a href="https://scoutlead.io" target="_blank" rel="noopener noreferrer">scoutlead.io</a>.</p>
+          </TerminalSection>
 
-          <TerminalPrompt path="~/products" command="ls" />
-          <div className="terminal-list">
-            {productRows.map((product) => (
-              <Link
-                key={product.slug}
-                href={`/projects/${product.slug}`}
-                className="terminal-product-row"
-              >
-                <span className="terminal-product-name">{product.name}</span>
-                <span className="terminal-product-description">
-                  {product.description}
-                </span>
-                <span
-                  className={`terminal-status terminal-status--${product.status}`}
-                >
-                  {product.status}
-                </span>
-              </Link>
-            ))}
-          </div>
+          <TerminalSection id="work-with-me" className="home-section" path="~/work-with-me" command="cat offer.md">
+            <div className="home-offer">
+              <p>Have a rough first version of your app? I turn it into a polished product people trust.</p>
+              <div className="terminal-contact-row">
+                <Link href="/score">→ Get a free Launch Score</Link><span aria-hidden="true">·</span>
+                <Link href="/work-with-me#audit">→ See the audit</Link>
+              </div>
+            </div>
+          </TerminalSection>
 
-          <TerminalPrompt path="~/writing" command="cat *.md" />
-          <div className="terminal-writing-list">
-            {writingRows.map((row) => (
-              <Link
-                key={row.href}
-                href={row.href}
-                className="terminal-writing-row terminal-writing-row--link"
-              >
-                <span>{row.label}</span>
-                <span>{row.title}</span>
-              </Link>
-            ))}
-          </div>
+          {scoutlead && (
+            <TerminalSection className="home-section" path="~/now" command="building">
+              <div className="terminal-list">
+                <TerminalRow
+                  label={<a href="https://scoutlead.io" target="_blank" rel="noopener noreferrer" className="row-title-link">scoutlead.io</a>}
+                  description={<><span>find and qualify clients for your business.</span><span className="row-links"><a href="https://scoutlead.io" target="_blank" rel="noopener noreferrer">→ visit</a></span></>}
+                  meta={<StatusBadge status="mvp" />}
+                />
+              </div>
+            </TerminalSection>
+          )}
 
-          <TerminalPrompt path="~/contact" command="open" />
-          <div className="terminal-contact-row">
-            <span aria-hidden="true">→</span>
-            {contactRows.map((contact) => (
-              <a
-                key={contact.href}
-                href={contact.href}
-                target={contact.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel={
-                  contact.href.startsWith("mailto:")
-                    ? undefined
-                    : "noopener noreferrer"
-                }
-              >
-                {contact.label}
-              </a>
-            ))}
-          </div>
+          <TerminalSection id="products" className="home-section" path="~/products" command="ls">
+            <div className="terminal-list home-product-list">
+              {products.map((project) => <ProductRow key={project.slug} project={project} />)}
+            </div>
+          </TerminalSection>
+
+          <TerminalSection className="home-section" path="~/writing" command="cat *.md">
+            <div className="terminal-list">
+              {writingRows.map((row) => (
+                <TerminalRow key={row.href} label={row.label} description={<Link href={row.href} className="row-title-link">{row.title}</Link>} meta="article" />
+              ))}
+            </div>
+          </TerminalSection>
+
+          {psite && (
+            <TerminalSection className="home-section" path="~/site" command="cat build.txt">
+              <TerminalRow label={<span className="row-title">psite/</span>} description={<Link href={`/projects/${psite.slug}`}>built with the site itself</Link>} meta={<StatusBadge status="live" />} />
+            </TerminalSection>
+          )}
+
+          <TerminalSection id="contact" className="home-section" path="~/contact" command="open">
+            <div className="terminal-contact-row">
+              <a href={`mailto:${siteConfig.email}`}>→ email</a><span aria-hidden="true">·</span>
+              <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">→ book a call</a><span aria-hidden="true">·</span>
+              <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer">→ GitHub</a><span aria-hidden="true">·</span>
+              <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer">→ LinkedIn</a><span aria-hidden="true">·</span>
+              <a href={siteConfig.links.x} target="_blank" rel="noopener noreferrer">→ X</a>
+            </div>
+            <TerminalCta
+              title="Have a first version that needs finishing?"
+              actions={<><Link href="/work-with-me" className="primary-action">Work with me</Link><a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">→ book a call</a></>}
+            >
+              <p>See how I can help turn it into a polished product people trust.</p>
+            </TerminalCta>
+          </TerminalSection>
         </div>
       </section>
     </main>

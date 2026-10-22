@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getProjectsByCategory } from "@/data/projects";
-import TerminalPrompt from "@/components/TerminalPrompt";
+import TerminalSection from "@/components/TerminalSection";
+import TerminalRow from "@/components/TerminalRow";
+import StatusBadge from "@/components/StatusBadge";
+import TerminalCta from "@/components/TerminalCta";
+import TerminalTitlebar from "@/components/TerminalTitlebar";
 
 export const metadata: Metadata = {
-  title: "Projects | Tedros Tesfu",
+  title: "Projects",
   description:
     "Applied AI products, full-stack systems, developer tooling, and language-learning work by Tedros Tesfu.",
 };
@@ -24,62 +28,40 @@ export default function ProjectsPage() {
   return (
     <main className="terminal-page">
       <section className="terminal-window terminal-window--wide" aria-labelledby="projects-title">
-        <div className="terminal-titlebar">
-          <div className="terminal-controls" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-          <span className="terminal-path">~/tedtes/projects</span>
-        </div>
+        <TerminalTitlebar path="/projects" />
 
         <div className="terminal-body">
-          <TerminalPrompt path="~/projects" command="pwd" />
-          <h1 id="projects-title" className="terminal-name">
-            /projects
-          </h1>
-          <p className="terminal-bio">
-            Product systems, applied AI experiments, developer tools, and
-            language-learning work.
-          </p>
+          <TerminalSection path="~/projects" command="cat README.md">
+            <h1 id="projects-title" className="terminal-name terminal-name--split">
+              <span className="terminal-name__lead">Product systems</span>, applied AI
+              experiments, developer tools, and language-learning work.
+            </h1>
+          </TerminalSection>
 
           {groupedProjects.map(([category, projects]) => (
-            <section key={category}>
-              <TerminalPrompt
-                path={`~/projects/${directoryName(category)}`}
-                command="ls"
-              />
+            <TerminalSection
+              key={category}
+              path={`~/projects/${directoryName(category)}`}
+              command="ls"
+            >
               <div className="terminal-list">
                 {projects.map((project) => (
-                  <Link
+                  <TerminalRow
                     key={project.slug}
-                    href={`/projects/${project.slug}`}
-                    className="terminal-product-row terminal-product-row--wide"
-                  >
-                    <span className="terminal-product-name">
-                      {project.slug}/
-                    </span>
-                    <span className="terminal-product-description">
-                      {project.description}
-                    </span>
-                    <span
-                      className={`terminal-status terminal-status--${project.status
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
-                    >
-                      {project.status.toLowerCase()}
-                    </span>
-                  </Link>
+                    label={<Link href={`/projects/${project.slug}`} className="row-title-link">{project.slug}/</Link>}
+                    description={<><span>{project.description}</span><span className="row-links"><Link href={`/projects/${project.slug}`}>→ details</Link></span></>}
+                    meta={<StatusBadge status={project.status} />}
+                  />
                 ))}
               </div>
-            </section>
+            </TerminalSection>
           ))}
 
-          <TerminalPrompt path="~/projects" command="cd .." />
-          <div className="terminal-contact-row">
-            <span aria-hidden="true">→</span>
-            <Link href="/">home</Link>
-          </div>
+          <TerminalSection path="~/projects" command="start">
+            <TerminalCta title="Need help finishing a product?" actions={<><Link href="/work-with-me" className="primary-action">Work with me</Link><Link href="/">→ home</Link></>}>
+              <p>See the audit and focused build options.</p>
+            </TerminalCta>
+          </TerminalSection>
         </div>
       </section>
     </main>

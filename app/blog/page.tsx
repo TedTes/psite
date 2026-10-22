@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import BlogLanding from "./BlogList";
 
 export const metadata: Metadata = {
-  title: "Writing | Tedros Tesfu",
+  title: "Writing",
   description:
     "Knowledge bases and articles on AI systems, math foundations, and software engineering.",
 };

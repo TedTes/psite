@@ -5,7 +5,10 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ReadingProgress from "@/components/ReadingProgress";
 import SeriesLayout from "@/components/SeriesLayout";
-import TerminalPrompt from "@/components/TerminalPrompt";
+import TerminalSection from "@/components/TerminalSection";
+import TerminalRow from "@/components/TerminalRow";
+import TerminalCta from "@/components/TerminalCta";
+import TerminalTitlebar from "@/components/TerminalTitlebar";
 
 type Params = Promise<{ slug: string[] }>;
 
@@ -41,7 +44,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const post = getPostBySlug(fullSlug);
   if (post?.isPublic) {
     return {
-      title: `${post.title} | Tedros Tesfu`,
+      title: post.title,
       description: post.excerpt,
     };
   }
@@ -50,7 +53,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     const seriesData = getSeriesData(slug[0]);
     if (seriesData) {
       return {
-        title: `${seriesData.name} | Tedros Tesfu`,
+        title: seriesData.name,
         description: `${seriesData.chapters.length} chapters covering ${seriesData.name}.`,
       };
     }
@@ -126,87 +129,48 @@ function StandalonePost({ post }: { post: Post }) {
       <ReadingProgress />
       <main className="terminal-page">
         <article className="terminal-window terminal-window--wide" aria-labelledby="post-title">
-          <div className="terminal-titlebar">
-            <div className="terminal-controls" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </div>
-            <span className="terminal-path">~/tedtes/writing/{post.slug}</span>
-          </div>
+          <TerminalTitlebar path={`/writing/${post.slug}`} />
 
           <div className="terminal-body">
-            <TerminalPrompt path={`~/writing/${post.slug}`} command="cat post.md" />
-            <h1 id="post-title" className="terminal-name">
-              {post.title}
-            </h1>
-            <p className="terminal-bio">{post.excerpt}</p>
+            <TerminalSection path={`~/writing/${post.slug}`} command="cat post.md">
+              <h1 id="post-title" className="terminal-name">
+                {post.title}
+              </h1>
+              <p className="terminal-bio">{post.excerpt}</p>
+            </TerminalSection>
 
-            <TerminalPrompt path={`~/writing/${post.slug}`} command="cat meta.txt" />
-            <dl className="terminal-meta-grid terminal-meta-grid--inline">
-              <div>
-                <dt>author</dt>
-                <dd>{post.author}</dd>
+            <TerminalSection path={`~/writing/${post.slug}`} command="cat meta.txt">
+              <div className="terminal-list">
+                <TerminalRow label={formatDate(post.date)} description={post.author} meta={post.readTime} />
               </div>
-              <div>
-                <dt>date</dt>
-                <dd>{formatDate(post.date)}</dd>
-              </div>
-              <div>
-                <dt>time</dt>
-                <dd>{post.readTime}</dd>
-              </div>
-            </dl>
+            </TerminalSection>
 
             {post.tags.length > 0 && (
-              <>
-                <TerminalPrompt path={`~/writing/${post.slug}`} command="cat tags.txt" />
+              <TerminalSection path={`~/writing/${post.slug}`} command="cat tags.txt">
                 <div className="terminal-chip-row">
                   {post.tags.map((tag) => (
                     <span key={tag}>{tag}</span>
                   ))}
                 </div>
-              </>
+              </TerminalSection>
             )}
 
-            <TerminalPrompt path={`~/writing/${post.slug}`} command="cat body.md" />
-            <div
-              className="terminal-article-prose"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <TerminalSection path={`~/writing/${post.slug}`} command="cat body.md">
+              <div
+                className="terminal-article-prose"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+            </TerminalSection>
 
-            <TerminalPrompt path={`~/writing/${post.slug}`} command="cd .." />
-            {nextPost ? (
-              <>
-                <div className="terminal-contact-row">
-                  <span aria-hidden="true">→</span>
-                  <Link href="/blog">writing</Link>
-                  <Link href="/">home</Link>
-                </div>
-                <TerminalPrompt path="~/writing" command="next" />
-                <Link
-                  href={`/blog/${nextPost.slug}`}
-                  className="terminal-blog-row terminal-blog-row--next"
-                >
-                  <span className="terminal-blog-date">next</span>
-                  <span className="terminal-blog-main">
-                    <span className="terminal-product-name">
-                      {nextPost.title}
-                    </span>
-                    <span className="terminal-product-description">
-                      {nextPost.excerpt}
-                    </span>
-                  </span>
-                  <span className="terminal-status">{nextPost.readTime}</span>
-                </Link>
-              </>
-            ) : (
-              <div className="terminal-contact-row">
-                <span aria-hidden="true">→</span>
-                <Link href="/blog">writing</Link>
-                <Link href="/">home</Link>
-              </div>
-            )}
+            <TerminalSection path={`~/writing/${post.slug}`} command="open">
+              {nextPost ? (
+                <TerminalCta title="Keep reading." actions={<><Link href={`/blog/${nextPost.slug}`} className="primary-action">Next article</Link><Link href="/blog">→ all writing</Link></>}>
+                  <TerminalRow label="next" description={nextPost.title} meta={nextPost.readTime} />
+                </TerminalCta>
+              ) : (
+                <TerminalCta title="That is everything for now." actions={<><Link href="/blog" className="primary-action">All writing</Link><Link href="/">→ home</Link></>}><p>More notes will be published here.</p></TerminalCta>
+              )}
+            </TerminalSection>
           </div>
         </article>
       </main>

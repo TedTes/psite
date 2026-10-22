@@ -1,6 +1,9 @@
 import Link from "next/link";
 import type { Post, SeriesMeta } from "@/lib/posts";
-import TerminalPrompt from "@/components/TerminalPrompt";
+import TerminalSection from "@/components/TerminalSection";
+import TerminalRow from "@/components/TerminalRow";
+import TerminalCta from "@/components/TerminalCta";
+import TerminalTitlebar from "@/components/TerminalTitlebar";
 
 interface BlogLandingProps {
   series: SeriesMeta[];
@@ -29,91 +32,59 @@ export default function BlogLanding({
   return (
     <main className="terminal-page">
       <section className="terminal-window terminal-window--wide" aria-labelledby="writing-title">
-        <div className="terminal-titlebar">
-          <div className="terminal-controls" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-          <span className="terminal-path">~/tedtes/writing</span>
-        </div>
+        <TerminalTitlebar path="/writing" />
 
         <div className="terminal-body">
-          <TerminalPrompt path="~/writing" command="pwd" />
-          <h1 id="writing-title" className="terminal-name">
-            /writing
-          </h1>
-          <p className="terminal-bio">
-            Notes and references on AI systems, software architecture, and math
-            foundations.
-          </p>
+          <TerminalSection path="~/writing" command="cat README.md">
+            <h1 id="writing-title" className="terminal-name terminal-name--split">
+              <span className="terminal-name__lead">Notes and references</span> on AI
+              systems, software architecture, and math foundations.
+            </h1>
+          </TerminalSection>
 
           {recentPosts.length > 0 && (
-            <>
-              <TerminalPrompt path="~/writing/articles" command="cat *.md" />
+            <TerminalSection path="~/writing/articles" command="cat *.md">
               <div className="terminal-list">
                 {recentPosts.map((post) => (
-                  <Link
+                  <TerminalRow
                     key={post.slug}
-                    href={`/blog/${post.slug}`}
-                    className="terminal-blog-row"
-                  >
-                    <span className="terminal-blog-date">
-                      {formatMonth(post.date)}
-                    </span>
-                    <span className="terminal-blog-main">
-                      <span className="terminal-product-name">{post.title}</span>
-                      <span className="terminal-product-description">
-                        {post.excerpt}
-                      </span>
-                    </span>
-                    <span className="terminal-status">{post.readTime}</span>
-                  </Link>
+                    label={formatMonth(post.date)}
+                    description={<><Link href={`/blog/${post.slug}`} className="row-title-link">{post.title}</Link><span>{post.excerpt}</span></>}
+                    meta={post.readTime}
+                  />
                 ))}
               </div>
-            </>
+            </TerminalSection>
           )}
 
           {series.length > 0 && (
-            <>
-              <TerminalPrompt path="~/writing/series" command="ls" />
+            <TerminalSection path="~/writing/series" command="ls">
               <div className="terminal-list">
                 {series.map((item) => (
-                  <Link
+                  <TerminalRow
                     key={item.slug}
-                    href={`/blog/${item.slug}`}
-                    className="terminal-blog-row"
-                  >
-                    <span className="terminal-blog-date">series</span>
-                    <span className="terminal-blog-main">
-                      <span className="terminal-product-name">{item.name}/</span>
-                      <span className="terminal-product-description">
-                        {item.description || "Structured notes in progress"}
-                      </span>
-                    </span>
-                    <span className="terminal-status">
-                      {item.topicCount} topics
-                    </span>
-                  </Link>
+                    label="series"
+                    description={<><Link href={`/blog/${item.slug}`} className="row-title-link">{item.name}/</Link><span>{item.description || "Structured notes in progress"}</span></>}
+                    meta={`${item.topicCount} topics`}
+                  />
                 ))}
               </div>
-            </>
+            </TerminalSection>
           )}
 
           {series.length === 0 && standalonePosts.length === 0 && (
-            <>
-              <TerminalPrompt path="~/writing/articles" command="cat *.md" />
+            <TerminalSection path="~/writing/articles" command="cat *.md">
               <p className="terminal-product-description">
                 Nothing published yet.
               </p>
-            </>
+            </TerminalSection>
           )}
 
-          <TerminalPrompt path="~/writing" command="cd .." />
-          <div className="terminal-contact-row">
-            <span aria-hidden="true">→</span>
-            <Link href="/">home</Link>
-          </div>
+          <TerminalSection path="~/writing" command="open">
+            <TerminalCta title="Want to talk about the work?" actions={<><Link href="/#contact" className="primary-action">Contact</Link><Link href="/">→ home</Link></>}>
+              <p>Questions, projects, and thoughtful notes are welcome.</p>
+            </TerminalCta>
+          </TerminalSection>
         </div>
       </section>
     </main>

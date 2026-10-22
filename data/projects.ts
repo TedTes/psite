@@ -24,6 +24,8 @@ export interface Project {
   github: string;
   year: string;
   role: string;
+  audience?: string;
+  learnings?: string[];
   status: ProjectStatus;
   category: ProjectCategory;
   image?: string;
@@ -60,6 +62,8 @@ export const projects: Project[] = [
     github: "https://github.com/TedTes/syncresume",
     year: "2026",
     role: "Full-Stack Developer",
+    audience: "Job seekers who need a targeted, ATS-safe resume without giving up control of the final document.",
+    learnings: ["Structured AI output is easier to review when optimization is split into explicit stages.", "Export quality and editability matter as much as the generated suggestions."],
     status: "Live",
     category: "Flagship Product Systems",
     image: "/images/projects/syncresume.png",
@@ -103,6 +107,8 @@ export const projects: Project[] = [
     github: "https://github.com/TedTes/snapquote",
     year: "2026",
     role: "Full-Stack Developer",
+    audience: "Small home-service contractors who need to quote work while the customer is still warm.",
+    learnings: ["A field workflow has to stay fast even when pricing logic behind it is complex.", "Shared typed domain rules reduce drift between the mobile app and backend."],
     status: "In progress",
     category: "Flagship Product Systems",
     featuredOrder: 2,
@@ -129,8 +135,7 @@ export const projects: Project[] = [
   {
     slug: "scoutlead",
     title: "ScoutLead",
-    description:
-      "Reusable AI customer-discovery backend for product validation, lead qualification, outreach drafting, and campaign evaluation.",
+    description: "Find and qualify clients for your business.",
     longDescription:
       "ScoutLead is a configurable AI-powered customer discovery and outreach backend for validating software products. A product is supplied as configuration, then the runtime executes a bounded workflow across discovery, research, qualification, outreach drafting, human approval, response tracking, memory, and campaign evaluation. Application code owns orchestration and allowed state transitions; LLM calls are isolated behind structured-output interfaces.",
     tags: ["Python", "FastAPI", "Postgres", "LLMs", "Agents", "Vite"],
@@ -141,10 +146,12 @@ export const projects: Project[] = [
       "Human approval gate before outbound message sending",
       "Campaign metrics and response tracking",
     ],
-    live: "#",
+    live: "https://scoutlead.io",
     github: "https://github.com/TedTes/scoutlead",
     year: "2026",
     role: "Full-Stack Developer",
+    audience: "Service businesses and small teams that need a repeatable way to find and qualify prospective clients.",
+    learnings: ["AI workflows are more dependable when application code owns state transitions.", "Human approval belongs immediately before external side effects such as outreach."],
     status: "MVP",
     category: "Flagship Product Systems",
     featuredOrder: 3,
@@ -187,6 +194,8 @@ export const projects: Project[] = [
     github: "https://github.com/TedTes/lidscout",
     year: "2026",
     role: "Full-Stack Developer",
+    audience: "Founders and product managers looking for repeated, evidence-backed market pain.",
+    learnings: ["Preserving source evidence makes generated opportunity summaries easier to trust.", "Relevance filtering matters more than collecting the largest possible volume of signals."],
     status: "Prototype",
     category: "Applied AI / Automation",
     image: "/images/projects/lidscout.png",
@@ -228,6 +237,8 @@ export const projects: Project[] = [
     github: "https://github.com/TedTes/autofil",
     year: "2025",
     role: "Full-Stack Developer",
+    audience: "Insurance teams that spend time extracting and re-entering data from common documents.",
+    learnings: ["Confidence indicators are essential when automating document workflows.", "Users need a review step before extracted data becomes a final form."],
     status: "Prototype",
     category: "Applied AI / Automation",
     image: "/images/projects/autofil.png",
@@ -265,6 +276,8 @@ export const projects: Project[] = [
     github: "https://github.com/TedTes/secretio",
     year: "2025",
     role: "Full-Stack Developer",
+    audience: "Developers who need a clearer way to manage credentials across projects and environments.",
+    learnings: ["Secret access needs to be explicit across dashboards, CLIs, and SDKs.", "Developer tooling succeeds or fails on setup friction."],
     status: "Prototype",
     category: "Developer Tools",
     image: "/images/projects/secretio.png",
@@ -301,6 +314,8 @@ export const projects: Project[] = [
     github: "https://github.com/TedTes/psite",
     year: "2026",
     role: "Designer / Developer",
+    audience: "People evaluating my product work, engineering approach, and writing.",
+    learnings: ["A constrained visual system can make a broad body of work feel coherent.", "Repo-backed content keeps publishing simple and portable."],
     status: "Live",
     category: "Developer Tools",
     caseStudy: {
@@ -336,6 +351,8 @@ export const projects: Project[] = [
     github: "https://github.com/TedTes/nebabsite",
     year: "2026",
     role: "Product Engineer",
+    audience: "Tigrinya speakers building practical English reading comprehension.",
+    learnings: ["Language-learning support should respect the learner's source language.", "The public product story can stay visible while the application source remains private."],
     status: "In progress",
     category: "Education / Language",
     caseStudy: {
