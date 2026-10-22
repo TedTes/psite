@@ -43,6 +43,18 @@ npm run dev
 
 Open `http://localhost:3000`.
 
+## Site links
+
+Set these public environment variables in the deployment environment:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-custom-domain.com
+NEXT_PUBLIC_BOOKING_URL=https://cal.com/your-handle
+NEXT_PUBLIC_AUDIT_CHECKOUT_URL=https://buy.stripe.com/your-checkout-link
+```
+
+Until the booking and checkout links are configured, their calls to action fall back to a pre-addressed email. `NEXT_PUBLIC_SITE_URL` is used for social preview URLs and should be set when the custom domain is connected.
+
 ## Verification
 
 ```bash
