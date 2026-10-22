@@ -1,18 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
-
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
+import { siteConfig } from "@/data/site";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
@@ -20,9 +9,22 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tedros Tesfu",
-  description:
-    "Product-focused engineer building applied AI products, full-stack systems, developer tools, and repo-backed writing.",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: `${siteConfig.name} — ${siteConfig.title}`,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  openGraph: {
+    title: `${siteConfig.name} — ${siteConfig.title}`,
+    description: siteConfig.description,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.title}`,
+    description: siteConfig.description,
+  },
 };
 
 export default function RootLayout({
@@ -40,9 +42,8 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
+        className={`${jetbrainsMono.variable} antialiased`}
       >
-        <Sidebar />
         <div className="min-h-screen">{children}</div>
       </body>
     </html>

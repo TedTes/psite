@@ -1,26 +1,14 @@
-import type { ProjectStatus } from "@/data/projects";
-
-const STATUS_COLOR: Record<ProjectStatus, string> = {
-  Live: "#22c55e",
-  MVP: "#f59e0b",
-  "In progress": "#38bdf8",
-  Prototype: "#a8a29e",
-};
-
 export default function StatusBadge({
   status,
   className = "",
 }: {
-  status: ProjectStatus;
+  status: string;
   className?: string;
 }) {
+  const normalized = status.toLowerCase() === "in progress" ? "building" : status.toLowerCase();
   return (
-    <span className={`status-badge ${className}`}>
-      <span
-        className="status-badge__dot"
-        style={{ backgroundColor: STATUS_COLOR[status] }}
-      />
-      {status}
+    <span className={`status-badge status-badge--${normalized.replaceAll(" ", "-")} ${className}`.trim()}>
+      [{normalized}]
     </span>
   );
 }
