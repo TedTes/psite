@@ -59,7 +59,7 @@ export default function Home() {
             <div className="home-offer">
               <p>Have a rough first version of your app? I turn it into a polished product people trust.</p>
               <div className="terminal-contact-row">
-                <Link href="/score">→ Get a free Launch Score</Link><span aria-hidden="true">·</span>
+                <a href={siteConfig.scoreUrl}>→ Get a free Launch Score</a><span aria-hidden="true">·</span>
                 <Link href="/work-with-me#audit">→ See the audit</Link>
               </div>
             </div>

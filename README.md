@@ -51,9 +51,10 @@ Set these public environment variables in the deployment environment:
 NEXT_PUBLIC_SITE_URL=https://your-custom-domain.com
 NEXT_PUBLIC_BOOKING_URL=https://cal.com/your-handle
 NEXT_PUBLIC_AUDIT_CHECKOUT_URL=https://buy.stripe.com/your-checkout-link
+NEXT_PUBLIC_SCORE_URL=https://score.tedtes.com
 ```
 
-Until the booking and checkout links are configured, their calls to action fall back to a pre-addressed email. `NEXT_PUBLIC_SITE_URL` is used for social preview URLs and should be set when the custom domain is connected.
+Until the booking and checkout links are configured, their calls to action fall back to a pre-addressed email. The score URL defaults to `https://score.tedtes.com`. `NEXT_PUBLIC_SITE_URL` is used for social preview URLs and should be set when the custom domain is connected.
 
 ## Verification
 

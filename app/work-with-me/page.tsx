@@ -50,7 +50,7 @@ export default function WorkWithMePage() {
 
           <TerminalSection path="~/work-with-me" command="cat process.md">
             <div className="terminal-list">
-              <TerminalRow label="01" description={<><strong>Get a free Launch Score</strong><p>A quick outside view of where the product stands and what needs attention.</p></>} meta="score" />
+              <TerminalRow label="01" description={<><strong><a href={siteConfig.scoreUrl} className="row-title-link">→ Get a free Launch Score</a></strong><p>A quick outside view of where the product stands and what needs attention.</p></>} meta="score" />
               <TerminalRow label="02" description={<><strong>Start with an audit</strong><p>Turn the broad signals into a prioritized, concrete finishing plan.</p></>} meta="audit" />
               <TerminalRow label="03" description={<><strong>Fix what matters</strong><p>Use a focused sprint or ongoing support to ship the work.</p></>} meta="build" />
             </div>

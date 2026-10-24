@@ -11,6 +11,8 @@ export const siteConfig = {
   auditCheckoutUrl:
     process.env.NEXT_PUBLIC_AUDIT_CHECKOUT_URL ??
     "mailto:tedtfu@gmail.com?subject=Launch%20Audit",
+  scoreUrl:
+    process.env.NEXT_PUBLIC_SCORE_URL ?? "https://score.tedtes.com",
   links: {
     github: "https://github.com/TedTes",
     linkedin: "https://linkedin.com/in/tedrostesfu",
