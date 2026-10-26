@@ -8,7 +8,15 @@ import StatusBadge from "@/components/StatusBadge";
 import TerminalCta from "@/components/TerminalCta";
 import TerminalTitlebar from "@/components/TerminalTitlebar";
 
-const productOrder = ["syncresume", "quotevan", "lidscout", "autofil", "secretio"];
+const productOrder = [
+  "syncresume",
+  "quotevan",
+  "launchscore",
+  "fitarc",
+  "lidscout",
+  "autofil",
+  "secretio",
+];
 
 function formatMonth(dateValue: string | Date): string {
   return (dateValue instanceof Date ? dateValue.toISOString() : dateValue).slice(0, 7);

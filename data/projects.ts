@@ -133,6 +133,102 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "launchscore",
+    title: "LaunchScore",
+    description:
+      "Evidence-backed launch-readiness scanner that scores a public page and explains every deduction.",
+    longDescription:
+      "LaunchScore scans one public page, produces a deterministic score out of 100, and turns every deduction into an evidence-backed action. The product combines an automated browser scanner, an API, and a focused report experience for founders preparing to launch.",
+    tags: ["TypeScript", "Next.js", "Fastify", "Playwright", "Postgres", "PageSpeed Insights"],
+    features: [
+      "Deterministic score out of 100 with evidence for every deduction",
+      "One-page scanner covering practical launch-readiness signals",
+      "Fastify API and focused Next.js report experience",
+      "Playwright checks with optional PageSpeed Insights data",
+      "JSON, HTML, and batch-report workflows",
+    ],
+    live: "https://score.tedtes.com",
+    github: "https://github.com/TedTes/launchscore",
+    year: "2026",
+    role: "Product Engineer",
+    audience:
+      "Founders with a working web product who need to understand what keeps it from feeling launch-ready.",
+    learnings: [
+      "Evidence-backed deductions are more useful than a generic quality grade.",
+      "Automated checks need explicit limits and should complement human review.",
+    ],
+    status: "Live",
+    category: "Flagship Product Systems",
+    featuredOrder: 4,
+    summaryBullets: [
+      "Scores a public page against deterministic launch-readiness checks",
+      "Shows evidence and a practical fix for every deduction",
+      "Supports web reports, API access, and local scanning workflows",
+    ],
+    caseStudy: {
+      problem:
+        "Founders often know a first version feels unfinished but lack a fast, objective view of the issues weakening trust before launch.",
+      approach:
+        "I translated common launch-readiness problems into deterministic checks, attached evidence to each deduction, and clearly surfaced incomplete scans rather than presenting false certainty.",
+      architecture: [
+        "TypeScript scanner and CLI for deterministic checks and local workflows",
+        "Playwright browser automation with optional PageSpeed Insights data",
+        "Fastify API and Postgres persistence",
+        "Next.js interface for presenting the final report",
+      ],
+      result:
+        "A live tool at score.tedtes.com that turns a public URL into a prioritized launch-readiness report.",
+    },
+  },
+  {
+    slug: "fitarc",
+    title: "FitArc",
+    description:
+      "Workout planning and tracking app that connects routines, logged sets, muscle coverage, and the next session.",
+    longDescription:
+      "FitArc is a mobile workout companion for building exercise pools, running training sessions, and seeing how every logged set affects muscle coverage and progress. It keeps routine planning, workout execution, and the next session in one connected flow.",
+    tags: ["TypeScript", "React Native", "Expo", "Supabase", "Postgres", "React Native SVG"],
+    features: [
+      "Flexible training patterns and personal exercise pools",
+      "Live workout tracking for weight, reps, effort, and rest",
+      "Muscle map showing completed work and upcoming targets",
+      "Progress views comparing logged and projected volume",
+      "Authentication, synchronization, and session recovery",
+    ],
+    live: "https://fitarc.vercel.app",
+    github: "https://github.com/TedTes/fitarc",
+    year: "2026",
+    role: "Product Engineer",
+    audience:
+      "Lifters who want to keep their preferred exercises while connecting workout planning, tracking, and progress.",
+    learnings: [
+      "A useful workout planner must respect the user's routine and available exercises.",
+      "Reliable autosave and synchronization are essential during an active session.",
+    ],
+    status: "Live",
+    category: "Flagship Product Systems",
+    featuredOrder: 5,
+    summaryBullets: [
+      "Connects routine planning, live workouts, and progress tracking",
+      "Uses muscle coverage to clarify completed work and next targets",
+      "Runs as a mobile app with synchronized training data",
+    ],
+    caseStudy: {
+      problem:
+        "Workout routines, set logging, and progress views often live in separate tools, making it difficult to understand what to train next.",
+      approach:
+        "I connected exercise pools, session tracking, muscle coverage, and progress into one loop while keeping the athlete's own routine and substitutions in control.",
+      architecture: [
+        "Expo and React Native application written in TypeScript",
+        "Supabase authentication and persistence",
+        "Rule-based session planning and workout state",
+        "SVG-driven muscle visualizations",
+      ],
+      result:
+        "A live iOS workout product with a public landing site that carries training choices from one session into the next.",
+    },
+  },
+  {
     slug: "scoutlead",
     title: "ScoutLead",
     description: "Find and qualify clients for your business.",
