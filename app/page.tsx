@@ -8,7 +8,7 @@ import StatusBadge from "@/components/StatusBadge";
 import TerminalCta from "@/components/TerminalCta";
 import TerminalTitlebar from "@/components/TerminalTitlebar";
 
-const productOrder = ["syncresume", "snapquote", "lidscout", "autofil", "secretio"];
+const productOrder = ["syncresume", "quotevan", "lidscout", "autofil", "secretio"];
 
 function formatMonth(dateValue: string | Date): string {
   return (dateValue instanceof Date ? dateValue.toISOString() : dateValue).slice(0, 7);
@@ -71,7 +71,7 @@ export default function Home() {
                 <TerminalRow
                   label={<a href="https://scoutlead.io" target="_blank" rel="noopener noreferrer" className="row-title-link">scoutlead.io</a>}
                   description={<><span>find and qualify clients for your business.</span><span className="row-links"><a href="https://scoutlead.io" target="_blank" rel="noopener noreferrer">→ visit</a></span></>}
-                  meta={<StatusBadge status="mvp" />}
+                  meta={<StatusBadge status={displayStatus(scoutlead)} />}
                 />
               </div>
             </TerminalSection>

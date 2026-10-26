@@ -67,7 +67,7 @@ export const projects: Project[] = [
     status: "Live",
     category: "Flagship Product Systems",
     image: "/images/projects/syncresume.png",
-    featuredOrder: 1,
+    featuredOrder: 2,
     summaryBullets: [
       "Cloudflare-native product architecture",
       "Structured LLM workflow with deterministic review states",
@@ -89,12 +89,12 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "snapquote",
-    title: "SnapQuote",
+    slug: "quotevan",
+    title: "QuoteVan",
     description:
       "Same-day quoting app for home-service trades, from job capture to priced quote, delivery, and acceptance tracking.",
     longDescription:
-      "SnapQuote helps contractors capture a job, generate a priced draft from their own price book, send the quote, and track whether the customer viewed or accepted it. The current architecture centers on an Expo mobile app, shared TypeScript domain logic, Supabase Postgres, Supabase Edge Functions, Stripe billing, and a public quote host.",
+      "QuoteVan helps contractors capture a job, generate a priced draft from their own price book, send the quote, and track whether the customer viewed or accepted it. The product centers on an Expo mobile app, shared TypeScript domain logic, Supabase Postgres, Supabase Edge Functions, Stripe billing, and a public quote host.",
     tags: ["TypeScript", "Expo", "Supabase", "Postgres", "Stripe", "OpenAI"],
     features: [
       "Mobile-first quote creation flow for contractors in the field",
@@ -109,9 +109,9 @@ export const projects: Project[] = [
     role: "Full-Stack Developer",
     audience: "Small home-service contractors who need to quote work while the customer is still warm.",
     learnings: ["A field workflow has to stay fast even when pricing logic behind it is complex.", "Shared typed domain rules reduce drift between the mobile app and backend."],
-    status: "In progress",
+    status: "Live",
     category: "Flagship Product Systems",
-    featuredOrder: 2,
+    featuredOrder: 3,
     summaryBullets: [
       "Mobile product workflow for a specific trade use case",
       "Typed shared domain layer across app and backend",
@@ -129,7 +129,7 @@ export const projects: Project[] = [
         "Stripe billing configuration and public quote response flow",
       ],
       result:
-        "An active product build that turns contractor inputs into priced quote drafts and gives customers a simple quote viewing path.",
+        "A live quoting product that turns contractor inputs into priced quote drafts and gives customers a simple quote viewing path.",
     },
   },
   {
@@ -152,9 +152,9 @@ export const projects: Project[] = [
     role: "Full-Stack Developer",
     audience: "Service businesses and small teams that need a repeatable way to find and qualify prospective clients.",
     learnings: ["AI workflows are more dependable when application code owns state transitions.", "Human approval belongs immediately before external side effects such as outreach."],
-    status: "MVP",
+    status: "Live",
     category: "Flagship Product Systems",
-    featuredOrder: 3,
+    featuredOrder: 1,
     summaryBullets: [
       "Bounded agent workflow with explicit state transitions",
       "Human approval before external side effects",

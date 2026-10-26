@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "Turn a working first version into a polished, reliable product people trust.",
 };
 
-const proofSlugs = ["syncresume", "snapquote", "lidscout"];
+const proofSlugs = ["syncresume", "quotevan", "lidscout"];
 
 export default function WorkWithMePage() {
   const proof = proofSlugs.flatMap((slug) => {
