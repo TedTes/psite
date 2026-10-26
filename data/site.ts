@@ -16,7 +16,7 @@ export const siteConfig = {
   links: {
     github: "https://github.com/TedTes",
     linkedin: "https://linkedin.com/in/tedrostesfu",
-    x: "https://x.com/TedTes",
+    x: "https://x.com/Tedi_Tes",
   },
 } as const;
 
