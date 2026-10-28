@@ -1,29 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import TerminalSection from "@/components/TerminalSection";
-import { offers, siteConfig } from "@/data/site";
+import { siteConfig } from "@/data/site";
 import { getProjectBySlug } from "@/data/projects";
-import OfferCard from "@/components/OfferCard";
 import TerminalRow from "@/components/TerminalRow";
 import StatusBadge from "@/components/StatusBadge";
-import TerminalAccordion from "@/components/TerminalAccordion";
 import TerminalCta from "@/components/TerminalCta";
 import TerminalTitlebar from "@/components/TerminalTitlebar";
 
 export const metadata: Metadata = {
   title: "Work with me",
-  description: "Turn a working first version into a polished, reliable product people trust.",
+  description: "Turn an idea or early version into a polished, reliable product people can use and trust.",
 };
 
-const proofSlugs = ["syncresume", "quotevan", "lidscout"];
+const proofSlugs = ["scoutlead", "quotevan", "syncresume"];
 
 export default function WorkWithMePage() {
   const proof = proofSlugs.flatMap((slug) => {
     const project = getProjectBySlug(slug);
     return project ? [project] : [];
   });
-  const checkoutConfigured = Boolean(process.env.NEXT_PUBLIC_AUDIT_CHECKOUT_URL);
-
   return (
     <main className="terminal-page terminal-page--with-nav">
       <article className="terminal-window terminal-window--wide" aria-labelledby="work-title">
@@ -31,28 +27,28 @@ export default function WorkWithMePage() {
 
         <div className="terminal-body">
           <TerminalSection path="~/work-with-me" command="cat offer.md">
-            <h1 id="work-title" className="terminal-name terminal-name--split"><span className="terminal-name__lead">Make the first version</span> feel finished.</h1>
+            <h1 id="work-title" className="terminal-name terminal-name--split"><span className="terminal-name__lead">Start from zero.</span> Or finish what you have.</h1>
             <p className="terminal-bio">
-              For founders whose app works, but still looks generic, feels unfinished, or breaks in the places that matter.
+              For founders starting with an idea, and founders whose current app feels generic, unfinished, or unreliable.
             </p>
           </TerminalSection>
 
-          <TerminalSection path="~/work-with-me" command="ls offers">
-            <div className="service-grid">
-              {offers.map((offer) => (
-                <OfferCard key={offer.name} id={offer.name === "Launch Audit" ? "audit" : undefined} title={offer.name} price={offer.price} timeline={offer.timeline}>
-                  <p>{offer.description}</p>
-                  <ul>{offer.deliverables.map((item) => <li key={item}>{item}</li>)}</ul>
-                </OfferCard>
-              ))}
+          <TerminalSection path="~/work-with-me" command="cat working-together.md">
+            <div className="home-offer">
+              <p>
+                Every product needs a different level of help. After a short conversation and a review of your idea or current product, we agree on the problem, scope, timeline, and price before any work starts.
+              </p>
+              <p>
+                I can work across design, frontend, backend, integrations, reliability, and launch—the scope depends on what will move your product forward.
+              </p>
             </div>
           </TerminalSection>
 
           <TerminalSection path="~/work-with-me" command="cat process.md">
             <div className="terminal-list">
-              <TerminalRow label="01" description={<><strong><a href={siteConfig.scoreUrl} className="row-title-link">→ Get a free Launch Score</a></strong><p>A quick outside view of where the product stands and what needs attention.</p></>} meta="score" />
-              <TerminalRow label="02" description={<><strong>Start with an audit</strong><p>Turn the broad signals into a prioritized, concrete finishing plan.</p></>} meta="audit" />
-              <TerminalRow label="03" description={<><strong>Fix what matters</strong><p>Use a focused sprint or ongoing support to ship the work.</p></>} meta="build" />
+              <TerminalRow label="01" description={<><strong>Share your starting point</strong><p>Send the idea, designs, live product, repository, or whatever you have so far.</p></>} meta="context" />
+              <TerminalRow label="02" description={<><strong>Define the work</strong><p>We identify the priorities and agree on deliverables, timeline, and price.</p></>} meta="scope" />
+              <TerminalRow label="03" description={<><strong>Build and ship</strong><p>I implement the agreed work, test it, and leave you with a product you can keep building.</p></>} meta="delivery" />
             </div>
           </TerminalSection>
 
@@ -64,22 +60,12 @@ export default function WorkWithMePage() {
             </div>
           </TerminalSection>
 
-          <TerminalSection path="~/work-with-me" command="cat FAQ.md">
-            <div className="faq-list">
-              <TerminalAccordion title="What stack do you work with?"><p>TypeScript and React across the frontend, with Node.js, Python, Postgres, Supabase, and Cloudflare on the backend. I work inside the stack the product already uses when that is the right choice.</p></TerminalAccordion>
-              <TerminalAccordion title="Who owns the code?"><p>You do. Work is delivered in your repository, with the code, documentation, and access needed to keep building without me.</p></TerminalAccordion>
-              <TerminalAccordion title="How do you use AI tools?"><p>I use them to move faster on research, implementation, and review. Product decisions, architecture, testing, and the final work remain my responsibility.</p></TerminalAccordion>
-            </div>
-          </TerminalSection>
-
           <TerminalSection id="book" path="~/work-with-me" command="start">
-            <TerminalCta title="Start with the Launch Audit." actions={<>
-              <a href={siteConfig.auditCheckoutUrl} target="_blank" rel="noopener noreferrer" className="primary-action">
-                {checkoutConfigured ? "Buy the Launch Audit" : "Request the audit"}
-              </a>
+            <TerminalCta title="Tell me what you're building." actions={<>
+              <a href={`mailto:${siteConfig.email}?subject=Work%20with%20me`} className="primary-action">Send an email</a>
               <a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">→ book a call</a>
             </>}>
-              <p>Get a concrete plan for turning the version you have into a product people trust.</p>
+              <p>Share your idea or current product, what you need, and where you want to take it.</p>
             </TerminalCta>
           </TerminalSection>
         </div>

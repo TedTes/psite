@@ -58,8 +58,8 @@ export default function ProjectsPage() {
           ))}
 
           <TerminalSection path="~/projects" command="start">
-            <TerminalCta title="Need help finishing a product?" actions={<><Link href="/work-with-me" className="primary-action">Work with me</Link><Link href="/">→ home</Link></>}>
-              <p>See the audit and focused build options.</p>
+            <TerminalCta title="Need help starting or finishing a product?" actions={<><Link href="/work-with-me" className="primary-action">Work with me</Link><Link href="/">→ home</Link></>}>
+              <p>See how I scope and deliver product work.</p>
             </TerminalCta>
           </TerminalSection>
         </div>

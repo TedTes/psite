@@ -65,10 +65,10 @@ export default function Home() {
 
           <TerminalSection id="work-with-me" className="home-section" path="~/work-with-me" command="cat offer.md">
             <div className="home-offer">
-              <p>Have a rough first version of your app? I turn it into a polished product people trust.</p>
+              <p>Have an idea or an early version? I design, build, and finish products people can use and trust.</p>
               <div className="terminal-contact-row">
                 <a href={siteConfig.scoreUrl}>→ Get a free Launch Score</a><span aria-hidden="true">·</span>
-                <Link href="/work-with-me#audit">→ See the audit</Link>
+                <Link href="/work-with-me">→ See how I work</Link>
               </div>
             </div>
           </TerminalSection>
@@ -114,10 +114,10 @@ export default function Home() {
               <a href={siteConfig.links.x} target="_blank" rel="noopener noreferrer">→ X</a>
             </div>
             <TerminalCta
-              title="Have a first version that needs finishing?"
+              title="Ready to start or finish a product?"
               actions={<><Link href="/work-with-me" className="primary-action">Work with me</Link><a href={siteConfig.bookingUrl} target="_blank" rel="noopener noreferrer">→ book a call</a></>}
             >
-              <p>See how I can help turn it into a polished product people trust.</p>
+              <p>See how I can help take it from an idea or early version through launch.</p>
             </TerminalCta>
           </TerminalSection>
         </div>
