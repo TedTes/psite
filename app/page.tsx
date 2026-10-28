@@ -9,8 +9,8 @@ import TerminalCta from "@/components/TerminalCta";
 import TerminalTitlebar from "@/components/TerminalTitlebar";
 
 const productOrder = [
-  "syncresume",
   "quotevan",
+  "syncresume",
   "launchscore",
   "fitarc",
   "lidscout",

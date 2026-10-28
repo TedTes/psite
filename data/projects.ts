@@ -67,7 +67,7 @@ export const projects: Project[] = [
     status: "Live",
     category: "Flagship Product Systems",
     image: "/images/projects/syncresume.png",
-    featuredOrder: 2,
+    featuredOrder: 3,
     summaryBullets: [
       "Cloudflare-native product architecture",
       "Structured LLM workflow with deterministic review states",
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     learnings: ["A field workflow has to stay fast even when pricing logic behind it is complex.", "Shared typed domain rules reduce drift between the mobile app and backend."],
     status: "Live",
     category: "Flagship Product Systems",
-    featuredOrder: 3,
+    featuredOrder: 1,
     summaryBullets: [
       "Mobile product workflow for a specific trade use case",
       "Typed shared domain layer across app and backend",
@@ -250,7 +250,7 @@ export const projects: Project[] = [
     learnings: ["AI workflows are more dependable when application code owns state transitions.", "Human approval belongs immediately before external side effects such as outreach."],
     status: "Live",
     category: "Flagship Product Systems",
-    featuredOrder: 1,
+    featuredOrder: 2,
     summaryBullets: [
       "Bounded agent workflow with explicit state transitions",
       "Human approval before external side effects",
